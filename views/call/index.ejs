@@ -1,0 +1,173 @@
+<% include ./header %>
+    <div class="container body">
+        <div class="main_container">
+            <% include ../includes/sidemenu.ejs %>
+            <% include ../includes/topnav.ejs %>
+
+            <div class="right_col" role="main">
+                <div class="page-title">
+                    <div class="title_left">
+                        <h3><i class="fa fa-phone"></i> 상담일지 </h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title breakpoints-lg breakpoints-md m-t-sm">
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target=".call-filter-modal">
+                                            <i class="fa fa-sliders"></i> 검색옵션
+                                        </button>
+                                    </span>
+                                    <input type="search" name="call-search" class="form-control" placeholder="상담일지 검색"/>
+                                    <span class="input-group-btn">
+                                        <a class="btn btn-primary call-write" href="/customer/call/write"><i class="fa fa-plus"></i></a>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row x_title breakpoints-sm breakpoints-xs">
+
+                                <div class="col-md-12 col-xs-12">
+                                    <div class="form-inline">
+                                        <%- include('../includes/datepicker.ejs', {mobile: false, label: false, name: 'call', modal: false}) %>
+                                        <div class="form-group">
+                                            <select class="m-b selectpicker show-tick call-program" title="프로그램"
+                                                    data-width="fit" multiple data-actions-box="true">
+                                                <option value="SENSE Plus">SENSE Plus</option>
+                                                <option value="SENSE">SENSE</option>
+                                                <option value="SENSE(라이트)">SENSE(라이트)</option>
+                                                <option value="SENSE(한방)">SENSE(한방)</option>
+                                                <option value="PACS">PACS</option>
+                                                <option value="홈페이지">홈페이지</option>
+                                                <option value="워킹챠트">워킹챠트</option>
+                                                <option value="HanimacPro">HanimacPro</option>
+                                                <option value="MediChart">MediChart</option>
+                                                <option value="Echart">Echart</option>
+                                                <option value="Hplus">Hplus</option>
+                                                <option value="Eplus">Eplus</option>
+                                                <option value="NeoAS">NeoAS</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <select class="m-b selectpicker show-tick call-status" title="상태"
+                                                    data-width="fit">
+                                                <option value="" selected>전체</option>
+                                                <option value="1">미완료</option>
+                                                <option value="0">완료</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <select class="m-b selectpicker show-tick call-writer" title="작성자"
+                                                    data-width="fit" data-size="5">
+                                                    <option value="">전체</option>
+                                                <% writers.forEach(function(writer) { %>
+                                                    <option value="<%=writer['작성자']%>" <%- writer['작성자'] === user['인덱스'] ? 'selected' : '' %> ><%=writer['작성자명']%></option>
+                                                <% }) %>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon" style="color: #000 !important;">검색결과</span>
+                                                <span class="input-group-addon" id="data-count" style="color: #000 !important; background: #FFF !important;">0건</span>
+                                                <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                                <input type="search" name="call-search" class="form-control" placeholder="상담일지 검색"/>
+                                                <span class="input-group-btn">
+                                                    <a class="btn btn-primary call-write" href="/customer/call/write">일지등록</a>
+                                                </span>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="x_content">
+                                <table class="table table-striped table-linked jambo_table call-list breakpoints-sm breakpoints-xs">
+                                    <thead>
+                                        <tr class="breakpoints-sm breakpoints-xs">
+                                                <!-- <th class="breakpoints-sm breakpoints-xs" data-field="ID">N</th>
+                                                <th data-field="기관코드">기관코드</th>
+                                                <th data-field="기관명칭">기관명칭</th>
+                                                <th class="breakpoints-sm breakpoints-xs" data-field="프로그램">프로그램<i class="m-l-xs sort fa fa-sort-amount-asc"></i></th>
+                                                <th class="breakpoints-sm breakpoints-xs" data-field="담당자">담당자</th>
+                                                <th class="breakpoints-sm breakpoints-xs" data-field="병원유형">관계</th>
+                                                <th class="breakpoints-sm breakpoints-xs">백업</th>
+                                                <th class="breakpoints-sm breakpoints-xs" data-field="수가">수가</th>
+                                                <th class="breakpoints-sm breakpoints-xs" data-field="약가">약가</th>
+                                                <th class="breakpoints-sm breakpoints-xs" data-field="재료">재료</th> -->
+                                            <th data-field="인덱스">N.</th>
+                                            <th data-field="계약일">신규</th>
+                                            <th data-field="기관코드">기관기호</th>
+                                            <th data-field="기관명칭">기관명칭</th>
+                                            <th data-field="지사">지사</th>
+                                            <th data-field="담당자">담당자</th>
+                                            <th data-field="프로그램">프로그램</th>
+                                            <th data-field="처리일자">상담일자</th>
+                                            <th data-field="상태">상태</th>
+                                            <th data-field="AS전달">전달</th>
+                                            <th data-field="작성자명">작성자</th>
+                                            <th data-field="처리자">처리자</th>
+                                            <th data-field="작성일자">작성일자</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="call-desktop">
+                                    </tbody>
+                                </table>
+                                <div id="call-mobile" class="breakpoints-lg breakpoints-md"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade call-filter-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="닫기"><span area-hidden="true">x</span></button>
+                    <h4 class="modal-title">일지 검색 옵션</h4>
+                </div>
+                <div class="modal-body form-horizontal form-label-left">
+                    <%- include('../includes/datepicker.ejs', {mobile: true, label: true, name: 'call', modal: true}) %>
+                    <div class="divider-dashed"></div>
+                    <div class="form-group">
+                        <p class="text-muted"><b>프로그램</b></p>
+                        <select class="form-control selectpicker show-tick call-program" title="프로그램"
+                                data-width="fit" multiple data-actions-box="true">
+                            <option value="20">SenseChart</option>
+                            <option value="21">SenseChart(H)</option>
+                            <option value="8">MediChart</option>
+                            <option value="1">Eplus</option>
+                            <option value="10">HanimacPro</option>
+                        </select>
+                    </div>
+                    <div class="divider-dashed"></div>
+                    <div class="form-group">
+                        <p class="text-muted"><b>상태</b></p>
+                        <select class="form-control selectpicker show-tick call-status" title="상태"
+                                data-width="fit" data-mobile="true">
+                            <option value="" selected>전체</option>
+                            <option value="1">미완료</option>
+                            <option value="0">완료</option>
+                        </select>
+                    </div>
+                    <div class="divider-dashed"></div>
+                    <div class="form-group">
+                        <p class="text-muted"><b>작성자</b></p>
+                        <select class="form-control selectpicker show-tick call-writer" title="작성자"
+                                data-width="fit" data-size="5" data-mobile="true">
+                            <% writers.forEach(function(writer) { %>
+                                <option value="<%=writer['작성자']%>" <%- writer['작성자'] === user['인덱스'] ? 'selected' : '' %> ><%=writer['작성자명']%></option>
+                            <% }) %>
+                        </select>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+<% include ./footer %>

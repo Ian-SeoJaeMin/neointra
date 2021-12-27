@@ -1,0 +1,351 @@
+<% include ./header %>
+
+<div class="container body">
+    <div class="main_container">
+        <% include ../../includes/sidemenu.ejs %>
+        <% include ../../includes/topnav.ejs %>
+
+        <div class="right_col" role="main">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>
+                                <i class="fa fa-briefcase"></i>
+                                견적/발주 수정
+                            </h2>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <form class="form-horizontal form-label-left" id="order-form">
+                                <input type="hidden" name="order-id" value="<%=order['견적서ID']%>">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        유형
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select class="selectpicker form-control" name="order-type" data-width="fit"
+                                            title="유형" required>
+                                            <option value="0" <%- order['유형']==0 ? 'selected' : '' %>>견적</option>
+                                            <option value="1" <%- order['유형']==1 ? 'selected' : '' %>>발주</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="divider-dashed"></div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        작성자
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select class="selectpicker form-control" data-live-search="true" data-size="5"
+                                            title="작성자" data-width="fit" id="order-writer" name="order-writer" required>
+                                            <% users.forEach(function(user){ %>
+                                            <option value="<%= user['인덱스'] %>" <%- order['작성자']==user['인덱스'] ?
+                                                'selected' : '' %>>
+                                                <%= user['이름'] %>
+                                            </option>
+                                            <% }) %>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="divider-dashed"></div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        거래처
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <p>
+                                            <select id="order-hospital" class="form-control selectpicker show-tick"
+                                                data-width="fit" data-size="10" name="order-hospital">
+                                                <% if (order['거래처'] != -1) { %>
+                                                <option value="">선택해제</option>
+                                                <option value="<%= order['거래처'] %>|<%=order['기관코드']%>" selected>
+                                                    <%= order['기관명칭'] %>
+                                                </option>
+                                                <% } %>
+                                            </select>
+                                        </p>
+                                        <input type="text" class="form-control input" placeholder="미등록거래처" name="order-unreg-hospital" value="<%= order['기관명칭2'] || '' %>"/>
+                                    </div>
+                                </div>
+
+                                <div class="divider-dashed"></div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-6 col-xs-12">
+                                        수신자
+                                    </label>
+                                    <div class="col-md-9 col-sm-6 col-xs-12">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <input type="text" class="form-control input" placeholder="수신자" name="order-to"
+                                                    required value="<%=order['수신자']%>" />
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="text" class="form-control input" placeholder="수신자 연락처"
+                                                    name="order-to-contact" required value="<%=order['수신자연락처']%>" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="divider-dashed"></div>
+
+                                <div class="form-group">
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <button type="button" class="btn btn-success pull-right" data-toggle="modal"
+                                            data-target=".product-modal">물품추가</button>
+                                    </div>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">품목</th>
+                                                    <th class="text-center">모델</th>
+                                                    <th class="text-center">수량</th>
+                                                    <th class="text-center">공급단가</th>
+                                                    <th class="text-center">소비자가</th>
+                                                    <th class="text-center">제안가</th>
+                                                    <th class="text-center">합계(vat포함)</th>
+                                                    <th class="text-center">ACT.</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="product-list">
+                                                <% var total = 0 %>
+                                                <% orderProducts.forEach(function(product, index){ %>
+                                                <% total += product['수량'] * product['제안가'] %>
+                                                <tr data-index="<%=index%>">
+                                                    <td class="text-center">
+                                                        <%= product['품목'] %>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <%= product['모델'] %>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <%= product['수량'] %>
+                                                    </td>
+                                                    <td class="text-right">
+                                                        <%= product['공급단가'].toLocaleString() %>
+                                                    </td>
+                                                    <td class="text-right">
+                                                        <%= product['소비자가'].toLocaleString() %>
+                                                    </td>
+                                                    <td class="text-right">
+                                                        <%= product['제안가'].toLocaleString() %>
+                                                    </td>
+                                                    <td class="text-right">
+                                                        <%= (product['수량'] * product['제안가']).toLocaleString() %>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <button type="button" class="btn btn-xs btn-danger">삭제</button>
+                                                    </td>
+                                                </tr>
+                                                <% }) %>
+                                                <tr>
+                                                    <td colspan="7" class="text-right bg-navy" id="product-total">
+                                                        <%= total.toLocaleString() %>
+                                                    </td>
+                                                    <td class="bg-navy"></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="divider-dashed"></div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        계산서 발행
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <select class="selectpicker form-control" data-width="full" name="order-client">
+                                                    <option value="0" <%- order['발행처']==0 ? 'selected' : '' %>>거래처(병원)</option>
+                                                    <option value="1" <%- order['발행처']==1 ? 'selected' : '' %>>지사</option>
+                                                    <option value="2" <%- order['발행처']==2 ? 'selected' : '' %>>기타</option>
+                                                    <option value="3" <%- order['발행처']==3 ? 'selected' : '' %>>선택없음</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control input" placeholder="기타입력(이메일)"
+                                                    name="order-email" value="<%= order['이메일'] %>" />
+                                            </div>
+                                        </div>
+                                        <div class="row m-t-sm">
+                                            <div class="col-md-4">
+                                                <input type="text" class="form-control input" placeholder="담당자" name="order-manager"
+                                                    value="<%= order['담당자'] %>" />
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="text" class="form-control input" placeholder="연락처" name="order-contact"
+                                                    value="<%= order['연락처'] %>" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="divider-dashed"></div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        견적 제공용
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <!-- <a href="#" class="btn btn-success">견적서 다운로드</a> -->
+                                        <a href="/neoas/DMOA SQL 고객발주서 양식_2018.xlsx" class="btn btn-link"><i class="fa fa-download"></i>
+                                            DMOA SQL 고객발주양식</a>
+                                        <a href="/neoas/2.서버견적서_ML30.xlsx" class="btn btn-link"><i class="fa fa-download"></i>
+                                            서버견적서(ML30)</a>
+                                        <a href="/neoas/2.서버견적서_ML350_gen10..xlsx" class="btn btn-link"><i class="fa fa-download"></i>
+                                            서버견적서(ML350)</a>
+                                        <a href="/neoas/1.센스차트_표준견적서.xlsx" class="btn btn-link"><i class="fa fa-download"></i>
+                                            표준견적서(센스차트)</a>
+                                    </div>
+                                </div>
+
+                                <% if (user['부서'] == "총무부" || user['인덱스'] == 13 || user['인덱스'] == 89) { %>
+                                <div class="divider-dashed"></div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        진행상태
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select class="selectpicker form-control" data-width="fit" name="order-status">
+                                            <option value="0" <%- order['상태']==0 ? 'selected' : '' %>>미선택</option>
+                                            <option value="1" <%- order['상태']==1 ? 'selected' : '' %>>요청</option>
+                                            <option value="2" <%- order['상태']==2 ? 'selected' : '' %>>발주중</option>
+                                            <option value="3" <%- order['상태']==3 ? 'selected' : '' %>>취소</option>
+                                            <option value="4" <%- order['상태']==4 ? 'selected' : '' %>>완료</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="divider-dashed"></div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        계산서 발행 여부
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select class="selectpicker form-control" data-width="fit" name="order-send">
+                                            <!-- <option value="0" selected>미발행</option> -->
+                                            <option value="0" <%- order['발행여부']==0 ? 'selected' : '' %>>미발행</option>
+                                            <option value="1" <%- order['발행여부']==1 ? 'selected' : '' %>>발행</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <% } else {%>
+                                <input type="hidden" name="order-status" value="<%= order['상태'] %>" />
+                                <input type="hidden" name="order-send" value="<%= order['발행여부'] %>" />
+                                <% } %>
+
+                                <div class="divider"></div>
+
+                                <div class="form-group">
+                                    <div class="col-md-9 col-md-6 col-sm-6 col-xs-12 col-xs-12 col-md-offset-3">
+                                        <a href="javascript:window.history.back();" class="btn btn-default">취소</a>
+                                        <button type="submit" class="btn btn-primary">저장</button>
+                                        <button type="button" class="btn btn-danger" id="order-delete">삭제</button>
+                                        <!-- <a href="#" class="btn btn-link"><i class="fa fa-download"></i> 견적서</a> -->
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade product-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 id="물품추가"></h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal form-label-left">
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                            품목
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <select class="selectpicker form-control" data-width="fit" id="product-subject" title="품목">
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="divider-dashed"></div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                            모델
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <select class="selectpicker form-control" data-width="fit" id="product-model" title="모델">
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="divider-dashed"></div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                            수량
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="number" class="form-control" id="product-account">
+                        </div>
+                    </div>
+
+                    <div class="divider-dashed"></div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                            소비자가
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="number" class="form-control" id="product-consumerprice">
+                            <span>공급단가: <b id="product-unitprice"></b></span>
+                        </div>
+                    </div>
+
+                    <div class="divider-dashed"></div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                            제안가(개당)
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="number" class="form-control" id="product-suggestprice">
+                        </div>
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <div class="form-group">
+                        <div class="col-md-9 col-md-6 col-sm-6 col-xs-12 col-xs-12 col-md-offset-3">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">취소</button>
+                            <button type="submit" class="btn btn-primary">저장</button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<% include ./footer %>

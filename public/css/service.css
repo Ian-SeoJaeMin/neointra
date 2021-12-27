@@ -1,0 +1,112 @@
+.bg-emergency {
+    background-color: #F2DEDE !important;
+}
+
+@media (max-width: 600px) {
+    .service-status>.badge {
+        position: absolute;
+        top: -2px;
+        right: -6px;
+        font-size: 10px;
+        font-weight: 400;
+        z-index: 1000;
+    }
+}
+
+/* @media (min-width: 768px) and (max-width: 768px) { */
+.service-nav.nav-justified>li {
+    display: table-cell !important;
+    width: 1% !important;
+}
+
+.service-nav>li>a {
+    padding: 13px 13px 12px !important;
+}
+
+/* } */
+
+
+
+.service-nav>.active>.service-status>.badge {
+    color: #FFF;
+}
+
+.service-tab-pane>.accordion>.panel>.panel-heading:hover {
+    background-color: #bae0f9 !important;
+}
+
+.service-tab-pane>.accordion>.panel>.panel-heading.bg-emergency:hover {
+    background-color: #ECBABA !important;
+}
+
+.service-tab-pane>.accordion>.panel>.panel-collapse:hover {
+    background-color: #FFFFFF !important;
+}
+
+ul.messages li .message_wrapper {
+    margin-left: 0px !important;
+}
+
+.service-delay {
+    background-color: #ff6f00 !important;
+    color: #FFF;
+    vertical-align: middle;
+    padding-left: 10px;
+}
+
+.service-delay-danger {
+    background-color: #bf360c !important;
+    color: #FFF;
+    vertical-align: middle;
+    padding-left: 10px;
+}
+
+#service-accordion-0 .panel .panel-heading {
+    padding: 0px !important;
+}
+
+#service-accordion-0 .panel .panel-heading .media-body {
+    padding: 10px 15px;
+}
+
+.atch-thumb:hover .overlay {
+    opacity: 1;
+}
+
+.atch-thumb .overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    /* width: 80px; */
+    /* height: 60px; */
+    background-color: rgba(255, 255, 255, 0.71);
+    opacity: 0;
+    cursor: pointer;
+    padding-left: 10px;
+}
+
+.atch-thumb .btn {
+    color: red;
+    position: absolute;
+    /* top: 5px; */
+    /* right: 5px; */
+    margin: 0 auto;
+    padding: 0;
+    font-size: 30px;
+    text-decoration: none;
+    /* top: 50%; */
+    bottom: 0;
+    right: 0;
+}
+
+.atch-thumb .preview-image {
+    display: block;
+    width: 80px;
+    height: 60px;
+}
+
+div.service-item {
+    word-wrap: break-word;
+}

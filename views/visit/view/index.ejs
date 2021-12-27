@@ -1,0 +1,178 @@
+<% include ./header %>
+
+<div class="container body">
+    <div class="main_container">
+        <% include ../../includes/sidemenu.ejs %>
+        <% include ../../includes/topnav.ejs %>
+
+        <div class="right_col" role="main">
+            <div class="row">                    
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2><i class="fa fa-car"></i> 방문일지</h2>                  
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">    
+                            <form class="form-horizontal form-label-left">
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12"><i class="fa fa-hospital-o"></i> 방문 병원</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <p class="form-control-static"><%= visit['기관명칭'] %><p>
+                                    </div>
+                                </div>
+
+                                <div class="divider-dashed"></div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12"><i class="fa fa-car"></i> 회사차량</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <p class="form-control-static">
+                                            <% if (visit['회사차량'] === '' || !visit['회사차량']) { %>
+                                            이용안함
+                                            <% } else { %>
+                                            <%= visit['회사차량'] %>
+                                            <% } %>                  
+                                        </p>                      
+                                    </div>
+                                </div>
+
+                                <div class="divider-dashed"></div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12"><i class="fa fa-tags"></i> 방문유형</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <p class="form-control-static">
+                                            <% if (visit['방문유형'] === 1) { %> 
+                                                정기 
+                                            <% } else if (visit['방문유형'] === 2) { %> 
+                                                요청 
+                                            <% } else if (visit['방문유형'] === 3) { %> 
+                                                긴급 
+                                            <% } else if (visit['방문유형'] === 4) { %> 
+                                                영업 
+                                            <% } else if (visit['방문유형'] === 5) { %> 
+                                                기타 
+                                            <% } else if (visit['방문유형'] === 8) { %> 
+                                                오픈
+                                            <% } %>방문
+                                        </p>
+                                
+                                    </div>
+                                </div>
+                                
+                                <div class="divider-dashed"></div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12"> 방문 시작일</label>                                            
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <p class="form-control-static">
+                                            <b class="green">예정 시작일:</b> <%- visit['시작'] + " " + visit['시작시간'] %> 
+                                            <b class="green">실제 시작일:</b> <%= visit['실시작'] %>                                             
+                                        </p>                                                                     
+                                    </div>                                            
+                                </div>      
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12"> 방문 종료일</label>                                            
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <p class="form-control-static">
+                                            <b class="green">예정 종료일:</b> <%- visit['종료'] + " " + visit['종료시간'] %> 
+                                            <b class="green">실제 종료일:</b> <%= visit['실종료'] %>                                             
+                                        </p>                                                                     
+                                    </div>   
+                                </div>
+
+                                <div class="divider-dashed"></div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12"><i class="fa fa-comments"></i> 내용</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12 col-xs-12">
+                                        <% if (!visit['내용']) { visit['내용'] = '' } %>
+                                        <%- visit['내용'].replace(/\n/gim, '<br>')%>                                            
+                                    </div>                                            
+                                </div>
+
+                                <div class="divider-dashed"></div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12"><i class="fa fa-comments"></i> 내용</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12 col-xs-12">
+                                        <% if (!visit['내용']) { visit['내용'] = '' } %>
+                                        <%- visit['내용'].replace(/\n/gim, '<br>')%>                                            
+                                    </div>                                            
+                                </div>
+                                
+                                <% if(visit['첨부파일'].length == 0) { visit['첨부파일'] = '[]'} %>
+                                <div class="divider-dashed"></div>                                
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12"><i class="fa fa-file"></i> 첨부파일</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12 col-xs-12">
+                                        
+                                        <% visit['첨부파일'] = JSON.parse(visit['첨부파일']) %>
+                                        <div id="carousel" class="carousel slide" data-interval="false" data-ride="carousel">
+                                            <ol class="carousel-indicators">
+                                                <% visit['첨부파일'].forEach(function(item, index){ %>
+                                                    <% if (item.icon === 'fa-file-image-o') { %>
+                                                    <li data-target="#carousel" data-slide-to="<%=index%>" <%- (index === 0 ? 'active' : '' ) %>></li>                                                    
+                                                    <% } %>
+                                                <% }) %>  
+                                            </ol>
+                                            <div class="carousel-inner">
+                                                <% visit['첨부파일'].forEach(function(item, index){ %>
+                                                    <% if (item.icon === 'fa-file-image-o') { %>
+                                                        <div class="item <%- (index === 0 ? 'active' : '' ) %>">
+                                                            <img style="width:100%;" class="upload-file upload-file-<%=(index+1)%>"
+                                                                data-imageviewer="true" src="<%=item['oPath']%>"
+                                                                data-high-src="<%=item['oPath']%>" data-tooltip="tooltip"
+                                                                title="이미지를 더블클릭하면 크게 볼 수 있습니다." />
+                                                        </div>
+                                                    <% } %>
+                                                <% }) %>  
+                                            </div>
+                                            <!-- Left and right controls -->
+                                            <a class="left carousel-control" href="#carousel" data-slide="prev">
+                                                <span class="glyphicon glyphicon-chevron-left"></span>
+                                                <span class="sr-only">Previous</span>
+                                            </a>
+                                            <a class="right carousel-control" href="#carousel" data-slide="next">
+                                                <span class="glyphicon glyphicon-chevron-right"></span>
+                                                <span class="sr-only">Next</span>
+                                            </a>
+                                        </div>
+                                        
+                                        
+                                        
+                                    </div>                                            
+                                </div>
+                                
+
+                                <div class="divider-dashed"></div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12"><i class="fa fa-user"></i> 방문자</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <p class="form-control-static">                           
+                                            <%= visit['작성자명'] %> - <%= moment(visit['작성일자']).format('LLLL') %>
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                                <div class="divider"></div>
+
+                                <div class="form-group">
+                                    <div class="col-md-9 col-md-6 col-sm-6 col-xs-12 col-xs-12 col-md-offset-3">
+                                        <a href="javascript:window.history.back();" class="btn btn-default">목록</a>                                                                                                                 
+                                    </div>
+                                </div>
+
+                            </form>                                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+<% include ./footer %>

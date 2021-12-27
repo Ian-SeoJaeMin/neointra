@@ -1,0 +1,121 @@
+/* table tr td:first-child, table tr th:first-child {
+    width: 110px;
+}
+
+table tr th, table tr td:first-child {
+    text-align: center;
+    vertical-align: middle;
+}
+
+table thead#head-week tr th:last-child {
+    color: rgb(94, 236, 255);
+    font-weight: bold;
+}
+
+table tr td:first-child {
+    background: rgb(245, 245, 246);
+} */
+
+table tr.week th:first-child, table tr.day th:first-child {
+    width: 110px;
+}
+
+table tr th {
+    /* text-align: center; */
+}
+th.half-time:before {
+    content: ":30";
+    color: #bdbaba;
+}
+
+table tbody tr th {    
+    vertical-align: middle !important;
+}
+
+table tr th, table tr.week td:first-child, table tr.day td:first-child {
+    background: rgb(245, 245, 246);    
+}
+
+table tr td {
+    padding: 0 2px !important;
+    vertical-align: top !important;
+}
+
+table {
+    display: table !important;
+}
+
+table tbody.schedule-body-month tr {
+    height: 70px;
+}
+
+table tbody.schedule-body-week tr td {
+    padding: 4px 4px 0 !important;
+}
+
+table tr td.schedule-old-date, table tr td.schedule-next-date {
+    color: rgb(214, 214, 214)
+}
+
+table tbody.schedule-body-month tr td.schedule-cell, table tbody.schedule-body-month tr td div.schedule-event {
+    width: 230px;
+}
+
+table tr td.schedule-cell span {
+    margin-left: 2px;
+}
+
+table tr td.schedule-today {
+    background: rgb(244, 251, 250)
+}
+
+table tr td div.schedule-event {
+    position: relative;
+    padding: 5px;
+    margin-bottom: 2px;
+    border-radius: 2px;
+}
+
+table tr td div.schedule-event span {
+    font-weight: 500;
+    color: #FFF;
+}
+
+table tr td div.schedule-event.visit-type-office span {
+    font-weight: 500;
+    color: inherit;
+}
+
+table tr td div.schedule-event{
+    cursor: pointer;
+}
+
+table tr td div.schedule-event:hover, table tr td div.schedule-event:active {
+    opacity: 0.8;
+}
+
+.visit-type-regular {
+    background-color: #7CB77E;            
+}
+.visit-type-request {
+    background-color: #3A87AD;            
+}
+.visit-type-emergency {
+    background-color: #E47675;            
+}
+.visit-type-sales {
+    background-color: #8E74C8;            
+}
+.visit-type-etc {
+    background-color: #7F7F7F;            
+}
+.visit-type-office {
+    background-color: #FFEC42;
+    color: #3B1E1E !important;
+}
+.visit-type-watch {
+    background-color: rgb(255, 179, 66);
+}
+.visit-type-open {
+    background-color: rgb(42, 190, 196);            
+}

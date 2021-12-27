@@ -1,0 +1,417 @@
+<% include ./header %>
+<% var call = call || {} %>
+<div class="container body">
+    <div class="main_container">
+        <% include ../../includes/sidemenu.ejs %>
+        <% include ../../includes/topnav.ejs %>
+
+        <div class="right_col" role="main">
+            <div class="page-title">
+                <div class="title_left">
+                    <h3 id="title"><i class="fa fa-phone"></i> 상담일지 등록 </h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-9 col-sm-6 col-xs-12">
+
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h4>입금 & 미수금</h4>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="form-inline breakpoints-sm breakpoints-xs">
+                            <%- include('../../includes/datepicker.ejs', {mobile: false, label: false, name: 'misu', modal: false}) %>
+                        </div>
+                        <div class="form-inline breakpoints-lg breakpoints-md">
+                            <%- include('../../includes/datepicker.ejs', {mobile: true, label: false, name: 'misu', modal: false}) %>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped jambo_table">
+                                <thead>
+                                    <tr>
+                                        <th>일자</th>
+                                        <th>구분</th>
+                                        <th>명칭</th>
+                                        <th>수량</th>
+                                        <th>단가</th>
+                                        <th>총금액</th>
+                                        <th>입금액</th>
+                                        <th>미수총액</th>
+                                        <th>비고</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="list-misu">
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="x_panel">
+                        <div class="x_content">
+                            <form class="form-horizontal form-label-left">
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12"><strong class="orange">STEP.1</strong></label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <p class="form-control-static speech-bubble">
+                                            <i class="text-muted">네~ 네오소프트뱅크입니다.</i>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="divider-dashed"></div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12"><strong class="orange">STEP.2</strong></label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <p class="form-control-static speech-bubble">
+                                            <i class="text-muted">확인시 : 네. ****병원 맞으시죠?</i><br/>
+                                            <i class="text-muted">확인요청시 : 실례지만 병원명이 어떻게되십니까?</i>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <label for="call-unreg" class="control-label">
+                                            <input id="call-unreg" type="checkbox" class="flat" name="call-unreg" <%- call['USER_ID'] === -1 ? 'checked' : '' %> >
+                                            미등록거래처
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">상담 병원</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select id="call-hospital" class="form-control selectpicker show-tick" data-width="fit" data-size="10">
+                                            <option value="<%- call['USER_ID'] + '|' + call['기관코드']  %>" selected><%= call['기관명칭'] %></option>
+                                        </select>
+                                        <input id="call-unreg-hospital" type="text" class="input form-control hidden" placeholder="병원명칭을 입력해주세요." value="<%= call['기관명칭'] %>"/>
+
+                                        <p class="form-control-static red " id="closed_date">
+                                            <% if (call['잠금일자']) { %>
+                                                폐업일자(청구잠금일자 기준): <%=call['잠금일자']%>
+                                            <% } %>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">상담일</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type='text' class="form-control datepicker" readonly data-name="care" data-value="<%= call['처리일자'] %>" value="<%= call['처리일자'] %>"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">프로그램</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select class="selectpicker show-tick" title="프로그램" id="call-program" data-width="fit" data-live-search="true" required>
+                                            <option <%- call['프로그램'] === 'SENSE Plus' ? 'selected' : '' %> value="SENSE Plus">SENSE Plus</option>
+                                            <option <%- call['프로그램'] === 'SENSE(라이트)' ? 'selected' : '' %> value="SENSE(라이트)">SENSE(라이트)</option>
+                                            <option <%- call['프로그램'] === 'SENSE(한방)' ? 'selected' : '' %> value="SENSE(한방)">SENSE(한방)</option>
+                                            <option <%- call['프로그램'] === 'SENSE' ? 'selected' : '' %> value="SENSE">SENSE</option>
+                                            <option <%- call['프로그램'] === 'PACS' ? 'selected' : '' %> value="PACS">PACS</option>
+                                            <option <%- call['프로그램'] === '홈페이지' ? 'selected' : '' %> value="홈페이지">홈페이지</option>
+                                            <option <%- call['프로그램'] === '워킹챠트' ? 'selected' : '' %> value="워킹챠트">워킹챠트</option>
+                                            <option <%- call['프로그램'] === 'HanimacPro' ? 'selected' : '' %> value="HanimacPro">HanimacPro</option>
+                                            <option <%- call['프로그램'] === 'MediChart' ? 'selected' : '' %> value="MediChart">MediChart</option>
+                                            <option <%- call['프로그램'] === 'Echart' ? 'selected' : '' %> value="Echart">Echart</option>
+                                            <option <%- call['프로그램'] === 'Hplus' ? 'selected' : '' %> value="Hplus">Hplus</option>
+                                            <option <%- call['프로그램'] === 'Eplus' ? 'selected' : '' %> value="Eplus">Eplus</option>
+                                            <option <%- call['프로그램'] === 'NeoAS' ? 'selected' : '' %> value="NeoAS">NeoAS</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">카테고리</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select class="selectpicker show-tick" title="실행파일" id="call-category" data-width="fit" data-live-search="true" required>
+                                            <option <%- call['카테고리'] === '전체' ? 'selected' : '' %> value="전체">전체</option>
+                                            <option <%- call['카테고리'] === '데스크' ? 'selected' : '' %> value="데스크">데스크</option>
+                                            <option <%- call['카테고리'] === '입원수납' ? 'selected' : '' %> value="입원수납">입원수납</option>
+                                            <option <%- call['카테고리'] === '청구심사' ? 'selected' : '' %> value="청구심사">청구심사</option>
+                                            <option <%- call['카테고리'] === '진료실' ? 'selected' : '' %> value="진료실">진료실</option>
+                                            <option <%- call['카테고리'] === '병동' ? 'selected' : '' %> value="병동">병동</option>
+                                            <option <%- call['카테고리'] === '진료지원' ? 'selected' : '' %> value="진료지원">진료지원</option>
+                                            <option <%- call['카테고리'] === '병원관리' ? 'selected' : '' %> value="병원관리">병원관리</option>
+                                            <option <%- call['카테고리'] === '문서관리' ? 'selected' : '' %> value="문서관리">문서관리</option>
+                                            <option <%- call['카테고리'] === '통계' ? 'selected' : '' %> value="통계">통계</option>
+                                            <option <%- call['카테고리'] === '메인' ? 'selected' : '' %> value="메인">메인</option>
+                                            <option <%- call['카테고리'] === 'AS접수' ? 'selected' : '' %> value="AS접수">AS접수</option>
+                                            <option <%- call['카테고리'] === '기타' ? 'selected' : '' %> value="기타">기타</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="divider-dashed"></div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12"><strong class="orange">STEP.3</strong></label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <p class="form-control-static speech-bubble">
+                                            <i class="text-muted">예. 무엇을 도와드릴까요?</i>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">문의내용</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12 col-xs-12">
+                                        <textarea class="form-control" rows="5" id="call-question"><%= call['문의내용'] %></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="divider-dashed"></div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12"><strong class="orange">STEP.4</strong></label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                                            <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                                                <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">AS접수유도</a>
+                                                </li>
+                                                <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">담당자 전달</a>
+                                                </li>
+                                                <li role="presentation" class=""><a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">직접처리</a>
+                                                </li>
+                                                <li role="presentation" class=""><a href="#tab_content4" role="tab" id="profile-tab3" data-toggle="tab" aria-expanded="false">불만/거절 응대</a>
+                                                </li>
+                                            </ul>
+                                            <div id="myTabContent" class="tab-content">
+                                                <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
+                                                    <div class="speech-bubble">
+                                                        <p>
+                                                            <em>네. 알겠습니다.</em> <br>
+                                                            <em>해당 문의는 AS예약을 통해 접수해주시면 빠르게 해결해드리겠습니다.</em>
+                                                        </p>
+                                                        <p>
+                                                            <em>그럼 AS접수를 해 주시겠습니까?</em> <br>
+                                                            <em>버튼을 누르고 순서대로 작성하시면 됩니다.</em>
+                                                        </p>
+                                                    </div>
+                                                    <hr/>
+                                                    <ul class="list-unstyled">
+                                                        <li class="m-b-xxs"><img src="/images/sense_as.png" alt="enter image description here" title=""> 센스 :  챠트오른쪽 하단에 AS예약 버튼</li>
+                                                        <li class="m-b-xxs"><img src="/images/medi_as.png" alt="enter image description here" title=""> 메디:  챠트 상단메뉴에 AS예약 버튼 </li>
+                                                        <li><img src="/images/eplus_as.png" alt="enter image description here" title=""> 이플러스 :  챠트 상단메뉴에 파란색 AS버튼</li>
+                                                    </ul>
+
+                                                </div>
+                                                <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
+                                                    <p>
+                                                        <strong>본사/직영고객</strong> <br>
+                                                        <div class="speech-bubble">
+                                                            <em>네. 고객님 해당문의는 담당자가 처리해야 하는 사항입니다.</em> <br>
+                                                            <em>연락처를 남겨주시면 담당자에게 전달해서 신속히 처리해 드리겠습니다.</em> <br>
+                                                            <em>연락처 남겨 주시겠습니까?</em> <strong class="red">(연락처를 기타메모란에 작성)</strong>
+                                                        </div>
+                                                    </p>
+                                                    <hr>
+                                                    <p>
+                                                        <strong>지사고객</strong> <br>
+                                                        <div class="speech-bubble">
+                                                            <em>네. 고객님 해당문의는 담당자가 처리해야 하는 사항입니다.</em> <br>
+                                                            <em>담당자 연락처를 안내해 드리겠습니다.</em> <br>
+                                                            <em>연락처는 000-0000-0000입니다.</em>
+                                                        </div>
+                                                    </p>
+
+                                                </div>
+                                                <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
+                                                    <div class="speech-bubble">
+                                                        <p>
+                                                            <em>네. 알겠습니다.</em> <strong>(유선 처리가 가능한 경우 처리)</strong>
+                                                        </p>
+                                                    </div>
+                                                    <p>
+                                                        <strong>원격접속</strong> <br>
+                                                        <div class="speech-bubble">
+                                                            <em>네. 원격 부탁 드립니다.</em> <br>
+                                                            <em>서버(neo/medi), 고객용 ID가 어떻게 되십니까?</em>
+                                                        </div>
+                                                    </p>
+                                                    <hr>
+                                                    <div class="speech-bubble">
+                                                        <ol>
+                                                            <li>인터넷 브라우저의 주소창에 as7.co.kr을 입력</li>
+                                                            <li>입력란에 neo 또는 medi 입력 후 1번을 눌러주세요.</li>
+                                                            <li>다운로드 창이 뜨면 실행하여 설치 후 Remote Support 프로그램의 ID를 불러주세요.</li>
+                                                            <li>완료 후 메모 남겨드리겠습니다.</li>
+                                                        </ol>
+                                                    </div>
+                                                </div>
+                                                <div role="tabpanel" class="tab-pane fade" id="tab_content4" aria-labelledby="profile-tab">
+                                                    <p>
+                                                        <strong>담당자부재 불만 시 응대문구</strong> <br>
+                                                        <div class="speech-bubble">
+                                                            <ol>
+                                                                <li>AS통합제도는 AS의 9할을 신속하고 빠짐없이 처리할 수 있습니다.</li>
+                                                                <li>나머지 1할 정도 소수의 AS나 불만건은 충분히 외근팀과 소통을 통해 처리가능 합니다.</li>
+                                                                <li>응급이나 방문이 필요한 경우 외근팀에게 전달되어 처리가능 합니다.</li>
+                                                                <li>공휴일, 업무 외 시간에 AS건은 비상연락망으로 최대한 처리가 가능하도록 하고 있습니다.</li>
+                                                                <li>더 나은 서비스를 위해서 AS센터를 구축하게 되었습니다.</li>
+                                                            </ol>
+                                                        </div>
+                                                    </p>
+                                                    <hr>
+                                                    <p>
+                                                        <strong>불필요한 AS 거절 응대문구 (상황동감 – 유감표시 – 대안제안)</strong>
+                                                        <br>
+                                                        <div class="speech-bubble">
+                                                            <ol>
+                                                                <li>네.  *** 때문에 전화 주셨는데요.</li>
+                                                                <li>안타깝지만 저희가 해결해 드릴 수 있는 부분이 아닙니다. (필요 시 회사홈페이지 ‘AS기준안내’ 안내)</li>
+                                                                <li>대신 해결이 가능한 다른 방법을 안내해 드리겠습니다.</li>
+                                                            </ol>
+                                                        </div>
+                                                        <strong>차트 프로그램 외 AS 유형</strong> – HW / 프린터 / 윈도우 / 백신 / 네트워크 / 심평원 운영 프로그램
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">처리내용</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12 col-xs-12">
+                                        <textarea class="form-control" rows="5" id="call-treat"><%= call['처리내용'] %></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">기타</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12 col-xs-12">
+                                        <textarea class="form-control" rows="5" id="call-etc"><%= call['기타'] %></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <p class="form-control-static speech-bubble">
+                                            <em>네. 감사합니다.</em><br><br>
+                                            <em>그리고 AS예약 접수를 해주시면 더 빠른 처리를 받을 수 있으니,</em><br>
+                                            <em> 다음부터는 AS예약으로 접수부탁드립니다.</em> <br>
+                                            <em>감사합니다.</em>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="divider-dashed"></div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">상태</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" class="flat" value="1" name="call-status" <% if (call['상태'] === 1) { %> checked <% } %> > 미완료
+                                            </label>
+                                            <label>
+                                                <input type="radio" class="flat" value="0" name="call-status" <% if (call['상태'] === 0) { %> checked <% } %> > 완료
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="divider-dashed"></div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">AS전달</label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <select class="form-control selectpicker show-tick call-transfer-member" id="call-transfer-member" name="call-transfer-member" data-width="fit" data-size="10" data-live-search="true">
+                                            <option value="0" <%- call['AS전달'] <= 0 ? 'selected' : '' %>>미정</option>
+                                            <% var optGroup = '' %>
+                                            <% users.forEach(function(_user){ %>
+                                                <% if(optGroup !== _user['지사코드']) { %>
+                                                <%  if (optGroup !== '') { %>
+                                                        </optgroup>
+                                                    <% } %>
+                                                    <optgroup label="<%= _user['소속'] %>">
+                                                <% } %>
+                                                <option value="<%= _user['인덱스'] %>" <%- call['AS전달'] == _user['인덱스'] ? 'selected' : '' %>><%= _user['이름'] %></option>
+                                                <% optGroup = _user['지사코드'] %>
+                                            <% }) %>
+                                        </select>
+                                        <!-- <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" class="flat" value="1" id="call-chart-as"> 차트AS
+                                                <p class="form-text text-success m-b-none m-t-sm "><i class="fa fa-hand-o-right"></i> [<span class="text-danger">차트사용법/오류처리/옵션처리/차트설치안내/자가점검</span>]에 한하여 체크할 것!</p>
+                                            </label>
+                                        </div> -->
+
+                                    </div>
+                                </div>
+                                <!-- <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" class="flat" value="1" id="call-chart-as" <%- call['차트AS'] === 1 ? 'checked' : '' %>> 차트AS
+                                                <p class="form-text text-success m-b-none m-t-sm "><i class="fa fa-hand-o-right"></i> [<span class="text-danger">차트사용법/오류처리/옵션처리/차트설치안내/자가점검</span>]에 한하여 체크할 것!</p>
+                                            </label>
+                                        </div>
+
+                                    </div>
+                                </div> -->
+
+                                <div class="divider"></div>
+
+                                <div class="form-group">
+                                    <div class="col-md-9 col-md-6 col-sm-6 col-xs-12 col-xs-12 col-md-offset-3">
+                                        <a href="javascript:window.history.back();" class="btn btn-default">취소</a>
+                                        <button type="button" class="btn btn-primary" data-index="<%= call['인덱스'] %>" id="call-save">수정</button>
+                                        <button type="button" class="btn btn-danger" data-index="<%= call['인덱스'] %>" id="call-delete">삭제</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h4>병원정보 & 부가서비스</h4>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content" id="info">
+                        </div>
+                    </div>
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h4>특이사항</h4>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content" id="uniq">
+                        </div>
+                    </div>
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h4>씨트롤 정보</h4>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content" id="remote">
+                        </div>
+                    </div>
+
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h4>백업정보</h4>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content" id="backup">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include ./footer %>

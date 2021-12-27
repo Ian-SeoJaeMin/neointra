@@ -1,0 +1,45 @@
+.settlement h4.title {
+    margin-bottom: 0px !important;
+}
+
+.settlement-table .settlement-total td {
+    background-color: lightgoldenrodyellow;
+}
+
+table.settlement>tbody>tr>td {
+    padding: 3px !important;
+}
+
+table.settlement>tbody>tr>td:first-child {
+    width: fit-content;
+}
+
+table.settlement tbody tr td input {
+    /* font-size: 1.25rem;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #66a80f;
+    background: transparent; */
+}
+
+table.settlement tbody tr td input:focus {
+    background: #fff9db;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0;
+    /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+/*
+td.month-01 {
+    border-left: 2px solid #000 !important;
+    border-right: 2px solid #000 !important;
+}
+
+td.month-01:last-child {
+    border-bottom: 2px solid #000 !important;
+} */

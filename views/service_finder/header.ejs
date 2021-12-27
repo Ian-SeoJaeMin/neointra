@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=yes">
+    <title>
+        <%= title.company_e %> - A / S
+    </title>
+
+    <link rel="stylesheet" href="/components/animate.css/animate.min.css">
+    <link rel="stylesheet" href="/components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/components/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/components/sweetalert2/dist/sweetalert2.css">
+    <link rel="stylesheet" href="/components/PACE/themes/blue/pace-theme-flash.css">
+    <link rel="stylesheet" href="/css/breakpoints.css">
+    <link rel="stylesheet" href="/css/spacing.css">
+    <link rel="stylesheet" href="/components/bootstrap-select/dist/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="/components/ajax-bootstrap-select/dist/css/ajax-bootstrap-select.min.css">
+    <link rel="stylesheet" href="/components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
+    <style>
+        body,
+        html {
+            height: 100%;
+        }
+
+        /* Remove the navbar's default margin-bottom and rounded borders */
+
+        .navbar {
+            margin-bottom: 0;
+            border-radius: 0;
+        }
+
+        /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+
+        .container-fluid {
+            height: calc(100% - 52px);
+        }
+
+        .container-fluid>.row.content {
+            height: 100%;
+        }
+
+        .container-fluid>.row.content>.col-sm-7 {
+            height: 100%;
+        }
+
+        .finder-list-wrapper {
+            height: calc(100% - 50px);
+            overflow: auto;
+        }
+
+        /* Set gray background color and 100% height */
+
+        .sidenav {
+            padding-top: 20px;
+            background-color: #f1f1f1;
+            height: 100%;
+            overflow: auto;
+        }
+
+        .sidenav .well {
+            background: #FFF;
+        }
+
+        /* Set black background color, white text and some padding */
+
+        footer {
+            background-color: #555;
+            color: white;
+            padding: 15px;
+        }
+
+        .finder-help {
+            font-size: 16px;
+        }
+
+
+        .bg-red {
+            background: #E74C3C !important;
+            border: 1px solid #E74C3C !important;
+            color: #fff !important;
+        }
+
+        /* On small screens, set height to 'auto' for sidenav and grid */
+
+        @media screen and (max-width: 767px) {
+            .sidenav {
+                height: auto;
+                padding: 15px;
+            }
+            .row.content {
+                height: auto;
+            }
+        }
+
+        .label {
+            margin: 0px 3px;
+            font-size: 85%;
+        }
+
+
+        .loader-wrapper {
+            position: absolute;
+            bottom: 30px;
+            margin: 0 auto;
+            left: 50%;
+        }
+
+        .loader {
+            border: 16px solid #69aedb;
+            /* Light grey */
+            border-top: 16px solid #3498db;
+            /* Blue */
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .panel-info>.panel-heading,
+        .panel-info>.panel-footer {
+            color: #31708f;
+            background-color: #d9edf7;
+            border-color: #bce8f1;
+        }
+
+        .finder-status>.badge {
+            position: absolute;
+            top: -10px;
+            z-index: 999;
+            right: -10px;
+        }
+
+        .finder-status>.badge,
+        .finder-programs>.badge,
+        .finder-apps>.badge {
+            background-color: #d9534f;
+        }
+
+    </style>
+    <% if (ENV_DEVELOPMENT) { %>
+        <script src="<%= LIVERELOAD %>"></script>
+        <% } %>
+
+            <!-- [if lt IE 9]>
+        <script src="/components/html5shiv/html5shiv.min.js"></script>
+        <script src="/components/respond/respond.min.js"></script>
+    <![endif]-->
+
+            <script>
+                (function () {
+                    window.params = {
+                        user: '<%- JSON.stringify(user) %>'
+                    }
+                    window.params.user = JSON.parse(window.params.user);
+                })();
+
+            </script>
+</head>
+
+<body class="nav-md">

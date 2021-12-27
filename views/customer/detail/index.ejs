@@ -1,0 +1,450 @@
+<% include ./header %>
+
+<div class="container body">
+    <div class="main_container">
+        <% include ../../includes/sidemenu.ejs %>
+        <% include ../../includes/topnav.ejs %>
+        <div class="right_col" role="main">
+            <div class="">
+                <div class="title_right">
+                    <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right text-right top_search">
+                        <a href="javascript:window.history.back();" type="button" class="btn btn-link">목록으로</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_content">
+                            <div class="col-md-3 col-sm-3 col-xs-12 profile_left">
+                                <h3 class="green"><b><%- hospital.info['기관명칭'] %>
+                                        <small><%- hospital.info['기관기호'] %></small></b></h3>
+                                <% if (hospital.info['잠금일자'].length) { %>
+                                <h5 class="font-bold red">폐업일자(청구잠금일자 기준): <%- hospital.info['잠금일자'] %></h5>
+                                <% } %>
+                                <ul class="list-unstyled user_data">
+                                    <li>
+                                        <i class="glyphicon glyphicon-king"></i> <%- hospital.info['대표자'] %>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-building"></i>
+                                        <%- hospital.info['사업자번호'] %>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-phone-square"></i>
+                                        <a class="blue"
+                                            href="tel:<%- hospital.info['전화번호'] %>"><%- hospital.info['전화번호'] %></a> /
+                                        <a class="blue"
+                                            href="tel:<%- hospital.info['이동전화'] %>"><%- hospital.info['이동전화'] %></a>
+                                    </li>
+                                    <!-- <li>
+                                        <i class="fa fa-phone"></i>
+                                        <a class="blue"
+                                            href="tel:<%- hospital.info['이동전화'] %>"><%- hospital.info['이동전화'] %></a>
+                                    </li> -->
+                                    <li>
+                                        <i class="fa fa-map-marker"></i>
+                                        (<%- hospital.info['우편번호']%>) <%- hospital.info['주소'] %>
+                                    </li>
+                                    <li class="divider-dashed"></li>
+                                    <li>
+                                        <b><%- hospital.info['프로그램'] %></b>
+                                    </li>
+                                    <li>
+                                        <b>병원종별/진료과목:</b> <%- hospital.info['병원구분'] %> / <%- hospital.info['진료과목'] %>
+                                    </li>
+                                    <li>
+                                        <b>실가동일: </b> <%- hospital.info['실가동일'] %>
+                                    </li>
+                                </ul>
+                                <div class="divider-dashed"></div>                                
+                                <ul class="list-unstyled user_data collapse in" id="extra" aria-expanded="true">
+                                    <li>
+                                        <b class="green">부가서비스: <%= hospital.extra %></b>
+                                        <!-- <button type="button"
+                                                class="btn btn-default outline-default btn-xs"><%- hospital.extra %></button> -->
+                                    </li>
+                                    <li>
+                                        <b class="green">팍스: <span class="blue"><%= hospital.pacs %></span></b>
+                                        <!-- <button type="button"
+                                                class="btn btn-default outline-info btn-xs"><%- hospital.pacs %></button> -->
+                                    </li>
+                                    <li>
+                                        <b class="green">수탁: <span class="purple"><%= hospital.out %></span></b>
+                                        <!-- <button type="button"
+                                                class="btn btn-default outline-success btn-xs"><%- hospital.out %></button> -->
+                                    </li>
+                                    
+                                </ul>
+                                <div class="divider-dashed"></div>
+                                <h5 class="green">
+                                    <b>씨트롤 정보</b>
+                                    <a class="btn btn-link btn-xs pull-right expander" data-toggle="collapse"
+                                        href="#seetrol" aria-expanded="true" aria-controls="seetrol"><i
+                                            class="fa fa-chevron-up"></i></a>
+                                    <span data-toggle="modal" data-target=".remote-modal">
+                                        <a class="btn btn-link btn-xs pull-right" data-toggle="tooltip"
+                                            title="원격정보 수정"><i class="fa fa-edit"></i></a>
+                                    </span>
+                                </h5>
+                                <ul class="list-unstyled user_data collapse in" id="seetrol" aria-expanded="true">
+                                    <li>
+                                        <b>씨트롤 서버:</b> <%- hospital.uniq['원격서버']%>
+                                    </li>
+                                    <li>
+                                        <b>씨트롤 아이디:</b> <%- hospital.uniq['원격아이디'] %>
+                                    </li>
+                                    <li>
+                                        <b>씨트롤 비밀번호:</b> <%- hospital.uniq['원격비번'] %>
+                                    </li>
+                                    <li>
+                                        <b>스탠바이 이름:</b> <%- hospital.uniq['스탠바이이름'] || '' %>
+                                    </li>
+                                    <li>
+                                        <b>스탠바이 비밀번호:</b> <%- hospital.uniq['스탠바이비번'] %>
+                                    </li>
+                                    <% if (hospital.uniq['수정자']) { %>
+                                    <li>
+                                        <small>
+                                            <i class="fa fa-edit"></i>
+                                            <cite><%- hospital.uniq['수정자'] %> / <%- hospital.uniq['수정일자'] %></cite>
+                                        </small>
+                                    </li>
+                                    <% } %>
+                                </ul>
+                                <div class="divider-dashed"></div>
+                                <h5 class="green">
+                                    <b>특이사항</b>
+                                    <a class="btn btn-link btn-xs pull-right expander" data-toggle="collapse"
+                                        href="#uniq" aria-expanded="true" aria-controls="uniq"><i
+                                            class="fa fa-chevron-up"></i></a>
+                                    <span data-toggle="modal" data-target=".specific-modal">
+                                        <a class="btn btn-link btn-xs pull-right" data-toggle="tooltip"
+                                            title="특이사항 수정"><i class="fa fa-edit"></i></a>
+                                    </span>
+                                </h5>
+                                <ul class="list-unstyled user_data collapse in" id="uniq" aria-expanded="true">
+                                    <li>
+                                        <b>결제담당:</b> <%- hospital.uniq['결제담당'] ? hospital.uniq['결제담당'] : '' %>
+                                    </li>
+                                    <li>
+                                        <b>전산담당:</b> <%- hospital.uniq['전산담당'] || '' %>
+                                    </li>
+                                    <li>
+                                        <b>관계:</b> <%- hospital.uniq['병원유형'] %>
+                                    </li>
+                                    <li class="font-bold bg-danger">
+                                        <b>메모1:</b><br>
+                                        <p>
+                                            <%- hospital.uniq['메모2'] ? hospital.uniq['메모2'].replace(/\n/gim, '<br>') : '' %>
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <b>메모2:</b><br>
+                                        <p>
+                                            <%- hospital.uniq['메모'] ? hospital.uniq['메모'].replace(/\n/gim, '<br>') : '' %>
+                                        </p>
+                                    </li>
+                                    <% if (hospital.uniq['수정자']) { %>
+                                    <li>
+                                        <small>
+                                            <i class="fa fa-edit"></i>
+                                            <cite><%- hospital.uniq['수정자'] %> / <%- hospital.uniq['수정일자'] %></cite>
+                                        </small>
+                                    </li>
+                                    <% } %>
+                                </ul>
+                                <div class="divider-dashed"></div>
+                                <h5 class="green">
+                                    <b>백업정보</b>
+                                    <a class="btn btn-link btn-xs pull-right expander" data-toggle="collapse"
+                                        href="#backup" aria-expanded="true" aria-controls="backup"><i
+                                            class="fa fa-chevron-up"></i></a>
+                                </h5>
+                                <ul class="list-unstyled user_data collapse in" id="backup" aria-expanded="true">
+                                    <li>
+                                        <b>SQL:</b> <%- hospital.backup['SQL버전'] || '' %> <%- hospital.backup['정품여부'] %>
+                                    </li>
+                                    <li>
+                                        <b>백업경로:</b> <%- hospital.backup['백업경로'] %>
+                                    </li>
+                                    <li>
+                                        <b>백업용량:</b> <%- hospital.backup['백업경로용량'] %>
+                                    </li>
+                                    <li>
+                                        <b>백업시간:</b> <%- hospital.backup['자동백업시간'] %>
+                                    </li>
+                                    <li>
+                                        <b>백업일:</b> <%- hospital.backup['백업일시'] %>
+                                    </li>
+                                    <li>
+                                        <b>로그축소:</b> <%- hospital.backup['로그축소'] %>
+                                    </li>
+                                    <li>
+                                        <b>데이터경로:</b> <%- hospital.backup['메인데이터경로'] %>
+                                    </li>
+                                    <li>
+                                        <b>보조PC:</b> <%- hospital.backup['보조PC명칭'] %>
+                                    </li>
+                                    <li class="divider-dashed"></li>
+                                    <li>
+                                        <b>수가:</b> <%- hospital.backup['수가'] %>
+                                    </li>
+                                    <li>
+                                        <b>약가:</b> <%- hospital.backup['약가'] %>
+                                    </li>
+                                    <li>
+                                        <b>재료:</b> <%- hospital.backup['재료'] %>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <div class="x_panel no-border">
+                                    <div class="x_title">
+                                        <h4>입금 & 미수금</h4>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="x_content">
+                                        <div class="form-inline breakpoints-sm breakpoints-xs">
+                                            <%- include('../../includes/datepicker.ejs', {mobile: false, label: false, name: 'misu', modal: false}) %>
+                                        </div>
+                                        <div class="form-inline breakpoints-lg breakpoints-md">
+                                            <%- include('../../includes/datepicker.ejs', {mobile: true, label: false, name: 'misu', modal: false}) %>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-striped jambo_table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>일자</th>
+                                                        <th>구분</th>
+                                                        <th>명칭</th>
+                                                        <th>수량</th>
+                                                        <th>단가</th>
+                                                        <th>총금액</th>
+                                                        <th>입금액</th>
+                                                        <th>미수총액</th>
+                                                        <th>비고</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="list-misu">
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="x_panel no-border">
+                                    <div class="x_title">
+                                        <h4>고객관리</h4>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="x_content">
+                                        <div class="form-inline breakpoints-sm breakpoints-xs">
+                                            <%- include('../../includes/datepicker.ejs', {mobile: false, label: false, name: 'care', modal: false}) %>
+                                        </div>
+                                        <div class="form-inline breakpoints-lg breakpoints-md">
+                                            <%- include('../../includes/datepicker.ejs', {mobile: true, label: false, name: 'care', modal: false}) %>
+                                        </div>
+                                        <div role="tabpanel">
+                                            <ul class="nav nav-tabs care-tabs" role="tablist">
+                                                <li role="presentation" class="active">
+                                                    <a href="#tab-visit" role="tab" data-toggle="tab">방문일지</a>
+                                                </li>
+                                                <li role="presentation">
+                                                    <a href="#tab-call" role="tab" data-toggle="tab">상담일지</a>
+                                                </li>
+                                                <li role="presentation">
+                                                    <a href="#tab-as" role="tab" data-toggle="tab">A/S</a>
+                                                </li>
+                                                <li role="presentation">
+                                                    <a href="#tab-as-undone" role="tab" data-toggle="tab">A/S 미처리</a>
+                                                </li>
+                                            </ul>
+                                            <div class="tab-content">
+                                                <div role="tabpanel" class="tab-pane fade active in" id="tab-visit">
+                                                    <div id="calendar-visit" class="calendar"></div>
+                                                </div>
+                                                <div role="tabpanel" class="tab-pane fade" id="tab-call">
+                                                    <div id="calendar-call" class="calendar"></div>
+                                                </div>
+                                                <div role="tabpanel" class="tab-pane fade" id="tab-as">
+                                                    <div id="calendar-service" class="calendar"></div>
+                                                </div>
+                                                <div role="tabpanel" class="tab-pane fade" id="tab-as-undone">
+                                                    <div id="calendar-service-undone" class="calendar"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade remote-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form method="post" action="/api/customer/remote" id="remote">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="닫기"><span
+                            area-hidden="true">x</span></button>
+                    <h4 class="modal-title">씨트롤 정보 수정</h4>
+                </div>
+                <div class="modal-body form-horizontal form-label-left">
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">서버</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-xs-12">
+                            <input type="text" class="form-control" autofocus required
+                                placeholder="medi.seetrol.com -> medi, neo.seetrol.com -> neo"
+                                value="<%=hospital.uniq['원격서버']%>" name="seetrol_server" />
+                            <p class="text-danger">서버 풀네임 뒤의 ".seetrol.com"을 제외한 서버 명칭만 적어주세요."</p>
+                        </div>
+                    </div>
+                    <div class="divider-dashed"></div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">아이디</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-xs-12">
+                            <input type="text" class="form-control" placeholder="" value="<%=hospital.uniq['원격아이디']%>"
+                                name="seetrol_id" />
+                        </div>
+                    </div>
+                    <div class="divider-dashed"></div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">비밀번호</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-xs-12">
+                            <input type="text" class="form-control" placeholder="" value="<%=hospital.uniq['원격비번']%>"
+                                name="seetrol_pwd" />
+                        </div>
+                    </div>
+                    <div class="divider-dashed"></div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">스탠바이 명칭</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-xs-12">
+                            <input type="text" class="form-control" required placeholder=""
+                                value="<%=hospital.uniq['스탠바이이름']%>" name="seetrol_standby_id" />
+                        </div>
+                    </div>
+                    <div class="divider-dashed"></div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">스탠바이 비밀번호</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-xs-12">
+                            <input type="text" class="form-control" required placeholder=""
+                                value="<%=hospital.uniq['스탠바이비번']%>" name="seetrol_standby_password" />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                    <button type="submit" class="btn btn-primary">저장</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade specific-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form method="post" action="/api/customer/specific" id="specific">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="닫기"><span
+                            area-hidden="true">x</span></button>
+                    <h4 class="modal-title">씨트롤 정보 수정</h4>
+                </div>
+                <div class="modal-body form-horizontal form-label-left">
+                    <div class="form-group">
+                        <label class="control-label col-md-2 col-sm-2 col-xs-12">결제담당</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-xs-12">
+                            <input type="text" class="form-control" autofocus placeholder=""
+                                value="<%=hospital.uniq['결제담당']%>" name="specific-account" />
+                        </div>
+                    </div>
+                    <div class="divider-dashed"></div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2 col-sm-2 col-xs-12">전산담당</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-xs-12">
+                            <input type="text" class="form-control" placeholder="" value="<%=hospital.uniq['전산담당']%>"
+                                name="specific-electro" />
+                        </div>
+                    </div>
+                    <div class="divider-dashed"></div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2 col-sm-2 col-xs-12">관계<%= hospital.uniq['병원유형ID']%></label>
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-xs-12">
+                            <div class="radio">
+                                <label class="red">
+                                    <input type="radio" class="flat" value="2" name="specific-relation"
+                                        <%- hospital.uniq['병원유형ID'] === 2 ? 'checked' :'' %>> 주의
+                                </label>
+                                <label>
+                                    <input type="radio" class="flat" value="0" name="specific-relation"
+                                        <%- hospital.uniq['병원유형ID'] === 0 ||  typeof hospital.uniq['병원유형ID'] === 'undefined' ? 'checked' :'' %>>
+                                    보통
+                                </label>
+                                <label class="blue">
+                                    <input type="radio" class="flat" value="1" name="specific-relation"
+                                        <%- hospital.uniq['병원유형ID'] === 1 ? 'checked' :'' %>> 우수
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="divider-dashed"></div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2 col-sm-2 col-xs-12">메모1</label>
+                        <div class="col-md-5 col-sm-6 col-xs-12 col-xs-12">
+                            <textarea class="form-control" rows="26"
+                                name="specific-memo2"><%=hospital.uniq['메모2']%></textarea>
+                        </div>
+                        <div class="col-md-5 col-sm-3 col-xs-12">
+                            <label class="control-label">특이사항 예시</label>
+                            <div class="well">
+                                1. 서버PC정보 (SQL경로, 서버PC 비밀번호, 서버PC 특이사항 등)<br>
+                                <br>
+                                서버경로 : Server<br>
+                                SQL 비번 : 4582<br>
+                                메인데이타명 : medichart<br>
+                                서버비밀번호:1234<br>
+                                <br>
+                                2. 병원특이사항 (컨버전정보, DB분리 등)<br>
+                                <br>
+                                2018년1월1일 메디 > 센스 컨버전<br>
+                                <br>
+                                3. AS처리 특이사항 (병원데이터문제, 청구문제, 처방코드문제 등)<br>
+                                <br>
+                                2017년7월 검사단가문제로 유지보수 3개월무상처리<br>
+                                <br>
+                                4. 해당병원만 사용중인기능 및 처리방법<br>
+                                <br>
+                                센스메인화면 물품신청기능사용중<br>
+                                (물품신청안될시 이챠트프로그램 설치해주면됨)<br>
+                                <br>
+                                5. 연동 및 HW특이사항<br>
+                                <br>
+                                영상캡쳐 (옐로우2대, 마젠타1대) 사용중
+                            </div>
+                        </div>
+                    </div>
+                    <div class="divider-dashed"></div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2 col-sm-2 col-xs-12">메모2</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-xs-12">
+                            <textarea class="form-control" rows="10"
+                                name="specific-memo1"><%=hospital.uniq['메모']%></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                    <button type="submit" class="btn btn-primary">저장</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<% include ./footer %>

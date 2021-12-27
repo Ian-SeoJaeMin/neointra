@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=yes">
+    <title>
+        <%= title.company_e %> - AS Service 상세보기
+    </title>
+
+    <% include ../../includes/css %>    
+    
+    <% if (ENV_DEVELOPMENT) { %>
+        <script src="<%= LIVERELOAD %>"></script>
+    <% } %>
+
+    <!-- [if lt IE 9]>
+        <script src="/components/html5shiv/html5shiv.min.js"></script>    
+        <script src="/components/respond/respond.min.js"></script>
+    <![endif]-->
+
+    <script>
+        (function(){
+            window.params = {
+                user: '<%- JSON.stringify(user) %>',
+                service: '<%- JSON.stringify(service) %>',
+                info: '<%- JSON.stringify(info) %>',
+                uniq: '<%- JSON.stringify(uniq) %>',
+                replys: '<%- JSON.stringify(replys) %>',
+                extra: '<%- JSON.stringify(extra) %>',
+                backup: '<%- JSON.stringify(backup) %>',
+                setting: '<%- JSON.stringify(setting) %>'                
+            }
+            window.params.user = JSON.parse(window.params.user);            
+            window.params.service = JSON.parse(window.params.service.replace(/\\/gim, '\\\\').replace(/\n/gim, '\\n').replace(/\r/gim, '\\r').replace(/\t/gim, '\\t'));            
+            window.params.info = JSON.parse(window.params.info.replace(/\\/gim, '\\\\').replace(/\n/gim, '\\n').replace(/\r/gim, '\\r').replace(/\t/gim, '\\t'));            
+            window.params.uniq = JSON.parse(window.params.uniq.replace(/\\/gim, '\\\\').replace(/\n/gim, '\\n').replace(/\r/gim, '\\r').replace(/\t/gim, '\\t'));            
+            window.params.replys = JSON.parse(window.params.replys.replace(/\\/gim, '\\\\').replace(/\n/gim, '\\n').replace(/\r/gim, '\\r').replace(/\t/gim, '\\t'));            
+            window.params.extra = JSON.parse(window.params.extra.replace(/\\/gim, '\\\\').replace(/\n/gim, '\\n').replace(/\r/gim, '\\r').replace(/\t/gim, '\\t'));            
+            window.params.backup = JSON.parse(window.params.backup.replace(/\\/gim, '\\\\').replace(/\n/gim, '\\n').replace(/\r/gim, '\\r').replace(/\t/gim, '\\t'));            
+            window.params.setting = JSON.parse(window.params.setting.replace(/\n/gim, '\\n'));            
+
+            console.log(window.params);
+        })();
+    </script>
+</head>
+
+<body class="nav-md">

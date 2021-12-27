@@ -1,0 +1,111 @@
+<% include ./header %>
+<div class="container body">
+    <div class="main_container">
+        <% include ../includes/sidemenu.ejs %>
+        <% include ../includes/topnav.ejs %>
+
+        <div class="right_col" role="main">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title breakpoints-lg breakpoints-md m-t-sm">
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target=".service-filter-modal">
+                                        <i class="fa fa-sliders"></i> 검색옵션
+                                    </button>
+                                </span>
+                                <!-- <input type="search" name="service-search" class="form-control" placeholder="AS 검색" /> -->
+                            </div>
+                        </div>
+                        <div class="row x_title breakpoints-sm breakpoints-xs">
+
+                            <div class="col-md-6 col-xs-12">
+                                <%- include('../includes/datepicker.ejs', {mobile: false, label: false, name: "emergen", modal: false}) %>
+                            </div>
+                            <div class="col-md-6 col-xs-12">
+                                    <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-btn">
+
+                                                    <a class="btn btn-kakao" href="javascript:window.open('https://open.kakao.com/o/gpJJ2e5');"><i class="fa fa-comment"></i>오픈채팅방</a>
+
+                                                </span>
+                                                <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                                <input type="search" name="service-search" class="form-control" placeholder="AS 검색" />
+                                            </div>
+                                        </div>
+
+                                <!-- <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                    <input type="search" name="service-search" class="form-control" placeholder="AS 검색" />
+                                </div> -->
+                            </div>
+
+                        </div>
+
+                        <div class="x_content">
+                            <!-- <table class="table jambo_table table-linked service-list breakpoints-sm breakpoints-xs"> -->
+                            <table class="table table-linked table-hover service-list">
+                                <thead>
+                                    <!-- <tr class="breakpoints-sm breakpoints-xs"> -->
+                                    <tr>
+                                        <th data-field="인덱스">N.</th>
+                                        <th data-field="기관코드">기관코드</th>
+                                        <th data-field="기관명칭">기관명칭</th>
+                                        <th>접수자</th>
+                                        <th data-field="유형">AS유형</th>
+                                        <th data-field="상태">상태</th>
+                                        <th data-field="접수시간">접수일</th>
+                                        <th data-field="처리자명">처리자</th>
+                                        <th data-field="처리시간">처리일</th>
+                                        <!-- <th data-field="문의내용">문의내용</th> -->
+                                    </tr>
+                                </thead>
+                                <tbody id="service-desktop">
+                                </tbody>
+                            </table>
+                            <!-- <div id="service-mobile" class="breakpoints-lg breakpoints-md"></div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade service-filter-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="닫기"><span area-hidden="true">x</span></button>
+                <h4 class="modal-title">근무외 A/S 검색 옵션</h4>
+            </div>
+            <div class="modal-body form-horizontal form-label-left">
+                <div class="form-group">
+                    <p class="text-muted"><b>접수일자</b></p>
+                    <%- include('../includes/datepicker.ejs', {mobile: true, label: false, name: "emergen", modal: false}) %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade detail-modal" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 id="service-title"></h4>
+            </div> -->
+            <div class="modal-body" id="service-detail">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <div class="container">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<% include ./footer %>

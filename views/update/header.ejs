@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=yes">
+    <title>
+        <%= title.company_e %> - 프로그램 업데이트
+    </title>
+
+    <% include ../includes/css %>
+    <link rel="stylesheet" href="/components/bootstrap-select/dist/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="/components/ajax-bootstrap-select/dist/css/ajax-bootstrap-select.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jexcel/1.5.7/css/jquery.jexcel.css" type="text/css" />
+
+    <% if (ENV_DEVELOPMENT) { %>
+        <script src="<%= LIVERELOAD %>"></script>
+    <% } %>
+
+    <!-- [if lt IE 9]>
+        <script src="/components/html5shiv/html5shiv.min.js"></script>
+        <script src="/components/respond/respond.min.js"></script>
+    <![endif]-->
+
+    <script>
+        (function(){
+            window.params = {
+                user: '<%- JSON.stringify(user) %>',
+                setting: '<%- JSON.stringify(setting) %>'
+            }
+            window.params.user = JSON.parse(window.params.user);
+            window.params.setting = JSON.parse(window.params.setting.replace(/\n/gim, '\\n'));
+        })();
+    </script>
+</head>
+
+<body class="nav-md">

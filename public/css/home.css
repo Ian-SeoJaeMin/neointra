@@ -1,0 +1,55 @@
+a.fc-day-grid-event.fc-h-event.fc-event.fc-start.fc-end {
+    cursor: pointer;
+}
+a.fc-day-grid-event.fc-h-event.fc-event.fc-start.fc-end:hover {
+    opacity: 0.8;
+}
+
+.hidden {
+    display: none;
+}
+
+.fc-행사-button {
+    background-color: #FF9484;  
+    color: #FFF;
+    /* border-color: #FFF;   */
+    text-shadow: none;
+}
+.fc-일정-button {
+    background-color: #849CE7;    
+    color: #FFF;
+    /* border-color: #FFF; */
+    text-shadow: none;
+}
+.fc-휴무-button {
+    background-color: #A5DE63;
+    color: #858585;
+    /* border-color: #FFF; */
+    text-shadow: none;
+}
+.fc-월차-button {
+    background-color: #E7E7D6;
+    color: #858585;
+    /* border-color: #FFF; */
+    text-shadow: none;
+}
+.fc-기타-button {
+    background-color: #FFB573;
+    color: #FFF;
+    /* border-color: #FFF; */
+    text-shadow: none;
+}
+.fc-공지-button {
+    background-color: #0077D7;
+    color: #FFF;
+    /* border-color: #FFF; */
+    text-shadow: none;
+}
+
+.fc-scroller {
+    height: 100% !important;
+}
+
+.fc-toolbar .fc-left .fc-button-group {
+    padding: 3px;
+}

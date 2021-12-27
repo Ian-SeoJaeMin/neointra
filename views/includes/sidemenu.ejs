@@ -1,0 +1,104 @@
+<% var sections = Config.CONSTS.MENUS.map(function(menu){return menu['section']}) %>
+<% sections = sections.filter(function(el, i, arr){ return arr.indexOf(el) === i}) %>
+<div class="col-md-3 left_col menu_fixed">
+    <div class="left_col scroll-view">
+        <!-- site title -->
+        <div class="navbar nav_title" style="border: 0;">
+            <a href="/" class="site_title">
+                <span><%= title.company_e %></span>
+            </a>
+        </div>
+        <!-- site title -->
+        <div class="clearfix"></div>
+
+        <!-- profile -->
+        <div class="profile clearfix">
+            <div class="profile_pic">
+                <i class="fa fa-user-circle fa-3x img-circle profile_img"></i>
+            </div>
+            <div class="profile_info">
+                <span><%= user['소속'] %> / <%= user['부서'] %></span>
+                <h2>
+                    <%= user['이름'] %>
+                </h2>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <!-- profile -->
+        <br>
+        <!-- sidebar menu -->
+        <div class="main_menu_side hidden-print main_menu" id="sidebar-menu">
+
+            <%  var settlement = true; %>
+            <%  if (!user['설정'].hasOwnProperty('admin') || (user['설정'].hasOwnProperty('admin') && user['설정'].admin === 0)) { %>
+            <%      if (!user['설정'].hasOwnProperty('정산') || (user['설정'].hasOwnProperty('정산') && user['설정']['정산'] === 0)) { settlement = false; }%>
+            <%  } %>
+
+
+            <% sections.forEach(function(section){ %>
+            <%  if (section === 'ACCOUNTING') { %>
+            <%      if (!settlement) return; %>
+            <%  } %>
+            <%  var menus = Config.CONSTS.MENUS.filter(function(menu){return menu['section'] === section}) %>
+            <div class="menu_section">
+                <h3><%= section %></h3>
+                <ul class="nav side-menu">
+                    <% menus.forEach(function(menu){ %>
+                    <% if (menu.permission) { %>
+                    <%  if(menu.permission.position && menu.permission.position == user['부서']) { %>
+                    <li class="<%- menu['breakpoints'] ? menu['breakpoints'] : '' %>">
+                        <a class="side-menu" href="<%= menu['href'] %>">
+                            <i class="fa <%= menu['icon'] %>"></i> <%= menu['name'] %>
+                        </a>
+                    </li>
+                    <%  } else if (menu.permission.users && menu.permission.users.some(function(_user){return _user == user['인덱스']})) { %>
+                    <li class="<%- menu['breakpoints'] ? menu['breakpoints'] : '' %>">
+                        <a class="side-menu" href="<%= menu['href'] %>">
+                            <i class="fa <%= menu['icon'] %>"></i> <%= menu['name'] %>
+                        </a>
+                    </li>
+                    <%  } else if (menu.permission.area && menu.permission.area.some(function(_area){return _area == user['지사코드']})) { %>
+                    <li class="<%- menu['breakpoints'] ? menu['breakpoints'] : '' %>">
+                        <a class="side-menu" href="<%= menu['href'] %>">
+                            <i class="fa <%= menu['icon'] %>"></i> <%= menu['name'] %>
+                        </a>
+                    </li>
+                    <%  } %>
+                    <% } else { %>
+                    <li class="<%- menu['breakpoints'] ? menu['breakpoints'] : '' %>">
+                        <a class="side-menu" href="<%= menu['href'] %>">
+                            <i class="fa <%= menu['icon'] %>"></i> <%= menu['name'] %>
+                        </a>
+                    </li>
+                    <% } %>
+                    <% }) %>
+                </ul>
+            </div>
+            <% }) %>
+
+
+            <div class="menu_section">
+                <h3>Scale-up</h3>
+                <ul class="nav side-menu">
+                    <% useBoards.forEach(function(board){ %>
+                    <% if (!user['설정'].hasOwnProperty('게시판') || (user['설정'].hasOwnProperty('게시판') && !user['설정']['게시판'].some(function(b){return b === board['게시판ID'];}))) { %>
+                    <li>
+                        <a class="side-menu" data-board="<%=board['게시판ID']%>" href="/board?index=<%=board['게시판ID']%>">
+                            <i class="fa <%=board['아이콘']%>"></i> <%=board['명칭']%>
+                            <% if (board['새글'] > 0) { %>
+                            <span class="badge bg-red">N</span>
+                            <% } %>
+                        </a>
+                    </li>
+                    <% } %>
+                    <% }) %>
+                    <li class="breakpoints-sm breakpoints-xs"><a class="side-menu" href="/board/manage"><i
+                                class="fa fa-cog"></i>게시판관리</a></li>
+                </ul>
+            </div>
+
+        </div>
+        <!-- sidebar menu -->
+
+    </div>
+</div>

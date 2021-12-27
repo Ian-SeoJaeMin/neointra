@@ -1,0 +1,231 @@
+<% include ./header %>
+<% var call = call || {} %>
+<div class="container body">
+    <div class="main_container">
+        <% include ../../includes/sidemenu.ejs %>
+        <% include ../../includes/topnav.ejs %>
+
+        <div class="right_col" role="main">
+            <div class="page-title">
+                <div class="title_left">
+                    <h3 id="title"><i class="fa fa-phone"></i> 상담일지 등록 </h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-9 col-sm-6 col-xs-12">
+
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h4>입금 & 미수금</h4>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="form-inline breakpoints-sm breakpoints-xs">
+                            <%- include('../../includes/datepicker.ejs', {mobile: false, label: false, name: 'misu', modal: false}) %>
+                        </div>
+                        <div class="form-inline breakpoints-lg breakpoints-md">
+                            <%- include('../../includes/datepicker.ejs', {mobile: true, label: false, name: 'misu', modal: false}) %>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped jambo_table">
+                                <thead>
+                                    <tr>
+                                        <th>일자</th>
+                                        <th>구분</th>
+                                        <th>명칭</th>
+                                        <th>수량</th>
+                                        <th>단가</th>
+                                        <th>총금액</th>
+                                        <th>입금액</th>
+                                        <th>미수총액</th>
+                                        <th>비고</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="list-misu">
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="x_panel">
+                        <div class="x_content">
+                            <form class="form-horizontal form-label-left">
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">상담 병원</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <p class="form-control-static">
+                                            <%= call['기관명칭'] %>
+                                            <% if (call['USER_ID'] === -1) { %>
+                                            <span class="badge badge-default">미등록</span>
+                                            <% } %>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <% if (call['잠금일자']) { %>
+                                    <div class="divider-dashed"></div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12 red">폐업일자(청구잠금일자 기준)</label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <p class="form-control-static red"><%= call['잠금일자'] %></p>
+                                        </div>
+                                    </div>
+                                <% } %>
+
+                                <div class="divider-dashed"></div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">상담일</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <p class="form-control-static"><%= moment(call['처리일자']).format('YYYY-MM-DD, a hh:mm:ss') %></p>
+                                    </div>
+                                </div>
+
+                                <div class="divider-dashed"></div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">프로그램</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <p class="form-control-static">
+                                            <%= call['프로그램'] %>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="divider-dashed"></div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">카테고리</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <p class="form-control-static">
+                                            <%= call['카테고리'] %>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="divider-dashed"></div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">상태</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <p class="form-control-static">
+                                        <% if (call['상태'] === 1) { %>
+                                            미완료
+                                        <% } else { %>
+                                            완료
+                                        <% } %>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="divider-dashed"></div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">AS전달</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <p class="form-control-static">
+                                            <%= call['AS처리자명'] %>
+                                        </p>
+                                    </div>
+                                </div>
+                                <!-- <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">차트AS</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <p class="form-control-static">
+                                        <% if (call['차트AS'] === 1) { %>
+                                            <i class="fa fa-check fa-1x text-primary"></i>
+                                        <% } else { %>
+                                            <i class="fa fa-times fa-1x text-warning"></i>
+                                        <% } %>
+                                        </p>
+                                    </div>
+                                </div> -->
+
+                                <div class="divider-dashed"></div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">문의내용</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12 col-xs-12">
+                                        <p class="form-control-static">
+                                        <% if (!call['문의내용']) { call['문의내용'] = '' } %>
+                                        <%- call['문의내용'].replace(/\n/gim, '<br>')%>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="divider-dashed"></div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">처리내용</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12 col-xs-12">
+                                        <p class="form-control-static">
+                                        <% if (!call['처리내용']) { call['처리내용'] = '' } %>
+                                        <%- call['처리내용'].replace(/\n/gim, '<br>')%>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="divider-dashed"></div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">기타</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12 col-xs-12">
+                                        <p class="form-control-static">
+                                        <% if (!call['기타']) { call['기타'] = '' } %>
+                                        <%- call['기타'].replace(/\n/gim, '<br>')%>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="divider"></div>
+
+                                <div class="form-group">
+                                    <div class="col-md-9 col-md-6 col-sm-6 col-xs-12 col-xs-12 col-md-offset-3">
+                                        <a href="javascript:window.history.back();" class="btn btn-default">목록</a>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h4>병원정보 & 부가서비스</h4>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content" id="info">
+                        </div>
+                    </div>
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h4>특이사항</h4>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content" id="uniq">
+                        </div>
+                    </div>
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h4>씨트롤 정보</h4>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content" id="remote">
+                        </div>
+                    </div>
+
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h4>백업정보</h4>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content" id="backup">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include ./footer %>

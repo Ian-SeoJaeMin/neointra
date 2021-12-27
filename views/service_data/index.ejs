@@ -1,0 +1,141 @@
+<% include ./header %>
+
+<div class="container body">
+    <div class="main_container">
+        <% include ../includes/sidemenu.ejs %>
+        <% include ../includes/topnav.ejs %>
+
+        <div class="right_col" role="main">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title breakpoints-lg breakpoints-md">
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-warning" data-toggle="modal"
+                                        data-target=".service-filter-modal">
+                                        <i class="fa fa-sliders"></i> 검색옵션
+                                    </button>
+                                </span>
+                                <!-- <span class="input-group-addon"><i class="fa fa-search"></i></span> -->
+                                <input type="search" name="service-search" class="form-control" placeholder="AS 검색" />
+                            </div>
+                        </div>
+                        <div class="row x_title breakpoints-sm breakpoints-xs">
+                            <!-- <div class="form-inline"> -->
+                            <div class="col-sm-12 col-xs-12">
+                                <div class="form-inline">
+
+                                    <%- include('../includes/datepicker.ejs', {mobile: false, label: false, name: 'service', modal: false, classNames: {'inputGroup': 'm-b-none input-group-sm'}}) %>
+
+                                    <div class="form-group form-group-sm hidden">                                                                                
+                                        <select class="form-control selectpicker show-tick service-data-list" title="AS 셋업 마감"
+                                            data-width="fit" data-size="5" multiple data-selected-text-format="static">                                            
+                                        </select>                                    
+                                    </div>                                    
+
+                                    <div class="form-group form-group-sm">
+                                        <select class="form-control selectpicker show-tick service-as-type" title="처리구분"
+                                            data-width="fit" data-size="5" data-live-search="true" multiple>
+                                            <!-- <option value="">전체</option> -->
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="form-group form-group-sm hidden">
+                                        <select class="form-control selectpicker show-tick service-share" title="공유자"
+                                            data-width="fit" data-size="5" data-live-search="true" multiple>
+                                            <!-- <option value="">전체</option> -->
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group form-group-sm">
+                                        <select class="form-control selectpicker show-tick service-done" title="완료자"
+                                            data-width="fit" data-size="5" data-live-search="true" multiple>
+                                            <!-- <option value="">전체</option> -->
+                                        </select>
+                                    </div>
+                                            
+                                    <div class="btn-group btn-group-sm">
+                                        <button type="button" class="btn btn-warning" id="service-search-btn">
+                                            조회
+                                        </button>
+                                        <button type="button" class="btn btn-primary" id="export-excel">
+                                            <i class="fa fa-file-excel-o"></i>
+                                        </button>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <!-- <div class="clearfix"></div> -->
+                            <!-- </div> -->
+                        </div>                        
+                        <div class="x_content">
+                            <div class="table-responsive" id="service-container">
+                                <table class="table table-linked table-hover table-bordered table-condensed service-list">
+                                    <thead>
+                                        <tr>                                           
+                                            <th data-field="인덱스" class="text-center">접수번호</th>
+                                            <th data-field="기관코드" class="text-center">기관기호</th>
+                                            <th data-field="기관명칭" class="text-center">기관명칭</th>
+                                            <th data-field="상태명" class="text-center">상태</th>
+                                            <th data-field="프로그램명" class="text-center">프로그램</th>
+                                            <th data-field="실행파일" class="text-center">EXE</th>
+                                            <th data-field="상세" class="text-center">상세</th>
+                                            <th data-field="응급" class="text-center">응급</th>
+                                            <th data-field="지사" class="text-center">지사</th>           
+                                            <th data-field="처리구분" class="text-center">구분</th>                          
+                                            <th data-field="공유일자" class="text-center">공유일</th>
+                                            <th data-field="공유자명" class="text-center">공유자</th>
+                                            <th data-field="완료일자" class="text-center">완료일</th>                                            
+                                            <th data-field="완료자명" class="text-center">완료자</th>
+                                            <th class="text-center">파일전달</th>           
+                                            <th class="text-center">파일테스트</th>           
+                                            <th class="text-center">버전</th>           
+                                            <th class="text-center fit">테스트</th>                                                   
+                                            <th class="text-center fit">테스터</th>          
+                                        </tr>
+                                    </thead>
+                                    <tbody>                            
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade service-filter-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="닫기">
+                    <span area-hidden="true">x</span>
+                </button>
+                <h4 class="modal-title">A/S 검색 옵션</h4>
+            </div>
+            <div class="modal-body form-horizontal form-label-left">                                
+                <div class="form-group">
+                    <select class="m-b selectpicker show-tick service-data-status" title="상태" data-width="fit" data-size="5"
+                        multiple data-selected-text-format="count > 3">
+                        <option value="0">접수</option>
+                        <option value="1">공유</option>
+                        <option value="2">처리</option>
+                        <option value="3">보류</option>
+                        <option value="4">완료</option>
+                        <option value="6">피드백</option>
+                    </select>
+                </div>
+                <div class="divider-dashed"></div>
+                <div class="form-group">
+                    <button type="button" name="service-data-search-btn" class="btn btn-warning m-b-sm">
+                        조회
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<% include ./footer %>

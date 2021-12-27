@@ -1,0 +1,45 @@
+.chart-container {
+    position: relative;
+    margin: auto;
+    height: 60vh;
+    width: 100%;
+}
+.chart-container-mini {
+    position: relative;
+    margin: auto;
+    height: 30vh;
+    width: 100%;
+}
+
+
+.daterange {
+    background: #FFF;
+    cursor: pointer;
+    padding: 5px 10px;
+    border: 1px solid #CCC;
+    /* width: 100%;     */
+}
+
+.daterangepicker.show-calendar .calendar {
+    display: inline-block;
+}
+
+.exestatic-detail-modal .vertical-container {
+    display: table;
+    width: 100%;
+    height: 100%;        
+}
+
+.exestatic-detail-modal .vertical-container .modal-dialog {
+    display: table-cell;
+    vertical-align: middle;
+}
+/* .exestatic-detail-modal .modal-dialog {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: table;
+}
+
+.exestatic-detail-modal .modal-dialog .modal-centent  */

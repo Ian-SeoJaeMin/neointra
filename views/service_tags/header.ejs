@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=yes">
+    <title>
+        <%= title.company_e %> - A / S 태그관리
+    </title>
+
+    <% include ../includes/css %>
+    <link rel="stylesheet" href="/components/bootstrap-select/dist/css/bootstrap-select.min.css">
+    <style>
+        .x_content .chip {
+            margin-top: 5px;
+            margin-bottom: 5px;
+            font-size: 20px;
+            cursor: pointer;
+            -webkit-touch-callout: none; /* iOS Safari */
+            -webkit-user-select: none; /* Safari */
+            -khtml-user-select: none; /* Konqueror HTML */
+            -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                supported by Chrome and Opera */
+            border:1px solid #C0C0C0;
+        }
+        .x_content .chip:hover {
+            background-color: cadetblue;
+            border: 1px solid #274242;
+            color: #FFF;
+        }
+        .x_content .chip:focus,.x_content .chip:active, .x_content .chip.select {
+            background-color: #5f9ea0;
+            border: 1px solid #274242;
+            color: #FFF;
+        }
+
+    </style>
+
+    <% if (ENV_DEVELOPMENT) { %>
+        <script src="<%= LIVERELOAD %>"></script>
+    <% } %>
+
+    <!-- [if lt IE 9]>
+        <script src="/components/html5shiv/html5shiv.min.js"></script>
+        <script src="/components/respond/respond.min.js"></script>
+    <![endif]-->
+
+    <script>
+        (function(){
+            window.params = {
+                user: '<%- JSON.stringify(user) %>'
+            }
+            window.params.user = JSON.parse(window.params.user);
+        })();
+    </script>
+</head>
+
+<body class="nav-md">

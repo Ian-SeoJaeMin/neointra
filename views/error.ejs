@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=yes">
+    <link rel="stylesheet" href="/components/animate.css/animate.min.css">
+    <link rel="stylesheet" href="/components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/components/font-awesome/css/font-awesome.min.css">    
+    <link rel="stylesheet" href="/components/PACE/themes/blue/pace-theme-flash.css">        
+    <link rel="stylesheet" href="/css/theme.css">
+    <title><%- title %> </title>
+</head>
+<body class="nav-md">
+    
+    <div class="container body">
+        <div class="main_container">
+            <div class="col-md-12">
+                <div class="col-middle">
+                    <div class="text-center">
+                        <h1 class="error-number"><%- title %></h1>
+                        <blockquote class="text-left">
+                            <p><%- message.replace(/\n/gim, '<br>') || '페이지 혹은 데이터를 찾을 수 없습니다.' %></p>
+                            <p>요청하신 페이지 혹은 데이터를 찾지 못하였습니다. 개발실에 문의해주세요.</p>
+                            <% if (typeof detail !== 'undefined')  { %>
+                            <pre><%= detail.status %></pre>
+                            <pre><%= detail.stack %></pre>
+                            <% } %>
+                        </blockquote>
+                        <div class="mid_center">
+                            <a class="btn btn-primary" href="javascript:window.history.back();">뒤로가기</a>
+                            <a class="btn btn-primary" href="javascript:window.location.reload();">새로고침</a>
+                            <a class="btn btn-primary" href="/">홈으로</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="/components/jquery/dist/jquery.js"></script>
+    <script src="/components/bluebird/js/browser/bluebird.min.js"></script>
+    <script src="/components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/components/PACE/pace.min.js"></script>
+    <script src="/components/moment/min/moment.min.js"></script>
+    <script src="/components/moment/locale/ko.js"></script>    
+    <script src="/components/fastclick/lib/fastclick.js"></script>    
+    <script src="/js/main.js"></script>
+</body>
+</html>

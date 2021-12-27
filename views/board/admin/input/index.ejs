@@ -1,0 +1,156 @@
+<% include ./header %>
+    <div class="container body">
+        <div class="main_container">
+            <% include ../../../includes/boardsidemenu.ejs %>
+            <% include ../../../includes/topnav.ejs %>
+
+            <div class="right_col" role="main">
+                <div class="page-title">
+                    <div class="title_left">
+                        <h3>[<%= board['명칭']%>] 게시판 입력화면 편집 </h3>       
+                        <p class="red">
+                            왼쪽 구성요소 메뉴에서 추가하고 싶은 입력박스를 클릭하면 순서대로 하단에 추가됩니다.
+                        </p>
+                    </div>
+                </div>
+                <div class="row">                    
+                    <div class="col-md-6 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_content">
+                                <form class="form-horizontal form-label-left" id="board-template-form">
+                                    <div id="board-template">
+                                    </div>
+                                    <div class="divider"></div>
+                                    <div class="form-group">
+                                        <div class="col-md-9 col-md-6 col-sm-6 col-xs-12 col-xs-12 col-md-offset-3">
+                                            <a href="/board/manage" class="btn btn-default">취소</a>                                            
+                                            <button type="submit" class="btn btn-primary" id="board-save">저장</button>                                            
+                                        </div>
+                                    </div>
+                                </form>  
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">   
+                                <h3>속성</h3>                                
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <form class="form-horizontal" id="element-attr">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>이름:</label>
+                                                <input type="text" class="form-control element-attr" data-name="label" value="">
+                                            </div>
+
+                                            <div class="divider-dashed"></div>
+                                            <div class="form-group">
+                                                <label>설명:</label>
+                                                <input type="text" class="form-control element-attr" data-name="placeholder" placeholder="설명을 입력해주세요.">
+                                                <label>
+                                                    <input type="checkbox" class="flat element-attr" data-name="tooltip">
+                                                    툴팁으로 표현
+                                                </label>
+                                            </div>
+
+                                            <div class="divider-dashed"></div>
+                                            <div class="form-group">
+                                                <label>
+                                                    <input type="checkbox" class="flat element-attr" data-name="require">
+                                                    필수 입력 항목
+                                                </label>                                        
+                                            </div>                                     
+                                            <div class="form-group">
+                                                <label>
+                                                    <input type="checkbox" class="flat element-attr" data-name="header">
+                                                    리스트에 표시
+                                                </label>                                        
+                                            </div>                            
+                                            <div class="form-group">
+                                                <label>
+                                                    <input type="checkbox" class="flat element-attr" data-name="finder">
+                                                    검색필드 사용
+                                                </label>                                        
+                                            </div>
+
+                                            <div class="divider-dashed"></div>
+                                            <div class="form-group">
+                                                <label>기본값:</label>
+                                                <textarea rows="5" class="form-control element-attr" data-name="default">
+                                                </textarea>
+                                            </div>
+                                            <div class="form-group">                                        
+                                                <button type="submit" class="btn btn-success" id="attribute-save">저장</button>                                                                                    
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="optional-attr">
+                                                <div class="form-group hidden" data-name="format">
+                                                    <label>입력형식:</label>
+                                                    <!--input type="text" class="form-control element-attr" data-name="format"-->
+                                                    <select class="selectpicker show-tick form-control element-attr" data-name="format">
+                                                        <option value="">없음</option>
+                                                        <optgroup label="Number">
+                                                            <option value="###-####-####">전화번호</option>
+                                                        </optgroup>
+                                                        <optgroup label="Date">
+                                                            <option value="YYYY년MM월DD일">YYYY년MM월DD일</option>
+                                                            <option value="YYYY-MM-DD">YYYY-MM-DD</option>
+                                                        </optgroup>
+                                                    </select>
+                                                </div>
+
+                                                <!-- textarea attr -->
+                                                <div class="form-group hidden" data-name="rows">
+                                                    <label>행수:</label>
+                                                    <input type="number" min="5" max="20" class="form-control element-attr" data-name="rows">
+                                                </div>
+
+                                                <!-- select attr -->
+                                                <div class="form-group hidden" data-name="multiple">
+                                                    <label>
+                                                        <input type="checkbox" class="flat element-attr" data-name="multiple">
+                                                        다중 선택 허용
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-group hidden" data-name="accept">
+                                                    <label>파일형식:</label>
+                                                    <!--input type="text" class="form-control element-attr" data-name="format"-->
+                                                    <select class="selectpicker show-tick form-control element-attr" data-name="accept">
+                                                        <option value="">모든파일</option>                                                
+                                                        <option value="image/*">이미지</option>                                                
+                                                    </select>
+                                                </div>
+
+
+                                                <div class="form-group hidden" data-name="listitem">
+                                                    <label>선택항목: <b class="orange">항목을 순서를 드래그로 변경시킬 수 있습니다.</b></label>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control select-option-item" placeholder="선택항목 명칭을 입력해주세요." />
+                                                        <span class="input-group-btn">
+                                                            <button type="button" class="btn btn-success select-option-add"><i class="fa fa-plus"></i></button>
+                                                        </span>
+                                                    </div>
+                                                    <ul class="list-group element-attr" data-name="listitem">                                                
+                                                        
+                                                    </ul>
+                                                </div>
+                                                <!-- select attr -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </form>  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+<% include ./footer %>

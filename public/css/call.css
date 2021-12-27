@@ -1,0 +1,13 @@
+table tr td.table-ellipsis { 
+    max-width: 200px !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap
+}
+
+.call-list-date {
+    background-color: #cacaca !important;
+    border-color: #ddd !important;
+    font-weight: bold !important;
+    color: #ffffff !important;
+}

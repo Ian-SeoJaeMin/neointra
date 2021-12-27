@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=yes">
+    <title>
+        <%= title.company_e %> - 프로젝트 수정
+    </title>
+
+    <% include ../../includes/css %>
+    <link rel="stylesheet" href="/components/bootstrap-select/dist/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="/components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
+
+    <% if (ENV_DEVELOPMENT) { %>
+        <script src="<%= LIVERELOAD %>"></script>
+    <% } %>
+
+    <!-- [if lt IE 9]>
+        <script src="/components/html5shiv/html5shiv.min.js"></script>
+        <script src="/components/respond/respond.min.js"></script>
+    <![endif]-->
+
+    <script>
+        (function(){
+            <% var _project = JSON.parse(JSON.stringify(project.info)) %>
+            <% _project['기대효과'] = ''; _project['상세내용'] = '' %>
+            window.params = {
+                user: '<%- JSON.stringify(user) %>',
+                project: '<%- JSON.stringify(_project) %> ',
+                files: '<%- project.files.length ? JSON.stringify(project.files) : "[]" %> ',
+                users: '<%- JSON.stringify(users.map(function(user){return {"인덱스": user["인덱스"], "이름": user["이름"]}})) %>'
+            }
+            window.params.user = JSON.parse(window.params.user);
+            window.params.project = JSON.parse(window.params.project);
+            window.params.files = JSON.parse(window.params.files.replace(/\\/gim, '/'));
+            window.params.users = JSON.parse(window.params.users);
+            console.log(window.params);
+        })();
+    </script>
+</head>
+
+<body class="nav-md">

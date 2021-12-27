@@ -1,0 +1,92 @@
+<div class="x_panel">
+    <div class="x_title">
+        <h3>
+            시간대별 A/S 발생
+        </h3>
+        <div class="form-inline pull-right breakpoints-xs">
+            <div class="form-group datepicker-container">
+                <div class="input-group input-group-sm">
+                    <div class="input-group-btn">
+                        <!-- <button class="btn btn-success btn-accept-day-range " data-value="">전체</button> -->
+                        <button
+                            class="btn btn-success btn-accept-day-range"
+                            data-value="year"
+                            data-range="1"
+                        >
+                            1년
+                        </button>
+                        <button
+                            class="btn btn-success btn-accept-day-range"
+                            data-value="months"
+                            data-range="6"
+                        >
+                            6개월
+                        </button>
+                        <button
+                            class="btn btn-success btn-accept-day-range"
+                            data-value="months"
+                            data-range="3"
+                        >
+                            3개월
+                        </button>
+                        <button
+                            class="btn btn-success btn-accept-day-range"
+                            data-value="months"
+                            data-range="1"
+                        >
+                            1개월
+                        </button>
+                        <button
+                            class="btn <%= moment().format('dddd') === '월요일' ? 'btn-primary' : 'btn-default' %> btn-round btn-accept-day"
+                            data-day-name="월요일"
+                        >
+                            월
+                        </button>
+                        <button
+                            class="btn <%= moment().format('dddd') === '화요일' ? 'btn-primary' : 'btn-default' %> btn-round btn-accept-day"
+                            data-day-name="화요일"
+                        >
+                            화
+                        </button>
+                        <button
+                            class="btn <%= moment().format('dddd') === '수요일' ? 'btn-primary' : 'btn-default' %> btn-round btn-accept-day"
+                            data-day-name="수요일"
+                        >
+                            수
+                        </button>
+                        <button
+                            class="btn <%= moment().format('dddd') === '목요일' ? 'btn-primary' : 'btn-default' %> btn-round btn-accept-day"
+                            data-day-name="목요일"
+                        >
+                            목
+                        </button>
+                        <button
+                            class="btn <%= moment().format('dddd') === '금요일' ? 'btn-primary' : 'btn-default' %> btn-round btn-accept-day"
+                            data-day-name="금요일"
+                        >
+                            금
+                        </button>
+                        <button
+                            class="btn <%= moment().format('dddd') === '토요일' ? 'btn-primary' : 'btn-default' %> btn-round btn-accept-day"
+                            data-day-name="토요일"
+                        >
+                            토
+                        </button>
+                        <button
+                            class="btn <%= moment().format('dddd') === '일요일' ? 'btn-primary' : 'btn-default' %> btn-round btn-accept-day"
+                            data-day-name="일요일"
+                        >
+                            일
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+        <!-- <div class="chart-container"> -->
+        <canvas id="time-chart"></canvas>
+        <!-- </div> -->
+    </div>
+</div>

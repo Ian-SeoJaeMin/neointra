@@ -1,0 +1,150 @@
+<% include ./header %>
+    <div class="container body">
+        <div class="main_container">
+            <% include ../includes/sidemenu.ejs %>
+            <% include ../includes/topnav.ejs %>
+
+            <div class="right_col" role="main">
+                <div class="page-title">
+                    <div class="title_left">
+                        <h3><i class="fa <%=board['아이콘']%>"></i> <%= board['명칭'] %> </h3>       
+                        <h4>
+                            <%= board['설명'] %>
+                        </h4>
+                    </div>
+                </div>
+                <div class="row">                    
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title breakpoints-lg breakpoints-md m-t-sm">
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" data-toggle="modal" data-target=".board-filter-modal">
+                                            <i class="fa fa-sliders"></i>
+                                        </button>
+                                    </span>                                    
+                                    <input type="search" name="board-search" class="form-control" placeholder="게시글 검색"/>
+                                    <span class="input-group-btn">
+                                        <a class="btn btn-primary board-write" href="/customer/board/write"><i class="fa fa-plus"></i></a>
+                                    </span>
+                                </div>                                
+                            </div>
+                            <div class="row x_title breakpoints-sm breakpoints-xs">
+                                
+                                <div class="col-md-12 col-sm-12 col-xs-12 form-inline">                                        
+                                    <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default datemonth care" data-range="left"><i class="fa fa-angle-left"></i></button>                                                    
+                                        </span>
+                                        <input type='text' class="form-control datepicker" data-name="care" data-value="<%= moment().format('YYYY-MM-DD') %>" value="<%= moment().format('YYYY년MM월') %>"/>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default datemonth care" data-range="right"><i class="fa fa-angle-right"></i></button>                                                    
+                                        </span>                                                
+                                    </div>
+
+                                    <% finder.forEach(function(field, index) { %>
+                                    <%  if (field['type'].indexOf('선택') >= 0 ) { %> 
+                                    <select class="selectpicker m-b-sm board-finder" 
+                                            data-size="5" 
+                                            data-live-search="true"                                            
+                                            title="<%=field['label']%>"
+                                            data-width="fit">
+                                        
+                                    </select>
+                                    <%  } %>
+                                    <% }) %> 
+                                <!--   
+                                </div>
+                                <div class="col-md-4 col-xs-12">
+                                -->
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                        <input type="search" name="board-search" class="form-control" placeholder="게시글 검색"/>          
+                                        <span class="input-group-btn">
+                                            <a class="btn btn-primary board-write" href="/board/write?index=<%=board['게시판ID']%>">글작성</a>
+                                        </span>                                  
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="x_content">
+                                
+                                <table class="table table-striped table-linked jambo_table board-list breakpoints-sm breakpoints-xs">
+                                    <thead>
+                                        <tr class="breakpoints-sm breakpoints-xs">                                             
+                                            <th data-field="인덱스">N.</th>                                            
+                                            <% header.forEach(function(field) { %>
+                                                <th><%= field['label'] %></th>
+                                            <% }) %> 
+                                            <th data-field="작성자명">작성자</th>
+                                            <th data-field="작성일자">작성일자</th>
+                                            <% if (board['댓글'] === 0 ) { %>
+                                                <th>댓글</th>
+                                            <% } %>
+                                        </tr>                                        
+                                    </thead>                                    
+                                    <tbody id="board-desktop">
+                                        <% articles.forEach(function(article) { %>
+                                        <tr>
+                                            <td><%= article['인덱스'] %></td>
+                                            <% header.forEach(function(field) { %>
+                                            <td><%= article['데이터'][field['name']] %></td>
+                                            <% }) %>
+                                            <td><%= article['작성자명']%></td>
+                                            <td><%= article['작성일자']%></td>
+                                            <% if (board['댓글'] === 0 ) { %>
+                                                <td><%= article['댓글']%></td>
+                                            <% } %>
+                                        </tr>
+                                        <% }) %>
+                                    </tbody>                                    
+                                </table>
+                                <div id="board-mobile" class="breakpoints-lg breakpoints-md"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade board-filter-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="닫기"><span area-hidden="true">x</span></button>
+                    <h4 class="modal-title">게시판 검색 옵션</h4>
+                </div>
+                <div class="modal-body form-horizontal form-label-left">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default datemonth care" data-range="left"><i class="fa fa-angle-left"></i></button>                                                    
+                            </span>
+                            <input type='text' class="form-control datepicker" data-name="care" data-value="<%= moment().format('YYYY-MM-DD') %>" value="<%= moment().format('YYYY년MM월') %>"/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default datemonth care" data-range="right"><i class="fa fa-angle-right"></i></button>                                                    
+                            </span>                                                
+                        </div>
+                    </div>  
+
+                    <% finder.forEach(function(field, index) { %>
+                    <div class="divider-dashed <%- index < finder.length - 1 ? 'hidden' : '' %>"></div>
+                    <div class="form-group">
+                        <p class="text-muted"><b><%= field['label'] %></b></p>
+                        <select class="selectpicker m-b-sm board-finder" 
+                                data-size="5" 
+                                data-live-search="true"                                            
+                                title="<%=field['label']%>"
+                                data-width="fit"
+                            <% field['listitem'].forEach(function(item){ %>
+                            <option value="<%= item %>"><%= item %></option>
+                            <% }) %>
+                        </select>
+                    </div>                    
+                    <% }) %>                   
+                </div>
+            </div>            
+        </div>
+    </div>
+<% include ./footer %>

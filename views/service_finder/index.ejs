@@ -1,0 +1,146 @@
+<% include ./header %>
+
+    <nav class="navbar navbar-default">
+        <div class="containe-fluidr">
+            <div class="navbar-header">
+                <a href="/service/finder" class="navbar-brand">A/S Finder</a>
+            </div>
+            <div class="navbar-form navbar-right">
+                <div class="form-group pull-right">
+                    <div class="btn-group">
+                        <button class="btn btn-default finder-order" type="button" data-value="0">정확도</button>
+                        <button class="btn btn-default finder-order" type="button" data-value="1">추천</button>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-search"></i>
+                        </span>
+                        <input type="text" class="form-control finder-search" style="width:350px;" placeholder="A/S 검색 (검색어를 입력해서도 검색할 수 있습니다.)">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row content">
+            <div class="col-sm-4 col-lg-3 sidenav">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        상태
+                    </div>
+                    <div class="panel-body">
+                        <div class="btn-group btn-group-justified">
+                            <div class="btn-group">
+                                <button class="btn btn-default finder-status" data-value="0">전체</button>
+                            </div>
+                            <div class="btn-group">
+                                <button class="btn btn-default finder-status" data-value="4">완료</button>
+                            </div>
+                            <div class="btn-group">
+                                <button class="btn btn-default finder-status" data-value="3">보류</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        병원검색
+                    </div>
+                    <div class="panel-body">
+                        <select id="finder-hospital" class="form-control selectpicker show-tick" data-width="100%" data-size="10" title="기관검색">
+                        </select>
+                    </div>
+                </div>
+
+                <div class="panel panel-danger">
+                    <div class="panel-heading">
+                        결과내 재검색
+                    </div>
+                    <div class="panel-body">
+                        <input type="text" name="inner-search" id="inner-search" class="form-control">
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        프로그램
+                    </div>
+                    <div class="panel-body">
+                        <div class="btn-group-vertical  btn-block">
+                            <button class="btn btn-default finder-programs text-left" data-value="0">전체</button>
+                            <button class="btn btn-default finder-programs text-left" data-value="1">이플러스</button>
+                            <button class="btn btn-default finder-programs text-left" data-value="20">센스</button>
+                            <button class="btn btn-default finder-programs text-left" data-value="8">메디</button>
+                            <button class="btn btn-default finder-programs text-left" data-value="21">센스(한방)</button>
+                            <button class="btn btn-default finder-programs text-left" data-value="10">한의맥프로</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        실행파일
+                    </div>
+                    <div class="panel-body">
+                        <!-- <div class="btn-group  btn-justified"> -->
+                        <button class="btn btn-sm btn-default finder-apps text-left" data-value="0">전체</button>
+                        <button class="btn btn-sm btn-default finder-apps text-left" data-value="데스크">데스크</button>
+                        <button class="btn btn-sm btn-default finder-apps text-left" data-value="입원수납">입원수납</button>
+                        <button class="btn btn-sm btn-default finder-apps text-left" data-value="청구심사">청구심사</button>
+                        <button class="btn btn-sm btn-default finder-apps text-left" data-value="진료실">진료실</button>
+                        <button class="btn btn-sm btn-default finder-apps text-left" data-value="병동">병동</button>
+                        <button class="btn btn-sm btn-default finder-apps text-left" data-value="진료지원">진료지원</button>
+                        <button class="btn btn-sm btn-default finder-apps text-left" data-value="병원관리">병원관리</button>
+                        <button class="btn btn-sm btn-default finder-apps text-left" data-value="문서관리">문서관리</button>
+                        <button class="btn btn-sm btn-default finder-apps text-left" data-value="통계">통계</button>
+                        <button class="btn btn-sm btn-default finder-apps text-left" data-value="메인">메인</button>
+                        <button class="btn btn-sm btn-default finder-apps text-left" data-value="부가서비스">부가서비스</button>
+                        <button class="btn btn-sm btn-default finder-apps text-left" data-value="기타">기타</button>
+                        <!-- </div> -->
+                    </div>
+                </div>
+
+
+                <!--
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <blockquote class="finder-help">
+                            <em class="text-danger">검색결과가 정확하지 않을경우</em> 도움이 필요한 AS의 문의내용을 읽어보고
+                            <code>중요하다고 생각되는 키워드</code>를 조합하여 검색해보세요!
+                        </blockquote>
+                        <h5>예시</h5>
+                        <div class="well well-sm">
+                            <p>
+                                <b>문의내용</b>: 진료비명세서랑 영수증이랑 본인부담금이 다른데 왜 이런거죠..?</p>
+                            <p>
+                                <b>키워드 검색</b>: 진료비명세서 영수증 본인부담금</p>
+                        </div>
+                    </div>
+                </div>
+                -->
+            </div>
+            <div class="col-sm-8 col-lg-9 text-left p-xs" style="height: 100%;">
+                <p class="text-danger font-bold">
+                    ※ 문의 내용에 가장 근접한 내용을 답변채택 할 경우 처리내용이 자동 복사되어 입력됩니다.
+                </p>
+                <p class="text-danger font-bold">
+                    ※ 검색된 결과물 중에 결과내 재검색을 통해 원하는 답변을 검색할 수 있습니다. (
+                        <a class="expander" data-toggle="collapse" href="#tag_help" aria-expanded="false" aria-controls="tag_help">자세히</a>
+                    )
+                </p>
+                <img id="tag_help" class="collapse" aria-expanded="false" sstyle="width: 100%;" data-imageviewer="true" src="/images/tag5.jpg"/>
+                <div class="finder-list-wrapper">
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="loader-wrapper animated hidden">
+        <div class="loader"></div>
+    </div>
+
+    <% include ./footer %>

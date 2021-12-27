@@ -1,0 +1,366 @@
+<% include ./header %>
+
+<div class="container body">
+    <div class="main_container">
+        <% include ../includes/sidemenu.ejs %> <% include ../includes/topnav.ejs
+        %>
+
+        <div class="right_col" role="main">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h3>
+                                <i class="glyphicon glyphicon-piggy-bank"></i>
+                                직원 A/S 인센티브(콜센터 건당x600원,개발실
+                                건당x1,000원)
+                            </h3>
+                            <div class="form-inline pull-right">
+                                <div class="btn-group">
+                                    <button
+                                        class="btn btn-sm  btn-primary"
+                                        id="fee-lock"
+                                    >
+                                        <i class="fa fa-unlock"></i>
+                                    </button>
+                                    <button
+                                        class="btn btn-sm  btn-default"
+                                        id="fee-refresh"
+                                    >
+                                        <i class="fa fa-refresh"></i>
+                                    </button>
+                                    <button
+                                        class="btn btn-sm  btn-default"
+                                        id="fee-excel"
+                                    >
+                                        <i class="fa fa-print"></i>
+                                    </button>
+                                </div>
+
+                                <div class="form-group form-group-sm">
+                                    <div
+                                        class="input-group m-b-none input-group-sm"
+                                    >
+                                        <input
+                                            type="text"
+                                            class="form-control datepicker month"
+                                            readonly
+                                        />
+                                        <div class="input-group-btn">
+                                            <button
+                                                type="button"
+                                                class="btn btn-warning"
+                                                id="fee-load"
+                                            >
+                                                검색
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- <%- include('../includes/datepicker.ejs',
+                                {mobile: false, label: false, name: "fee",
+                                modal: false}) %> -->
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <section>
+                                <table
+                                    class="table table-bordered hidden"
+                                    border="1"
+                                >
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">사원명</th>
+                                            <th class="text-center fee-parent">
+                                                ① 본사 A/S<br />업무시간 외
+                                            </th>
+                                            <th class="text-center fee-parent">
+                                                ② 본사 A/S<br />45분미만
+                                            </th>
+                                            <th class="text-center fee-parent">
+                                                ③ 본사 A/S<br />45분이상(정산x)
+                                            </th>
+                                            <th class="text-center fee-parent">
+                                                본사 A/S<br />지급액
+                                            </th>
+                                            <th class="text-center fee-kim">
+                                                ④ 김기엽<br />A/S
+                                            </th>
+                                            <th class="text-center fee-kim">
+                                                김기엽<br />A/S 지급액
+                                            </th>
+                                            <th class="text-center fee-share">
+                                                ⑤ 지사공유<br />A/S
+                                            </th>
+                                            <th class="text-center fee-share">
+                                                ⑥ 지사공유<br />A/S(응급)
+                                            </th>
+                                            <th class="text-center fee-share">
+                                                지사공유<br />A/S 지급액
+                                            </th>
+                                            <th class="text-center fee-total">
+                                                지급합계
+                                            </th>
+                                            <th class="text-center fee-count">
+                                                ①+②+③<br />+④+⑤+⑥
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="fee-member"></tbody>
+                                </table>
+                            </section>
+                            <section>
+                                <table
+                                    class="table table-bordered hidden"
+                                    border="1"
+                                >
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">사원명</th>
+                                            <th class="text-center fee-parent">
+                                                ① 본사 A/S<br />업무시간 외
+                                            </th>
+                                            <th class="text-center fee-parent">
+                                                ② 본사 A/S<br />접수-확인<br />10분미만<br />건당x100
+                                            </th>
+                                            <th class="text-center fee-parent">
+                                                ③ 본사 A/S<br />접수-확인<br />10분이상(정산x)
+                                            </th>
+                                            <th class="text-center fee-parent">
+                                                ④ 본사 A/S<br />확인-피드백<br />20분미만<br />건당x500
+                                            </th>
+                                            <th class="text-center fee-parent">
+                                                ⑤ 본사 A/S<br />확인-피드백<br />20분이상(정산x)
+                                            </th>
+                                            <th class="text-center fee-parent">
+                                                본사 A/S<br />지급액
+                                            </th>
+                                            <th class="text-center fee-kim">
+                                                ⑥ 김기엽<br />A/S
+                                            </th>
+                                            <th class="text-center fee-kim">
+                                                김기엽<br />A/S 지급액
+                                            </th>
+                                            <th class="text-center fee-west">
+                                                ⑥ 서울서부2<br />A/S
+                                            </th>
+                                            <th class="text-center fee-west">
+                                                서울서부2<br />A/S 지급액
+                                            </th>
+                                            <th class="text-center fee-share">
+                                                ⑦ 지사공유<br />A/S
+                                            </th>
+                                            <th class="text-center fee-share">
+                                                ⑧ 지사공유<br />A/S(응급)
+                                            </th>
+                                            <th class="text-center fee-share">
+                                                지사공유<br />A/S 지급액
+                                            </th>
+                                            <th class="text-center fee-total">
+                                                지급합계
+                                            </th>
+                                            <!-- <th class="text-center fee-count">①+②+③<br>+④+⑤+⑥<br>⑦+⑨</th> -->
+                                        </tr>
+                                    </thead>
+                                    <tbody class="fee-member-2"></tbody>
+                                </table>
+                            </section>
+                            <section>
+                                <table
+                                    class="table table-bordered hidden"
+                                    border="1"
+                                >
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">사원명</th>
+                                            <th class="text-center fee-parent">
+                                                ① 본사 A/S<br />업무시간 외
+                                            </th>
+                                            <th class="text-center fee-parent">
+                                                ② 본사 A/S<br />45분미만
+                                            </th>
+                                            <th class="text-center fee-parent">
+                                                ③ 본사 A/S<br />45분이상(정산x)
+                                            </th>
+                                            <th class="text-center fee-parent">
+                                                본사 A/S<br />지급액
+                                            </th>
+                                            <th class="text-center fee-kim">
+                                                ④ 김기엽<br />A/S
+                                            </th>
+                                            <th class="text-center fee-kim">
+                                                김기엽<br />A/S 지급액
+                                            </th>
+                                            <th class="text-center fee-west">
+                                                ⑤ 서울서부2<br />A/S
+                                            </th>
+                                            <th class="text-center fee-west">
+                                                서울서부2<br />A/S 지급액
+                                            </th>
+                                            <th class="text-center fee-share">
+                                                ⑥ 지사공유<br />A/S
+                                            </th>
+                                            <th class="text-center fee-share">
+                                                ⑦ 지사공유<br />A/S(응급)
+                                            </th>
+                                            <th class="text-center fee-share">
+                                                지사공유<br />A/S 지급액
+                                            </th>
+                                            <th class="text-center fee-total">
+                                                지급합계
+                                            </th>
+                                            <th class="text-center fee-count">
+                                                ①+②+③<br />+④+⑤+⑥+⑦
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="fee-member-3"></tbody>
+                                </table>
+                            </section>
+                        </div>
+                    </div>
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h3>
+                                <i class="glyphicon glyphicon-piggy-bank"></i>
+                                지사 공유처리 수수료
+                            </h3>
+
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-12 col-xs-12">
+                                    <table
+                                        class="table table-bordered"
+                                        border="1"
+                                    >
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">
+                                                    지사
+                                                </th>
+                                                <th class="text-center">A/S</th>
+                                                <th class="text-center">
+                                                    x3,000
+                                                </th>
+                                                <th class="text-center">
+                                                    응급
+                                                </th>
+                                                <th class="text-center">
+                                                    x5,000
+                                                </th>
+                                                <th class="text-center">
+                                                    수수료합계
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="fee-area"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h3>
+                                A/S 상세내역
+                            </h3>
+                            <div class="pull-right m-l-sm">
+                                <button
+                                    class="btn btn-sm btn-default m-t-xs"
+                                    id="fee-all-excel"
+                                >
+                                    <i class="fa fa-print"></i>
+                                </button>
+                                <button
+                                    class="btn btn-sm btn-default m-t-xs fee-all"
+                                >
+                                    전체
+                                </button>
+                                <button
+                                    class="btn btn-sm btn-default m-t-xs fee-all-except-unfee"
+                                >
+                                    전체(수수료 미발생 제외)
+                                </button>
+                                <select
+                                    class="selectpicker show-tick"
+                                    id="member"
+                                    title="완료자"
+                                    data-style="btn-sm btn-default"
+                                    data-width="fit"
+                                    data-size="5"
+                                    data-live-search="true"
+                                >
+                                    <optgroup label="QC&외근팀"></optgroup>
+                                    <optgroup label="개발팀"></optgroup>
+                                </select>
+                                <select
+                                    class="selectpicker show-tick"
+                                    id="area"
+                                    title="지사"
+                                    data-style="btn-sm btn-default"
+                                    data-width="fit"
+                                    data-size="5"
+                                    data-live-search="true"
+                                ></select>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <table class="table table-bordered small">
+                                <thead>
+                                    <tr>
+                                        <th>N.</th>
+                                        <th>접수번호</th>
+                                        <th>기관코드</th>
+                                        <th>기관명칭</th>
+                                        <th>지사</th>
+                                        <th>접수일자</th>
+                                        <th>확인일자</th>
+                                        <th>완료일자</th>
+                                        <th>확인자</th>
+                                        <th>공유자</th>
+                                        <th>완료자</th>
+                                        <th>응급</th>
+                                        <th>본사</th>
+                                        <th>이의</th>
+                                        <th>지급/수수료</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="fee-list"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div
+    class="modal fade detail-modal"
+    tabindex="-1"
+    role="dialog"
+    aria-hidden="true"
+>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                >
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 id="service-title"></h4>
+            </div>
+            <div class="modal-body" id="service-detail"></div>
+        </div>
+    </div>
+</div>
+<% include ./footer %>

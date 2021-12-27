@@ -1,0 +1,142 @@
+<% include ./header %>
+
+    <div class="container body">
+        <div class="main_container">
+            <% include ../../includes/sidemenu.ejs %>
+            <% include ../../includes/topnav.ejs %>            
+            <div class="right_col" role="main">
+                <div class="">                    
+                    <div class="title_right">
+                        <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right text-right top_search">
+                            <a href="/project" type="button" class="btn btn-link">목록으로</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">                    
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">                                
+                                <h2><span>[<%- project.info['인덱스'] %>]</span> <%- project.info['프로젝트명'] %></h2>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <div class="col-md-3 col-sm-3 col-xs-12 profile_left">
+                                    
+                                    <ul class="list-unstyled user_data">
+                                        <li>
+                                            <b class="green">프로그램:</b> <%- project.info['프로그램명'] %>
+                                        </li>
+                                        <li>
+                                            <b class="green">요청병원:</b> <%- project.info['요청거래처'] %>
+                                        </li>
+                                        <li class="divider-dashed"></li>
+                                        <li>
+                                            <b class="green">등록자:</b> <%- project.info['등록자명'] %>
+                                        </li>
+                                        <li>
+                                            <b class="green">상태:</b> <%- project.info['상태명'] %>
+                                        </li>
+                                        <li>
+                                            <b class="green">개발자:</b>
+                                            <ul class="list-inline m-b-none">
+                                                <% project.dev.forEach(function(dev){ %>                                                
+                                                <li <% if (dev['책임자'] === 1) { %> class="font-bold" <% } %> >
+                                                    <%- dev['개발자명'] %> 
+                                                </li>
+                                                <% }) %>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <b class="green">개발종료 예정일:</b>
+                                            <%- project.info['개발종료일'].length ? moment(project.info['개발종료일']).format('YYYY년 MM월 DD일') : '' %>
+                                        </li>                                                                                                                
+                                        <li>
+                                            <b class="green">개발유형:</b>
+                                            <%- project.info['개발유형'].length ? project.info['개발유형'] : '' %>
+                                        </li>
+                                    </ul> 
+                                    <br>
+                                    <h5 class="green"> 
+                                        <b>프로젝트 파일</b>
+                                        <a class="btn btn-link btn-xs pull-right expander" data-toggle="collapse" href="#project-files" aria-expanded="true" aria-controls="project-files"><i class="fa fa-chevron-up"></i></a>
+                                    </h5>
+                                    <ul class="list-unstyled project_files collapse in" id="project-files" aria-expanded="true">
+                                    <% if(project.files.length) { %>
+                                    <%  project.files.forEach(function(file){ %>
+                                    <%      if (!file.type.toUpperCase().match(/DIR/)) { %>
+                                        <li>
+                                            <a href="<%- file.oPath %>" download>
+                                                <i class="fa <%- file.icon %>"></i> <%= file.name %>
+                                            </a>
+                                        </li>
+                                    <%      } %>
+                                    <%  }) %>
+                                    <% } %>
+                                    </ul>
+                                    <br>
+                                    <!--a href="/project/edit?index=<%= project.info['인덱스'] %>" class="btn btn-primary btn-sm" <% if (project.info['등록자'] !== user['인덱스'] && project.info['책임자'] !== user['인덱스']) { %> disabled <% } %>>수정</a-->
+                                    <a href="/project/edit?index=<%= project.info['인덱스'] %>" class="btn btn-primary btn-sm">수정</a>
+                                    <button class="btn btn-danger btn-sm project-delete" data-index="<%= project.info['인덱스'] %>" <% if (project.info['등록자'] !== user['인덱스'] && project.info['책임자'] !== user['인덱스']) { %> disabled <% } %>>삭제</button>
+                                    <br>
+                                    <ul class="list-unstyled">
+                                        <li>
+                                            <small>
+                                                <i class="fa fa-edit"></i> 등록: 
+                                                <%- project.info['등록자명'] %> / <%- moment(project.info['등록일자']).format('LLL') %>
+                                            </small>                                            
+                                        </li>       
+                                        <li>
+                                            <small>
+                                                <i class="fa fa-edit"></i> 수정: 
+                                                <%- moment(project.info['수정일자']).format('LLL') %>
+                                            </small>                                            
+                                        </li>    
+                                    </ul>
+                                </div>
+                                <div class="col-md-9 col-sm-9 col-xs-12"> 
+                                    <h3 class="green">
+                                        <i class="fa fa-book"></i> 테스트 내용
+                                        <a class="btn btn-link btn-xs pull-right expander" data-toggle="collapse" href="#project-detail" aria-expanded="true" aria-controls="project-detail"><i class="fa fa-chevron-up"></i></a>
+                                    </h3>
+                                    <div class="collapse in" id="project-detail" aria-expanded="true">
+                                        <%- project.info['상세내용'].replace(/\n/gim, '<br>') %>
+                                    </div>
+                                    <div class="divider-dashed"></div>
+                                    <h3 class="green">
+                                        <i class="fa fa-magic"></i> 확인 내용
+                                        <a class="btn btn-link btn-xs pull-right expander" data-toggle="collapse" href="#project-effect" aria-expanded="true" aria-controls="project-effect"><i class="fa fa-chevron-up"></i></a>
+                                    </h3>
+                                    <div class="collapse in" id="project-effect" aria-expanded="true">
+                                        <%- project.info['기대효과'].replace(/\n/gim, '<br>') %>
+                                    </div>
+                                    <div class="divider-dashed"></div>
+                                    <h4 class="">
+                                        <i class="fa fa-image"></i> 첨부이미지
+                                        <a class="btn btn-link btn-xs pull-right expander" data-toggle="collapse" href="#project-images" aria-expanded="true" aria-controls="project-images"><i class="fa fa-chevron-up"></i></a>
+                                    </h4> 
+                                    <div class="collapse in" id="project-images" aria-expanded="true" style="overflow: hidden;">
+                                        <div class="product_gallery"> 
+                                        <% if(project.files.length) { %>
+                                        <%  project.files.forEach(function(file){ %>
+                                        <%      if (file.type.toUpperCase().match(/BMP|GIF|JPG|JPEG|PNG/)) { %>
+                                            <a>
+                                                <img data-imageviewer="true" src="<%- file.oPath %>" tile="<%- file.name %>"/>
+                                            </a>
+                                        <%      } %>
+                                        <%  }) %>
+                                        <% } %>
+                                        </div>
+                                    </div>
+                                    <div class="divider-dashed"></div>
+                                    <%- include('../../includes/reply.ejs', {replys: project.replys, table: 'N_프로젝트HIS', category: 0, article: project.info['인덱스'], template: ''}) %>
+                                </div>
+                            </div>
+                        </div>        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+<% include ./footer %>

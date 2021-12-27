@@ -1,0 +1,261 @@
+<% include ./header %>
+
+    <div class="container body">
+        <div class="main_container">
+            <% include ../../includes/sidemenu.ejs %>
+            <% include ../../includes/topnav.ejs %>
+            <div class="right_col" role="main">
+                <div class="">
+                    <div class="title_right">
+                        <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right text-right top_search">
+                            <a href="/project" type="button" class="btn btn-link">목록으로</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+
+                        <div class="x_panel">
+
+                            <div class="x_title">
+                                <h2><span>[<%- project.info['인덱스'] %>]</span> <%- project.info['프로젝트명'] %> - 수정</h2>
+                                <div class="clearfix"></div>
+                            </div>
+
+                            <div class="x_content">
+                                <!-- form start -->
+                                <form id="project-form" class="form-horizontal form-label-left" method="post" action="/api/project/edit">
+                                    <input type="hidden" name="project-index" value="<%= project.info['인덱스'] %>"/>
+                                    <div class="row">
+                                        <!-- coloumn 1 -->
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+                                            <!-- project-title -->
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                                    프로젝트 제목
+                                                    <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input type="text" id="project-title" name="project-title" required="required" class="form-control col-md-7 col-xs-12" value="<%= project.info['프로젝트명'] %>">
+                                                </div>
+                                            </div>
+                                            <!-- project-title -->
+
+                                            <!-- project-program -->
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                                    프로그램
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <select class="form-control selectpicker show-tick project-program"  name="project-program" title="프로그램"
+                                                        data-width="fit" data-mobile="true">
+                                                        <option value="0" <% if (project.info['프로그램'] === 0) { %> selected <% } %>>공통</option>
+                                                        <option value="24" <% if (project.info['프로그램'] === 24) { %> selected <% } %>>SensePlus</option>
+                                                        <option value="20" <% if (project.info['프로그램'] === 20) { %> selected <% } %>>SenseChart</option>
+                                                        <option value="21" <% if (project.info['프로그램'] === 21) { %> selected <% } %>>SenseChart(H)</option>
+                                                        <option value="8" <% if (project.info['프로그램'] === 8) { %> selected <% } %>>MediChart</option>
+                                                        <option value="1" <% if (project.info['프로그램'] === 1) { %> selected <% } %>>Eplus</option>
+                                                        <option value="10" <% if (project.info['프로그램'] === 10) { %> selected <% } %>>HanimacPro</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <!-- project-program -->
+
+                                            <!-- project-requester -->
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                                    요청병원
+                                                    <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input type="text" id="project-requester" name="project-requester" required="required" class="form-control col-md-7 col-xs-12" value="<%= project.info['요청거래처'] %>">
+                                                </div>
+                                            </div>
+                                            <!-- project-requester -->
+
+                                            <!-- project-status -->
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                                    상태
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <select class="form-control selectpicker show-tick project-status" name="project-status" title="상태"
+                                                            data-width="fit" data-size="5" data-mobile="true">
+                                                        <option value="0" <% if (project.info['상태'] === 0) { %> selected <% } %>>접수</option>
+                                                        <option value="1" <% if (project.info['상태'] === 1) { %> selected <% } %>>회의중</option>
+                                                        <option value="2" <% if (project.info['상태'] === 2) { %> selected <% } %>>개발중</option>
+                                                        <option value="3" <% if (project.info['상태'] === 3) { %> selected <% } %>>개발테스트</option>
+                                                        <option value="4" <% if (project.info['상태'] === 4) { %> selected <% } %>>개발완료</option>
+                                                        <option value="5" <% if (project.info['상태'] === 5) { %> selected <% } %>>사용테스트</option>
+                                                        <option value="6" <% if (project.info['상태'] === 6) { %> selected <% } %>>완료</option>
+                                                        <option value="7" <% if (project.info['상태'] === 7) { %> selected <% } %>>보류</option>
+                                                        <option value="10" <% if (project.info['상태'] === 10) { %> selected <% } %>>취소</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <!-- project-status -->
+
+                                            <!-- project-manager -->
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                                    책임자
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <select class="form-control selectpicker show-tick project-manager" name="project-manager" title="책임자"
+                                                            data-width="fit" data-size="10" data-live-search="true">
+                                                            <% var optGroup = '' %>
+                                                            <% users.forEach(function(_user){ %>
+                                                                <% if(optGroup !== _user['지사코드']) { %>
+                                                                <%  if (optGroup !== '') { %>
+                                                                        </optgroup>
+                                                                    <% } %>
+                                                                    <optgroup label="<%= _user['소속'] %>">
+                                                                <% } %>
+                                                                <option value="<%= _user['인덱스'] %>" <% if (project.dev.find(function(dev){ return dev['개발자'] === _user['인덱스'] && dev['책임자'] == 1 })) { %> selected <% } %> ><%= _user['이름'] %></option>
+                                                                <% optGroup = _user['지사코드'] %>
+                                                            <% }) %>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <!-- project-manager -->
+
+                                            <!-- project-developer -->
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                                    개발자
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <select class="form-control selectpicker show-tick project-developer" name="project-developer" title="개발자"
+                                                            data-width="fit" data-size="10" multiple data-live-search="true" data-selected-text-format="count > 2">
+                                                            <% var optGroup = '' %>
+                                                            <% users.forEach(function(user){ %>
+                                                                <% if(optGroup !== user['지사코드']) { %>
+                                                                <%  if (optGroup !== '') { %>
+                                                                        </optgroup>
+                                                                    <% } %>
+                                                                    <optgroup label="<%= user['소속'] %>">
+                                                                <% } %>
+                                                                <option value="<%= user['인덱스'] %>" <% if (project.dev.find(function(dev){ return dev['개발자'] === user['인덱스'] })) { %> selected <% } %> ><%= user['이름'] %></option>
+                                                                <% optGroup = user['지사코드'] %>
+                                                            <% }) %>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <!-- project-developer -->
+
+                                            <!-- project-Development Period -->
+                                            <div class="form-group <%- project.info['개발종료일'].length ? '' : 'hidden' %>">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                                    개발완료 예정일
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input type='text' class="form-control datepicker" readonly name="project-development-period" data-viewmode="days" data-format="YYYY년 MM월 DD일" value=""/>
+                                                </div>
+                                            </div>
+                                            <!-- project-Development Period -->
+
+                                            <!-- project-Development type -->
+                                            <div class="form-group <%- project.info['개발종료일'].length ? '' : 'hidden' %>">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                                    개발유형
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <select class="form-control selectpicker show-tick project-type" name="project-development-type" title="개발유형"
+                                                            data-width="100%">
+                                                        <option value="1" <% if (project.info['개발유형ID'] === 1) { %> selected <% } %>>해당병원만 데이터베이스 튜닝작업 (5,000원)</option>
+                                                        <option value="2" <% if (project.info['개발유형ID'] === 2) { %> selected <% } %>>해당병원만 필요로 하는 기능 (요양기관기호 적용하는 경우) (3,000원)</option>
+                                                        <option value="3" <% if (project.info['개발유형ID'] === 3) { %> selected <% } %>>기능요청으로 인한 폼, 클래스, 테이블, 필드 추가 작업 (10,000원)</option>
+                                                        <option value="4" <% if (project.info['개발유형ID'] === 4) { %> selected <% } %>>옵션추가 작업 (5,000원)</option>
+                                                        <option value="5" <% if (project.info['개발유형ID'] === 5) { %> selected <% } %>>출력기능 추가 (10,000원)</option>
+                                                        <option value="6" <% if (project.info['개발유형ID'] === 6) { %> selected <% } %>>새로운 프로그램 개발 (고객에게 견적서 제공이 필요할 정도) (50,000원 또는 견적금액의 5%)</option>
+                                                        <option value="7" <% if (project.info['개발유형ID'] === 7) { %> selected <% } %>>기타 추가 작업 (3,000원)</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <!-- project-Development type -->
+
+                                            <!-- project-uploadedfiles -->
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                                    첨부파일
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <div class="input-group">
+                                                        <label class="input-group-btn">
+                                                            <span class="btn btn-primary">
+                                                                파일첨부 <input type="file" name="uploadfile" multiple id="project-files" data-path="<%= project.info['인덱스'] %>" style="display: none;">
+                                                            </span>
+                                                        </label>
+                                                        <input type="text" class="form-control input input-xs" readonly>
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-success btn-uploader hidden" type="button">업로드</button>
+                                                        </span>
+                                                    </div>
+                                                    <ul class="list-unstyled project_files">
+                                                    <% if(project.files.length) { %>
+                                                    <%  project.files.forEach(function(file, index){ %>
+                                                    <%      if (!file.type.toUpperCase().match(/DIR/)) { %>
+                                                        <li class="m-t-xs m-b-xs p-b-xs">
+                                                            <i class="fa <%- file.icon %>"></i> <%= file.name %>
+                                                            <button class="btn btn-xs btn-link project-file-delete red" type="button" data-index="<%= index %>"><i class="fa fa-close"></i></button>
+                                                        </li>
+                                                    <%      } %>
+                                                    <%  }) %>
+                                                    <% } %>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <!-- project-uploadedfiles -->
+
+                                        </div>
+                                        <!-- column 1 -->
+
+                                        <!-- column 2 -->
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+                                            <div class="form-group">
+                                                <label class="control-label">
+                                                    테스트 내용
+                                                    <span class="required">*</span>
+                                                </label>
+                                                <div class="">
+                                                    <textarea class="form-control" name="project-detail" required="required" rows="10"><%= project.info['상세내용'] %></textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label">
+                                                    확인내용
+                                                    <span class="required">*</span>
+                                                </label>
+                                                <div class="">
+                                                    <textarea class="form-control" name="project-effect" required="required" rows="10"><%= project.info['기대효과'] %></textarea>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <!-- column 2 -->
+
+                                    </div>
+
+                                    <div class="ln_solid"></div>
+                                    <div class="form-group">
+                                        <div class="text-left">
+                                            <a href="/project/view?index=<%= project.info['인덱스'] %>" class="btn btn-primary">취소</a>
+                                            <button type="submit" class="btn btn-success">저장</button>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            <div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<% include ./footer %>

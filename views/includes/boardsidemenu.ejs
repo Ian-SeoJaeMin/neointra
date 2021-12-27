@@ -1,0 +1,53 @@
+<div class="col-md-3 left_col">
+    <div class="left_col scroll-view">
+        <!-- site title -->
+        <div class="navbar nav_title" style="border: 0;">
+            <a href="/" class="site_title"><span><%= title.company_e %></span></a>
+        </div>
+        <div class="clearfix"></div>
+        <!-- profile -->
+        <div class="profile clearfix">            
+            <div class="profile_info">
+                <h2>
+                    <%= board['명칭'] %>
+                </h2>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <!-- profile -->        
+        <br>
+        <!-- sidebar menu -->
+        <div class="main_menu_side hidden-print main_menu" id="sidebar-menu">
+            <div class="menu_section">
+                <ul class="nav side-menu">
+                    <li><a href="/board/manage" class="side-menu"><i class="fa fa-sign-out"></i> 나가기</a></li>
+                </ul>
+            </div>
+            
+            <div class="menu_section">
+                <h3>Element</h3>
+                <ul class="nav side-menu">                    
+                    <li><a class="side-menu board-element" data-element="텍스트" href="#">텍스트</a></li>
+                    <li><a class="side-menu board-element" data-element="멀티텍스트" href="#">멀티텍스트</a></li>
+                    <li><a class="side-menu board-element" data-element="숫자" href="#">숫자</a></li>
+                    <li><a class="side-menu board-element" data-element="드롭박스" href="#">드롭박스</a></li>
+                    <li><a class="side-menu board-element" data-element="날짜" href="#">날짜</a></li>
+                    <li><a class="side-menu board-element" data-element="파일첨부" href="#">파일첨부</a></li>                                            
+                </ul>                
+            </div>
+
+            <div class="menu_section">
+                <h3>Quick Element</h3>
+                <ul class="nav side-menu">                    
+                    <li><a class="side-menu board-element" data-element="직원선택" href="#">직원선택</a></li>
+                    <li><a class="side-menu board-element" data-element="부서선택" href="#">부서선택</a></li>
+                    <li><a class="side-menu board-element" data-element="지사선택" href="#">지사선택</a></li>
+                    <li><a class="side-menu board-element" data-element="프로그램선택" href="#">프로그램선택</a></li>
+                    <li><a class="side-menu board-element" data-element="실행파일선택" href="#">실행파일선택</a></li>
+                </ul>                
+            </div>            
+
+        </div>
+        <!-- sidebar menu -->
+    </div>
+</div>

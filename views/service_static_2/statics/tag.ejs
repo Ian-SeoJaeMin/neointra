@@ -1,0 +1,53 @@
+<div class="x_panel">
+    <div class="x_title">
+        <h3><i class="fa fa-window-maximize"></i> 실행파일별 A/S 발생</h3>
+        <div class="form-inline pull-right breakpoints-xs">
+            <%- include('../../includes/datepicker.ejs', {mobile: false, label:
+            false, name: 'categorys', modal: false, searchBtn: 'ture',
+            classNames: {'inputGroup': 'm-b-none input-group-sm'}}) %>
+        </div>
+
+        <div class="form-inline breakpoints-lg breakpoints-md breakpoints-sm">
+            <%- include('../../includes/datepicker.ejs', {mobile: true, label:
+            false, name: 'categorys', modal: false, searchBtn: 'ture',
+            classNames: {'inputGroup': 'm-b-none input-group-sm'}}) %>
+        </div>
+
+        <div class="form-group m-r-sm pull-right">
+            <select
+                class="selectpicker category-options"
+                id="program"
+                title="프로그램"
+                data-style="btn-sm btn-default"
+                data-width="fit"
+                data-size="5"
+            ></select>
+            <select
+                class="selectpicker category-options"
+                id="exe"
+                title="실행파일"
+                data-style="btn-sm btn-default"
+                data-width="fit"
+                data-size="5"
+            ></select>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+        <div class="row">
+            <div class="col-md-4 col-sm-12 col-xs-12">
+                <div class="chart-container">
+                    <canvas id="mainCategory-chart"></canvas>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12 col-xs-12">
+                <div class="chart-container">
+                    <canvas id="subCategory-chart"></canvas>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12 col-xs-12">
+                <div class="panel list-group" id="category-list"></div>
+            </div>
+        </div>
+    </div>
+</div>

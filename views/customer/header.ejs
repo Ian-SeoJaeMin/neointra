@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=yes">
+    <title>
+        <%= title.company_e %> - 거래처관리
+    </title>
+
+    <% include ../includes/css %>
+
+    <link rel="stylesheet" href="/components/bootstrap-select/dist/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="/css/customer.css">
+
+    <% if (ENV_DEVELOPMENT) { %>
+        <script src="<%= LIVERELOAD %>"></script>
+    <% } %>
+
+    <!-- [if lt IE 9]>
+        <script src="/components/html5shiv/html5shiv.min.js"></script>
+        <script src="/components/respond/respond.min.js"></script>
+    <![endif]-->
+    <!-- <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=d589af33f29fbcd8b9d8564ed9f94c56&libraries=services.clusterer"></script> -->
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d589af33f29fbcd8b9d8564ed9f94c56&libraries=services,clusterer,drawing"></script>
+    <script>
+        (function(){
+            window.params = {
+                user: '<%- JSON.stringify(user) %>',
+                hospital: '<%- typeof hospital !== "undefined" ? JSON.stringify(hospital.info) : null %>'
+            }
+            window.params.user = JSON.parse(window.params.user);
+            window.params.hospital = window.params.hospital ? JSON.parse(window.params.hospital) : null;
+        })();
+    </script>
+</head>
+
+<body class="nav-md">

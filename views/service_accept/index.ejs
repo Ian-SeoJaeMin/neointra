@@ -1,0 +1,170 @@
+<% include ./header %>
+
+<div class="container body">
+    <div class="main_container">
+        <% include ../includes/sidemenu.ejs %>
+        <% include ../includes/topnav.ejs %>
+
+        <div class="right_col" role="main">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title breakpoints-lg breakpoints-md">
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-warning" data-toggle="modal"
+                                        data-target=".service-filter-modal">
+                                        <i class="fa fa-sliders"></i> 검색옵션
+                                    </button>
+                                </span>
+                                <!-- <span class="input-group-addon"><i class="fa fa-search"></i></span> -->
+                                <input type="search" name="service-search" class="form-control" placeholder="AS 검색" />
+                            </div>
+                        </div>
+                        <div class="row x_title breakpoints-sm breakpoints-xs">
+                            <div class="col-md-12">
+                                <blockquote>
+                                    <p>접수 <i class="fa fa-arrow-right"></i> 확인 <b class="red">10분 이내</b> 목표</p>
+                                </blockquote>
+                            </div>
+                            <div class="col-sm-12 col-xs-12">
+                                <div class="form-inline">
+                                    <div class="form-group">
+                                        <select class="form-control selectpicker show-tick service-program" title="프로그램"
+                                            data-width="fit" data-size="5" data-live-search="true">
+                                            <option value=''>전체</option>
+                                            <option value='20'>SenseChart</option>
+                                            <option value='21'>SenseChart(H)</option>
+                                            <option value='8'>MediChart</option>
+                                            <option value='10'>HanimacPro</option>
+                                            <option value='1'>Eplus</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <select class="form-control selectpicker show-tick input-xs service-exe"
+                                            data-live-search="true" data-width="fit" data-size="10" title="실행파일">
+                                            <option value="">전체</option>
+                                            <option value="데스크">데스크</option>
+                                            <option value="진료실">진료실</option>
+                                            <option value="청구심사">청구심사</option>
+                                            <option value="진료지원">진료지원</option>
+                                            <option value="입원수납">입원수납</option>
+                                            <option value="병동">병동</option>
+                                            <option value="문서관리">문서관리</option>
+                                            <option value="통계">통계</option>
+                                            <option value="병원관리">병원관리</option>
+                                            <option value="메인">메인</option>
+                                            <option value="부가서비스">부가서비스</option>
+                                            <option value="기타">기타</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <select class="form-control selectpicker show-tick input-xs service-hospital"
+                                            data-width="fit" data-size="10" title="기관검색">
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="search" name="service-search" class="form-control"
+                                            placeholder="AS 검색" />
+                                    </div>
+                                    <!-- <div class="form-group">
+                                        <button class="form-control btn btn-warning m-b-none" type="button"
+                                            name="service-load">조회</button>
+                                    </div> -->
+                                    <div class="form-group">
+                                        <span class="form-control-static service-count"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="x_content">
+                            <div class="table-responsive">
+                                <table class="table table-linked table-bordered jambo_table service-list">
+                                    <thead>
+                                        <tr>
+                                            <th data-field="인덱스" class="text-center">접수번호</th>
+                                            <th data-field="기관코드" class="text-center">기관기호</th>
+                                            <th data-field="기관명칭">기관명칭</th>
+                                            <th data-field="타입" class="text-center">유형</th>
+                                            <th data-field="병원유형" class="text-center">관계</th>
+                                            <th data-field="계약일" class="text-center">신규</th>
+                                            <th data-field="프로그램" class="text-right">프로그램</th>
+                                            <th data-field="지사">지사</th>
+                                            <th data-field="실행파일">실행파일</th>
+                                            <!-- <th data-field="접수자">접수자</th> -->
+                                            <th data-field="접수일자" class="text-right">접수일</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade service-filter-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="닫기">
+                    <span area-hidden="true">x</span>
+                </button>
+                <h4 class="modal-title">A/S 검색 옵션</h4>
+            </div>
+            <div class="modal-body form-horizontal form-label-left">
+                <div class="form-group">
+                    <select class="form-control selectpicker show-tick service-program" title="프로그램" data-width="fit"
+                        data-size="5" data-live-search="true">
+                        <option value=''>전체</option>
+                        <option value='20'>SenseChart</option>
+                        <option value='21'>SenseChart(H)</option>
+                        <option value='8'>MediChart</option>
+                        <option value='10'>HanimacPro</option>
+                        <option value='1'>Eplus</option>
+                    </select>
+                </div>
+                <div class="divider-dashed"></div>
+                <div class="form-group">
+                    <select class="form-control selectpicker show-tick input-xs service-exe" data-live-search="true"
+                        data-width="fit" data-size="10" title="실행파일">
+                        <option value="">전체</option>
+                        <option value="데스크">데스크</option>
+                        <option value="진료실">진료실</option>
+                        <option value="청구심사">청구심사</option>
+                        <option value="진료지원">진료지원</option>
+                        <option value="입원수납">입원수납</option>
+                        <option value="병동">병동</option>
+                        <option value="문서관리">문서관리</option>
+                        <option value="통계">통계</option>
+                        <option value="병원관리">병원관리</option>
+                        <option value="메인">메인</option>
+                        <option value="부가서비스">부가서비스</option>
+                        <option value="기타">기타</option>
+                    </select>
+                </div>
+                <div class="divider-dashed"></div>
+                <div class="form-group">
+                    <select id="service-hospital" class="form-control selectpicker show-tick input-xs" data-width="fit"
+                        data-size="10" title="기관검색">
+                    </select>
+                </div>
+                <div class="divider-dashed"></div>
+                <div class="form-group">
+                    <input type="search" name="service-search" class="form-control" placeholder="AS 검색" />
+                </div>
+                <!-- <div class="divider-solid"></div>
+                <div class="form-group">
+                    <button class="form-control btn btn-warning m-b-none" type="button" name="service-load">조회</button>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>
+<% include ./footer %>

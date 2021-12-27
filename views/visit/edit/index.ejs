@@ -1,0 +1,195 @@
+<% include ./header %>
+
+<div class="container body">
+    <div class="main_container">
+        <% include ../../includes/sidemenu.ejs %>
+        <% include ../../includes/topnav.ejs %>
+
+        <div class="right_col" role="main">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2><i class="fa fa-car"></i> 방문일정 등록</h2>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <form class="form-horizontal form-label-left">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">일지구분</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" class="flat" value="0" name="visit-gubun" <%- visit['방문유형'] !== 6 && visit['방문유형'] !== 7 ? 'checked' : '' %> > 방문일지
+                                            </label>
+                                            <label>
+                                                <input type="radio" class="flat" value="6" name="visit-gubun" <%- visit['방문유형'] === 6 ? 'checked' : '' %>> 내근
+                                            </label>
+                                            <label>
+                                                <input type="radio" class="flat" value="7" name="visit-gubun" <%- visit['방문유형'] === 7 ? 'checked' : '' %>> 당직
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12"><i class="fa fa-hospital-o"></i> 방문 병원</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select id="visit-hospital" class="form-control selectpicker show-tick" <%- visit['방문유형'] == 6 || visit['방문유형'] == 7 || visit['USER_ID'] == -1 ? 'disabled="disabled"' : '' %> data-width="fit" data-size="10">
+                                            <% if (visit['방문유형'] !== 6 && visit['방문유형'] !== 7 && visit['USER_ID'] != -1) { %>
+                                            <option value="<%= visit['USER_ID'] %>" selected><%= visit['기관명칭'] %></option>
+                                            <% } %>
+                                        </select>
+                                        <input id="visit-unreg-hospital" type="text" class="input form-control <%= visit['방문유형'] !== 6 && visit['방문유형'] !== 7 && visit['USER_ID'] == -1 ? '' : 'hidden' %>" value="<%= visit['방문유형'] !== 6 && visit['방문유형'] !== 7 && visit['USER_ID'] == -1 ? visit['기관명칭'] : '' %>"/>
+                                        <label for="visit-unreg">
+                                            <input id="visit-unreg" type="checkbox" class="flat" name="visit-unreg" placeholder="병원명칭을 입력해주세요." <%- visit['방문유형'] == 6 || visit['방문유형'] == 7 ? 'disabled="disabled"' : '' %> <%- visit['USER_ID'] == -1 && visit['방문유형'] !== 6 && visit['방문유형'] !== 7 ? 'checked' : '' %>>
+                                            미등록거래처
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="divider-dashed"></div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12"><i class="fa fa-car"></i> 회사차량</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select id="visit-car" class="form-control selectpicker show-tick" title="회사차량" data-width="fit" <%- visit['방문유형'] >= 6 ? 'disabled="disabled"' : '' %>>
+                                            <option value="" <% if (visit['회사차량'] === '' || !visit['회사차량']) { %> selected <% } %> >이용안함</option>
+                                            <option value="대중교통" <% if (visit['회사차량'] === '대중교통') { %> selected <% } %> >대중교통</option>
+                                            <option value="자가용" <% if (visit['회사차량'] === '자가용') { %> selected <% } %> >자가용</option>
+                                            <option value="0295" <% if (visit['회사차량'] === '0295') { %> selected <% } %> >0295</option>
+                                            <option value="1408" <% if (visit['회사차량'] === '1408') { %> selected <% } %> >1408</option>
+                                            <option value="5444" <% if (visit['회사차량'] === '5444') { %> selected <% } %> >5444</option>
+                                            <option disabled value="8332" <% if (visit['회사차량'] === '8332') { %> selected <% } %> >8332</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="divider-dashed"></div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12"><i class="fa fa-tags"></i> 방문유형</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select id="visit-type" class="form-control selectpicker show-tick" title="방문유형" data-width="fit" <%- visit['방문유형'] === 6 || visit['방문유형'] === 7 ? 'disabled="disabled"' : '' %>>
+                                                <option value="1" <% if (visit['방문유형'] === 1) { %> selected <% } %> >정기</option>
+                                                <option value="2" <% if (visit['방문유형'] === 2) { %> selected <% } %> >요청</option>
+                                                <option value="3" <% if (visit['방문유형'] === 3) { %> selected <% } %> >긴급</option>
+                                                <option value="4" <% if (visit['방문유형'] === 4) { %> selected <% } %> >영업</option>
+                                                <option value="8" <% if (visit['방문유형'] === 8) { %> selected <% } %> >오픈</option>
+                                                <option value="5" <% if (visit['방문유형'] === 5) { %> selected <% } %> >기타</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="divider-dashed"></div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12"> 방문 시작일</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="form-inline">
+                                            <input type="text" placeholder="방문 시작일" readonly class="input form-control m-b-none" id="visit-start-date" style="width: 150px; margin-bottom: 3px;" value="<%= visit['시작'] %>">
+                                            <select class="selectpicker form-control show-tick" data-size="5" data-width="fit" id="visit-start-time">
+                                                <% for(var i = 6; i <= 23; i++ ) { %>
+                                                <% var time = ( i < 10 ? '0' + i : i) + ':00' %>
+                                                <% var halfTime = ( i < 10 ? '0' + i : i) + ':30' %>
+                                                    <option value="<%= time %>" <% if (visit['시작시간'] === time) { %> selected <% } %> ><%= time %></option>
+                                                    <option value="<%= halfTime %>" <% if (visit['시작시간'] === halfTime) { %> selected <% } %> ><%= halfTime %></option>
+                                                <% } %>
+                                            </select>
+                                            <% if (visit['실시작'] !== '') { %>
+                                                <button class="btn btn-success m-b-none visit-checker" <%- visit['방문유형'] == 6 || visit['방문유형'] == 7 ? 'disabled="disabled"' : '' %> type="button" disabled data-type="start"> <%= visit['실시작'] %> </button>
+                                            <% } else { %>
+                                                <button class="btn btn-success m-b-none visit-checker" <%- visit['방문유형'] == 6 || visit['방문유형'] == 7 ? 'disabled="disabled"' : '' %> type="button" data-index="<%= visit['인덱스'] %>" data-type="start"> 방문시작 </button>
+                                            <% } %>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12"> 방문 종료일</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="form-inline">
+                                            <input type="text" placeholder="방문 종료일" readonly class="input form-control m-b-none" id="visit-end-date" style="width: 150px; margin-bottom: 3px;" value="<%= visit['종료'] %>">
+                                            <select class="selectpicker form-control show-tick" data-size="5" data-width="fit" id="visit-end-time">
+                                                <% for(var i = 6; i <= 23; i++ ) { %>
+                                                <% var time = ( i < 10 ? '0' + i : i) + ':00' %>
+                                                <% var halfTime = ( i < 10 ? '0' + i : i) + ':30' %>
+                                                    <option value="<%= time %>" <% if (visit['종료시간'] === time) { %> selected <% } %> ><%= time %></option>
+                                                    <option value="<%= halfTime %>" <% if (visit['종료시간'] === halfTime) { %> selected <% } %> ><%= halfTime %></option>
+                                                <% } %>
+                                            </select>
+                                            <% if (visit['실종료'] !== '') { %>
+                                                <button class="btn btn-success m-b-none m-b-none visit-checker" <%- visit['방문유형'] == 6 || visit['방문유형'] == 7 ? 'disabled="disabled"' : '' %> type="button" disabled data-type="end"> <%= visit['실종료'] %> </button>
+                                            <% } else { %>
+                                                <button class="btn btn-success m-b-none m-b-none visit-checker" <%- visit['방문유형'] == 6 || visit['방문유형'] == 7 ? 'disabled="disabled"' : '' %> type="button" data-index="<%= visit['인덱스'] %>" data-type="end"> 방문종료 </button>
+                                            <% } %>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="divider-dashed"></div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12"><i class="fa fa-comments"></i> 내용</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12 col-xs-12">
+                                            <textarea class="form-control" rows="15" id="visit-comment" data-convert="<%= visit['컨버전'] %>"><% if (!visit['내용']) { visit['내용'] = '' } %>
+<%- visit['내용'].replace(/<br>/gim, '\n').replace(/<div>/gim, '').replace(/<\/div>/gim, '\n') %>
+                                            </textarea>
+                                    </div>
+                                </div>
+
+                                <div class="divider-dashed"></div>
+
+                                <div class="form-group element-upload">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12"> 
+                                        <i class="fa fa-file"></i> 파일첨부
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="input-group">
+                                            <label class="input-group-btn">
+                                                <span class="btn btn-primary"> 
+                                                    찾아보기 <input type="file" 
+                                                                    data-name="첨부파일" 
+                                                                    data-label="첨부파일" 
+                                                                    name="uploadfile" 
+                                                                    style="display: none;" 
+                                                                    multiple
+                                                                    accept="image/*">
+                                                </span>
+                                            </label>
+                                            <input type="text" class="form-control input input-xs" readonly>
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-success btn-uploader hidden" type="button">업로드</button>
+                                            </span>
+                                        </div>                                        
+                                        <ul class="list-unstyled uploaded-file-list">                                            
+                                            <% visit['첨부파일'].forEach(function(upfile, index){ %>
+                                            <li class="m-t-xs m-b-xs p-b-xs">
+                                                <i class="fa <%= upfile.icon %> "></i> <%= upfile.name %>
+                                                <button class="btn btn-xs btn-link upload-file-delete red" type="button" data-index="<%=index%>"><i class="fa fa-close"></i></button>
+                                            </li>
+                                            <% }) %>
+                                                 
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="divider"></div>
+
+                                <div class="form-group">
+                                    <div class="col-md-9 col-md-6 col-sm-6 col-xs-12 col-xs-12 col-md-offset-3">
+                                        <a href="/customer/visit" class="btn btn-default">취소</a>
+                                        <button type="button" class="btn btn-primary" data-index="<%= visit['인덱스'] %>" id="visit-save">수정</button>
+                                        <button type="button" class="btn btn-danger" data-index="<%= visit['인덱스'] %>" id="visit-delete">삭제</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include ./footer %>

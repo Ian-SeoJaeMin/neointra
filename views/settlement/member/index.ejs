@@ -1,0 +1,171 @@
+<% include ./header %>
+
+<div class="container body">
+    <div class="main_container">
+        <% include ../../includes/sidemenu.ejs %>
+        <% include ../../includes/topnav.ejs %>
+
+        <div class="right_col" role="main">
+            <div class="">
+
+                <div class="row">
+
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <div class="form-inline">
+                                    <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-primary" id="export"><i class="fa fa-file-excel-o"></i></button>
+                                        </span>
+                                        <input type='text' class="form-control datepicker" readonly />
+                                        <span class="input-group-btn">
+                                            <select class="selectpicker show-tick managers" title="담당자"
+                                                data-live-search="true" data-width="fit">
+                                            </select>
+                                        </span>
+                                    </div>
+                                    <button type="button" class="btn btn-danger m-b-sm" id="closed">정산마감</button>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <table class="table settlement table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="12">
+                                                <h4 class="title">입금내역 (총무과 작성)</h4>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th class="bg-navy">N.</th>
+                                            <th class="bg-navy">거래처</th>
+                                            <th class="bg-navy">프로그램</th>
+                                            <th class="bg-navy text-right">유지보수금액</th>
+                                            <th class="bg-navy text-right">입금내역</th>
+                                            <th class="bg-navy text-right">유지보수입금</th>
+                                            <th class="bg-navy text-right">유지보수 외</th>
+                                            <th class="bg-navy text-right">수당</th>
+                                            <th class="bg-navy text-right">지급액</th>
+                                            <th class="bg-navy text-right">미수잔액</th>
+                                            <th class="bg-navy">비고</th>
+                                            <th class="bg-navy">ACT.</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="sales_details" class="settlement-table">
+                                    </tbody>
+
+                                    <thead>
+                                        <tr>
+                                            <th colspan="12"></th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="12">
+                                                <h4 class="title">연유지거래처</h4>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th class="bg-navy">N.</th>
+                                            <th class="bg-navy">거래처</th>
+                                            <th class="bg-navy">프로그램</th>
+                                            <th class="bg-navy text-right">유지보수금액</th>
+                                            <th class="bg-navy text-right">입금내역</th>
+                                            <th class="bg-navy text-right">유지보수입금</th>
+                                            <th class="bg-navy text-right">유지보수 외</th>
+                                            <th class="bg-navy text-right">수당</th>
+                                            <th class="bg-navy text-right">지급액</th>
+                                            <th class="bg-navy text-right">미수잔액</th>
+                                            <th class="bg-navy">비고</th>
+                                            <th class="bg-navy"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="year_maintaince" class="settlement-table">
+                                    </tbody>
+
+                                    <thead>
+                                        <tr>
+                                            <th colspan="12"></th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="11">
+                                                <h4 class="title">신규영업현황 (프로그램 신규판매)</h4>
+                                            </th>
+                                            <th class="text-right"><button type="button" class="btn btn-success <%- user['인덱스'] === 4 || (user['설정'].admin && user['설정'].admin === 1) ? '' : 'hidden' %> "
+                                                    id="add-row"><i class="fa fa-plus"></i></button></th>
+                                        </tr>
+                                        <tr>
+                                            <th class="bg-navy">N.</th>
+                                            <th class="bg-navy">거래처</th>
+                                            <th class="bg-navy">품목</th>
+                                            <th class="bg-navy text-right">금액</th>
+                                            <th class="bg-navy text-right">입금액</th>
+                                            <th class="bg-navy text-right">순수익</th>
+                                            <th class="bg-navy text-right">수당지급률</th>
+                                            <th class="bg-navy text-right">영업수당</th>
+                                            <th class="bg-navy" colspan="4">ACT.</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="new_sales" class="settlement-table">
+                                    </tbody>
+
+                                    <thead>
+                                        <tr>
+                                            <th colspan="12"></th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="12">
+                                                <h4 class="title">유지보수 외 입금액</h4>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th class="bg-navy">N.</th>
+                                            <th class="bg-navy">거래처</th>
+                                            <th class="bg-navy">품목</th>
+                                            <th class="bg-navy text-right">금액</th>
+                                            <th class="bg-navy text-right">입금액</th>
+                                            <th class="bg-navy text-right">원가금액</th>
+                                            <th class="bg-navy text-right">순수익</th>
+                                            <th class="bg-navy text-right">판매수당</th>
+                                            <th class="bg-navy" colspan="4">ACT.</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="sales" class="settlement-table">
+                                    </tbody>
+
+                                    <thead>
+                                        <tr>
+                                            <th colspan="12"></th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="12">
+                                                <h4 class="title">수당지급 내역</h4>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th class="bg-navy">구분</th>
+                                            <th class="bg-navy">납품일</th>
+                                            <th class="bg-navy">거래처</th>
+                                            <th class="bg-navy">품목</th>
+                                            <th class="bg-navy text-right">금액</th>
+                                            <th class="bg-navy text-right">원가</th>
+                                            <th class="bg-navy text-right">지급액</th>
+                                            <th class="bg-navy" colspan="5"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="payment_table" class="settlement-table">
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<% include ./footer %>

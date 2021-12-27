@@ -1,0 +1,93 @@
+<div class="x_panel">
+
+    <div class="x_title">
+        <div class="form-inline">
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-primary" id="export"><i
+                            class="fa fa-file-excel-o"></i></button>
+                </span>
+                <input type='text' class="form-control datepicker static" readonly />
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="x_content">
+        <table class="table table-hover table-bordered">
+            <thead>
+                <th class="bg-navy text-center" colspan="2">지사</th>
+                <% for(var i=1; i<=12; i++) { %>
+                <th class="bg-navy text-right"><%= i%>월</th>
+                <% } %>
+            </thead>
+            <tbody id="static-body" class="ssmall">
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<table class="hidden static-row-template">
+    <tr>
+        <th rowspan="4" class="area-name" style="border-bottom: 2px solid #000 !important;"></th>
+        <th>본사금액(①)</th>
+        <td id="parent-01" class="text-right month-01"></td>
+        <td id="parent-02" class="text-right month-02"></td>
+        <td id="parent-03" class="text-right month-03"></td>
+        <td id="parent-04" class="text-right month-04"></td>
+        <td id="parent-05" class="text-right month-05"></td>
+        <td id="parent-06" class="text-right month-06"></td>
+        <td id="parent-07" class="text-right month-07"></td>
+        <td id="parent-08" class="text-right month-08"></td>
+        <td id="parent-09" class="text-right month-09"></td>
+        <td id="parent-10" class="text-right month-10"></td>
+        <td id="parent-11" class="text-right month-11"></td>
+        <td id="parent-12" class="text-right month-12"></td>
+    </tr>
+    <tr>
+        <th>지사금액(②)</th>
+        <td id="area-01" class="text-right month-01"></td>
+        <td id="area-02" class="text-right month-02"></td>
+        <td id="area-03" class="text-right month-03"></td>
+        <td id="area-04" class="text-right month-04"></td>
+        <td id="area-05" class="text-right month-05"></td>
+        <td id="area-06" class="text-right month-06"></td>
+        <td id="area-07" class="text-right month-07"></td>
+        <td id="area-08" class="text-right month-08"></td>
+        <td id="area-09" class="text-right month-09"></td>
+        <td id="area-10" class="text-right month-10"></td>
+        <td id="area-11" class="text-right month-11"></td>
+        <td id="area-12" class="text-right month-12"></td>
+    </tr>
+    <tr>
+        <th>부가서비스(③)</th>
+        <td id="extra-01" class="text-right month-01"></td>
+        <td id="extra-02" class="text-right month-02"></td>
+        <td id="extra-03" class="text-right month-03"></td>
+        <td id="extra-04" class="text-right month-04"></td>
+        <td id="extra-05" class="text-right month-05"></td>
+        <td id="extra-06" class="text-right month-06"></td>
+        <td id="extra-07" class="text-right month-07"></td>
+        <td id="extra-08" class="text-right month-08"></td>
+        <td id="extra-09" class="text-right month-09"></td>
+        <td id="extra-10" class="text-right month-10"></td>
+        <td id="extra-11" class="text-right month-11"></td>
+        <td id="extra-12" class="text-right month-12"></td>
+    </tr>
+    <tr style="border-bottom: 2px solid #000 !important;">
+        <th>지사총액(②+③)</th>
+        <td id="areaextra-01" class="text-right month-01"></td>
+        <td id="areaextra-02" class="text-right month-02"></td>
+        <td id="areaextra-03" class="text-right month-03"></td>
+        <td id="areaextra-04" class="text-right month-04"></td>
+        <td id="areaextra-05" class="text-right month-05"></td>
+        <td id="areaextra-06" class="text-right month-06"></td>
+        <td id="areaextra-07" class="text-right month-07"></td>
+        <td id="areaextra-08" class="text-right month-08"></td>
+        <td id="areaextra-09" class="text-right month-09"></td>
+        <td id="areaextra-10" class="text-right month-10"></td>
+        <td id="areaextra-11" class="text-right month-11"></td>
+        <td id="areaextra-12" class="text-right month-12"></td>
+    </tr>
+</table>

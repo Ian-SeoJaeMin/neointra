@@ -1,0 +1,82 @@
+<% include ./header %>
+
+<div class="container body">
+    <div class="main_container">
+        <% include ../../includes/sidemenu.ejs %>
+        <% include ../../includes/topnav.ejs %>
+
+        <div class="right_col" role="main">
+            <div class="">                    
+                <div class="title_right">
+                    <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right text-right top_search">
+                        <a href="/board?index=<%=board['게시판ID']%>" type="button" class="btn btn-link">목록으로</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">                    
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>[<%= board['인덱스']%>] <%= board['데이터'][Object.keys(board['데이터'])[0]] %></h2>                                       
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">    
+                            <div class="col-md-<%= board['댓글'] === 0 ? '6' : '12' %> col-sm-12 col-xs-12">
+                                <form class="form-horizontal">
+                                    <% Object.keys(board['데이터']).forEach(function(key, index){ %>            
+                                    <% if (index > 0 ) { %> 
+                                    <div class="divider-dashed"></div>
+                                    <% } %>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-2" for="<%=key%>"><%=key%>:</label>
+                                        <div class="col-sm-10">
+                                        <% if (typeof board['데이터'][key] === 'object') { %> 
+                                            <ul class="list-unstyled">
+                                                <% board['데이터'][key].forEach(function(item){ %>                                
+                                                    <% if (item.icon === 'fa-file-image-o') { %>
+                                                        <li>                                                        
+                                                            <img style="width:100%;" data-imageviewer="true" src="<%=item['oPath']%>" data-high-src="<%=item['oPath']%>" data-tooltip="tooltip" title="이미지를 더블클릭하면 크게 볼 수 있습니다."/>                                                                                  
+                                                        </li>
+                                                    <% } else { %>
+                                                        <li>
+                                                            <a href="<%=item['oPath']%>" download>
+                                                                <i class="fa <%=item['icon']%>"></i> <%=item['name']%>
+                                                            </a>
+                                                        </li>
+                                                    <% } %>
+                                                <% }) %>
+                                            </ul>
+                                        <% } else { %>
+                                            <p class="form-control-static"><%- board['데이터'][key].replace(/\n/gim, '<br>') %></p>
+                                        <% } %>
+                                        </div>
+                                    </div>
+                                    <% }) %>
+                                    <div class="form-group">
+                                        <div class="col-sm-12 text-right">
+                                            <p class="form-control-static"><i class="fa fa-edit"></i> <%= board['작성자명'] %> / <%= board['작성일자'] %></p>
+                                        </div>
+                                    </div>
+                                </form>
+                                <% if (board['작성자'] === user['인덱스']) { %> 
+                                <div class="divider"></div>
+                                <div class="form-group text-right">
+                                    <button type="button" class="btn btn-default btn-sm board-tools" data-category="<%=board['게시판ID']%>" data-article="<%=board['인덱스']%>" data-tool="edit">수정</button>
+                                    <button type="button" class="btn btn-danger btn-sm board-tools" data-category="<%=board['게시판ID']%>" data-article="<%=board['인덱스']%>" data-tool="delete">삭제</button>
+                                </div>
+                                <% } %>
+                            </div>
+                            <% if (board['댓글'] === 0) { %> 
+                            <div class="col-md-6 col-sm-12 col-xs-12">
+                                <%- include('../../includes/reply.ejs', {replys: replys, table: 'N_리플', category: board['게시판ID'], article: board['인덱스'], template: board['댓글양식']}) %>
+                            </div>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+<% include ./footer %>

@@ -1,0 +1,115 @@
+<% include ./header %>
+
+<div class="container body">
+<div class="main_container">
+<% include ../includes/sidemenu.ejs %>
+<% include ../includes/topnav.ejs %>
+
+<div class="right_col" role="main">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h3>
+                        <i class="fa fa-tags"></i> 태그관리
+                    </h3>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-9 text-right">
+                                <!-- <p class="font-bold red">추가 정보는 <code>, (콤마)</code>를 이용해서 추가해주세요</p> -->
+                                <select class="selectpicker" id="tag-exe" data-size="5" data-live-search="true" title="실행파일">
+                                    <option value="데스크">데스크</option>
+                                    <option value="진료실">진료실</option>
+                                    <option value="청구심사">청구심사</option>
+                                    <option value="진료지원">진료지원</option>
+                                    <option value="입원수납">입원수납</option>
+                                    <option value="병원관리">병원관리</option>
+                                    <option value="병동">병동</option>
+                                    <option value="문서관리">문서관리</option>
+                                    <option value="통계">통계</option>
+                                    <option value="메인">메인</option>
+                                    <option value="부가서비스">부가서비스</option>
+                                    <option value="기타">기타</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <div class="input-group">
+
+                                    <span class="input-group-addon"><i class="fa fa-search" aria-hidden="true"></i></span>
+                                    <input type="text" class="form-control tag-search" placeholder="태그검색"/>
+                                    <div class="input-group-btn">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tagForm">추가</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <table class="table table-bordered small">
+                                <thead>
+                                    <tr>
+                                        <!-- <th class="text-center">N</th> -->
+                                        <th class="text-center">실행파일</th>
+                                        <th class="text-center">대분류</th>
+                                        <th class="text-center">중분류</th>
+                                        <th class="text-center" width="15%">ACT</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tag-list"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<div class="modal fade tag-detail-modal" id="tagForm" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="vertical-container">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">태그관리</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="tag-form">
+                        <div class="form-group">
+                            <label for="tag-exe">실행파일:</label>
+                            <select class="selectpicker form-control" required id="tag-exe" data-size="5" data-width="fit" data-live-search="true" title="실행파일">
+                                <option value="데스크">데스크</option>
+                                <option value="진료실">진료실</option>
+                                <option value="청구심사">청구심사</option>
+                                <option value="진료지원">진료지원</option>
+                                <option value="입원수납">입원수납</option>
+                                <option value="병원관리">병원관리</option>
+                                <option value="병동">병동</option>
+                                <option value="문서관리">문서관리</option>
+                                <option value="통계">통계</option>
+                                <option value="메인">메인</option>
+                                <option value="부가서비스">부가서비스</option>
+                                <option value="기타">기타</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="main-category">대분류:</label>
+                            <input type="text" class="form-control" id="main-category" required>
+                        </div>
+                        <div class="form-group">
+                            <labal for="sub-category">중분류:</labal>
+                            <input type="text" class="form-control" id="sub-category" required>
+                        </div>
+                        <button type="submit" class="btn btn-success">저장</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<% include ./footer %>

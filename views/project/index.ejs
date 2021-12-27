@@ -1,0 +1,172 @@
+<% include ./header %>
+<div class="container body">
+    <div class="main_container">
+        <% include ../includes/sidemenu.ejs %>
+        <% include ../includes/topnav.ejs %>
+
+        <div class="right_col" role="main">
+            <div class="page-title">
+                <div class="title_left m-b-xs">
+                    <h3><i class="fa fa-tasks"></i> 프로젝트 </h3>
+                    <center>
+                        <img src="/images/project.png" class="img-rounded img-responsive" alt="">
+                    </center>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title breakpoints-lg breakpoints-md m-t-sm">
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-warning" data-toggle="modal"
+                                        data-target=".project-filter-modal">
+                                        <i class="fa fa-sliders"></i> 검색옵션
+                                    </button>
+                                </span>
+                                <input type="search" name="project-search" class="form-control" placeholder="프로젝트 검색" />
+                                <span class="input-group-btn">
+                                    <a class="btn btn-primary project-write" href="/project/write"><i
+                                            class="fa fa-plus"></i></a>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row x_title breakpoints-sm breakpoints-xs">
+
+                            <div class="col-md-6 col-xs-12">
+                                <%- include('../includes/datepicker.ejs', {mobile: false, label: false, name: 'project', modal: false}) %>
+                                <select class="form-control selectpicker show-tick project-program" title="프로그램"
+                                    data-width="fit">
+                                    <option value="">전체</option>
+                                    <option value="0">공통</option>
+                                    <option value="24">SensePlus</option>
+                                    <option value="20">SenseChart</option>
+                                    <option value="21">SenseChart(H)</option>
+                                    <option value="8">MediChart</option>
+                                    <option value="1">Eplus</option>
+                                    <option value="10">HanimacPro</option>
+                                </select>
+                                <select class="form-control selectpicker show-tick project-status" title="상태"
+                                    data-width="fit" data-size="5">
+                                    <option value="">전체</option>
+                                    <option value="0">접수</option>
+                                    <option value="1">회의중</option>
+                                    <option value="2">개발중</option>
+                                    <option value="3">개발테스트</option>
+                                    <option value="4">개발완료</option>
+                                    <option value="5">사용테스트</option>
+                                    <option value="6">완료</option>
+                                    <option value="7">보류</option>
+                                    <option value="10">취소</option>
+                                </select>
+                                <select class="form-control selectpicker show-tick project-writer" title="등록자"
+                                    data-width="fit" data-size="5" data-live-search="true">
+                                    <option value="">전체</option>
+                                </select>
+                                <select class="form-control selectpicker show-tick project-developer" title="참여자"
+                                    data-width="fit" data-size="5" data-live-search="true">
+                                    <option value="">전체</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 col-xs-12">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                    <input type="search" name="project-search" class="form-control"
+                                        placeholder="프로젝트 검색(인덱스, 명칭, 내용)" />
+                                    <span class="input-group-btn">
+                                        <a class="btn btn-primary project-write" href="/project/write">프로젝트 등록</a>
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="x_content">
+                            <table class="table jambo_table table-linked project-list breakpoints-sm breakpoints-xs">
+                                <thead>
+                                    <tr class="breakpoints-sm breakpoints-xs">
+                                        <th data-field="인덱스">N.<i class="m-l-xs sort fa fa-sort-amount-desc"></i></th>
+                                        <th data-field="프로젝트명">프로젝트명</th>
+                                        <th data-field="프로그램">프로그램</th>
+                                        <th>참여자</th>
+                                        <th data-field="상태">상태</th>
+                                        <th data-field="등록자명">등록자</th>
+                                        <th data-field="등록일자">등록일</th>
+                                        <th data-field="수정일자">수정일</th>
+                                        <th>댓글</th>
+                                        <% if (user['인덱스'] === 196 || user['인덱스'] === 43 || user['인덱스'] === 13 || user['인덱스'] === 5 || user['인덱스'] === 89) { %>
+                                        <th>인센</th>
+                                        <% } %>
+                                    </tr>
+                                </thead>
+                                <tbody id="project-desktop">
+                                </tbody>
+                            </table>
+                            <div id="project-mobile" class="breakpoints-lg breakpoints-md"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade project-filter-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="닫기"><span
+                        area-hidden="true">x</span></button>
+                <h4 class="modal-title">프로젝트 검색 옵션</h4>
+            </div>
+            <div class="modal-body form-horizontal form-label-left">
+                <%- include('../includes/datepicker.ejs', {mobile: true, label: true, name: "project", modal: true}) %>
+                <div class="form-group">
+                    <p class="text-muted"><b>프로그램</b></p>
+                    <select class="form-control selectpicker show-tick project-program" title="프로그램" data-width="fit"
+                        data-mobile="true">
+                        <option value="20">SenseChart</option>
+                        <option value="21">SenseChart(H)</option>
+                        <option value="8">MediChart</option>
+                        <option value="1">Eplus</option>
+                        <option value="10">HanimacPro</option>
+                    </select>
+                </div>
+                <div class="divider-dashed"></div>
+                <div class="form-group">
+                    <p class="text-muted"><b>상태</b></p>
+                    <select class="form-control selectpicker show-tick project-status" title="상태" data-width="fit"
+                        data-mobile="true">
+                        <option value="" selected>전체</option>
+                        <option value="0">접수</option>
+                        <option value="1">회의중</option>
+                        <option value="2">개발중</option>
+                        <option value="3">개발테스트</option>
+                        <option value="4">개발완료</option>
+                        <option value="5">사용테스트</option>
+                        <option value="6">완료</option>
+                        <option value="7">보류</option>
+                        <option value="10">취소</option>
+                    </select>
+                </div>
+                <div class="divider-dashed"></div>
+                <div class="form-group">
+                    <p class="text-muted"><b>등록자</b></p>
+                    <select class="form-control selectpicker show-tick project-writer" title="등록자" data-width="fit"
+                        data-size="5" data-mobile="true">
+                        <option value="">전체</option>
+                    </select>
+                </div>
+
+                <div class="divider-dashed"></div>
+                <div class="form-group">
+                    <p class="text-muted"><b>참여자</b></p>
+                    <select class="form-control selectpicker show-tick project-developer" title="참여자" data-width="fit"
+                        data-size="5" data-mobile="true">
+                        <option value="">전체</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<% include ./footer %>

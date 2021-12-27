@@ -1,0 +1,362 @@
+<div class="x_panel">
+    <div class="x_title">
+        <div class="form-inline">
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-primary" id="export">
+                        <i class="fa fa-file-excel-o"></i>
+                    </button>
+                </span>
+                <input type="text" class="form-control datepicker area" readonly />
+                <span class="input-group-btn">
+                    <select class="selectpicker show-tick areas" title="지사" data-live-search="true" data-width="fit"
+                        data-size="5">
+                    </select>
+                </span>
+            </div>
+            <button type="button" class="btn btn-danger m-b-sm" id="closed">
+                정산마감
+            </button>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+        <table class="table settlement wrapper">
+            <thead>
+                <tr>
+                    <th>
+                        <h4 class="title">연유지보수거래처</h4>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <table class="table table-hover table-bordered settlement">
+                            <thead>
+                                <tr>
+                                    <th class="bg-navy">N.</th>
+                                    <th class="bg-navy">구분</th>
+                                    <th class="bg-navy">기관기호</th>
+                                    <th class="bg-navy">기관명칭</th>
+                                    <th class="bg-navy">프로그램</th>
+                                    <th class="bg-navy text-right">
+                                        유지보수금액
+                                    </th>
+                                    <th class="bg-navy text-right">입금내역</th>
+                                    <th class="bg-navy text-right">유지보수</th>
+                                    <th class="bg-navy text-right">정액</th>
+                                    <th class="bg-navy text-right">정률</th>
+                                    <th class="bg-navy text-right">미수금</th>
+                                    <th class="bg-navy">비고</th>
+                                    <th class="bg-navy">ACT.</th>
+                                </tr>
+                            </thead>
+                            <tbody id="year_maintaince" class="settlement-table"></tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+
+            <thead>
+                <tr>
+                    <th>
+                        <h4 class="title">월유지보수(CMS출금거래처)</h4>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <table class="table table-hover table-bordered settlement">
+                            <thead>
+                                <tr>
+                                    <th class="bg-navy">N.</th>
+                                    <th class="bg-navy">구분</th>
+                                    <th class="bg-navy">기관기호</th>
+                                    <th class="bg-navy">기관명칭</th>
+                                    <th class="bg-navy">프로그램</th>
+                                    <th class="bg-navy text-right">
+                                        유지보수금액
+                                    </th>
+                                    <th class="bg-navy text-right">입금내역</th>
+                                    <th class="bg-navy text-right">유지보수</th>
+                                    <th class="bg-navy text-right">정액</th>
+                                    <th class="bg-navy text-right">정률</th>
+                                    <th class="bg-navy text-right">미수금</th>
+                                    <th class="bg-navy">비고</th>
+                                    <th class="bg-navy">ACT.</th>
+                                </tr>
+                            </thead>
+                            <tbody id="cms" class="settlement-table"></tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+
+            <thead class="area_0021 hidden">
+                <tr>
+                    <th>
+                        <h4 class="title">부산본사거래처</h4>
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="area_0021 hidden">
+                <tr>
+                    <td>
+                        <table class="table table-hover table-bordered settlement">
+                            <thead>
+                                <tr>
+                                    <th class="bg-navy">N.</th>
+                                    <th class="bg-navy">구분</th>
+                                    <th class="bg-navy">기관기호</th>
+                                    <th class="bg-navy">기관명칭</th>
+                                    <th class="bg-navy">프로그램</th>
+                                    <th class="bg-navy text-right">
+                                        유지보수금액
+                                    </th>
+                                    <th class="bg-navy text-right">입금내역</th>
+                                    <th class="bg-navy text-right">유지보수</th>
+                                    <th class="bg-navy text-right">정액</th>
+                                    <th class="bg-navy text-right">정률</th>
+                                    <th class="bg-navy text-right">미수금</th>
+                                    <th class="bg-navy">비고</th>
+                                    <th class="bg-navy">ACT.</th>
+                                </tr>
+                            </thead>
+                            <tbody id="busan" class="settlement-table"></tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+            <thead class="area_0021 hidden">
+                <tr>
+                    <th>
+                        <h4 class="title">메디남부거래처</h4>
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="area_0021 hidden">
+                <tr>
+                    <td>
+                        <table class="table table-hover table-bordered settlement">
+                            <thead>
+                                <tr>
+                                    <th class="bg-navy">N.</th>
+                                    <th class="bg-navy">구분</th>
+                                    <th class="bg-navy">기관기호</th>
+                                    <th class="bg-navy">기관명칭</th>
+                                    <th class="bg-navy">프로그램</th>
+                                    <th class="bg-navy text-right">
+                                        유지보수금액
+                                    </th>
+                                    <th class="bg-navy text-right">입금내역</th>
+                                    <th class="bg-navy text-right">유지보수</th>
+                                    <th class="bg-navy text-right">정액</th>
+                                    <th class="bg-navy text-right">정률</th>
+                                    <th class="bg-navy text-right">미수금</th>
+                                    <th class="bg-navy">비고</th>
+                                    <th class="bg-navy">ACT.</th>
+                                </tr>
+                            </thead>
+                            <tbody id="nambu" class="settlement-table"></tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+
+            <thead class="area_0021 hidden">
+                <tr>
+                    <th>
+                        <h4 class="title">폴라리스이관거래처</h4>
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="area_0021 hidden">
+                <tr>
+                    <td>
+                        <table class="table table-hover table-bordered settlement">
+                            <thead>
+                                <tr>
+                                    <th class="bg-navy">N.</th>
+                                    <th class="bg-navy">구분</th>
+                                    <th class="bg-navy">기관기호</th>
+                                    <th class="bg-navy">기관명칭</th>
+                                    <th class="bg-navy">프로그램</th>
+                                    <th class="bg-navy text-right">
+                                        유지보수금액
+                                    </th>
+                                    <th class="bg-navy text-right">입금내역</th>
+                                    <th class="bg-navy text-right">유지보수</th>
+                                    <th class="bg-navy text-right">정액</th>
+                                    <th class="bg-navy text-right">정률</th>
+                                    <th class="bg-navy text-right">미수금</th>
+                                    <th class="bg-navy">비고</th>
+                                    <th class="bg-navy">ACT.</th>
+                                </tr>
+                            </thead>
+                            <tbody id="polaris" class="settlement-table"></tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+
+            <thead>
+                <tr>
+                    <th>
+                        <h4 class="title">계좌입금거래처</h4>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <table class="table table-hover table-bordered settlement">
+                            <thead>
+                                <tr>
+                                    <th class="bg-navy">N.</th>
+                                    <th class="bg-navy">구분</th>
+                                    <th class="bg-navy">기관기호</th>
+                                    <th class="bg-navy">기관명칭</th>
+                                    <th class="bg-navy">프로그램</th>
+                                    <th class="bg-navy text-right">
+                                        유지보수금액
+                                    </th>
+                                    <th class="bg-navy text-right">입금내역</th>
+                                    <th class="bg-navy text-right">유지보수</th>
+                                    <th class="bg-navy text-right">정액</th>
+                                    <th class="bg-navy text-right">정률</th>
+                                    <th class="bg-navy text-right">미수금</th>
+                                    <th class="bg-navy">비고</th>
+                                    <th class="bg-navy">ACT.</th>
+                                </tr>
+                            </thead>
+                            <tbody id="account" class="settlement-table"></tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+
+            <tbody>
+                <tr>
+                    <td>
+                        <table class="table table-hover table-bordered settlement">
+                            <thead>
+                                <tr>
+                                    <th class="text-center bg-navy" rowspan="2">
+                                        EMR
+                                    </th>
+                                    <th class="text-center bg-navy" colspan="3">
+                                        정률
+                                    </th>
+                                    <th class="text-center bg-navy" colspan="2">
+                                        정액
+                                    </th>
+                                    <th class="text-center bg-navy" rowspan="2">
+                                        기타
+                                    </th>
+                                    <th class="text-center bg-navy" rowspan="2">
+                                        합계
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th class="text-center bg-navy">40%</th>
+                                    <th class="text-center bg-navy">50%</th>
+                                    <th class="text-center bg-navy">60%</th>
+                                    <th class="text-center bg-navy">
+                                        지사금액
+                                    </th>
+                                    <th class="text-center bg-navy">기타</th>
+                                </tr>
+                            </thead>
+                            <tbody id="emrCount" class="settlement-table"></tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+
+            <thead>
+                <tr>
+                    <th>
+                        <h4 class="title">합계</h4>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <table class="table table-hover table-bordered settlement">
+                            <thead>
+                                <tr>
+                                    <th class="bg-navy">구분</th>
+                                    <th class="bg-navy text-right">
+                                        유지보수금액
+                                    </th>
+                                    <th class="bg-navy text-right">입금내역</th>
+                                    <th class="bg-navy text-right">유지보수</th>
+                                    <th class="bg-navy text-right">미수금</th>
+                                    <th class="bg-navy">비고</th>
+                                    <th class="bg-navy">ACT.</th>
+                                </tr>
+                            </thead>
+                            <tbody id="payment" class="settlement-table"></tbody>
+                            <tbody class="settlement-table">
+                                <tr>
+                                    <th class="bg-navy">본사금액(G)</th>
+                                    <td></td>
+                                    <td class="text-right" id="parent"></td>
+                                    <td id="parent-explain" colspan="4"></td>
+                                </tr>
+                                <tr>
+                                    <th class="bg-navy">지사금액(H)</th>
+                                    <td></td>
+                                    <td class="text-right" id="area"></td>
+                                    <td id="area-explain" colspan="4"></td>
+                                </tr>
+                                <tr>
+                                    <th class="bg-navy">지사금액(F)</th>
+                                    <td class="text-right">합계</td>
+                                    <td class="text-right" id="area-final"></td>
+                                    <th class="bg-navy">CMS 수수료</th>
+                                    <td class="text-right" id="cms-fee"></td>
+                                    <td colspan="2"></td>
+                                </tr>
+                            </tbody>
+                            <tbody>
+                                <tr>
+                                    <th class="bg-navy">부가서비스(E)</th>
+                                    <td class="text-right">합계</td>
+                                    <td class="text-right" id="extra-service"></td>
+                                    <th class="bg-navy">CRM</th>
+                                    <td class="text-right" id="extra-service-crm"></td>
+                                    <th class="bg-navy">카드</th>
+                                    <td class="text-right" id="extra-service-card"></td>
+                                </tr>
+                                <tr>
+                                    <th></th>
+                                    <td class="text-right">H + E =</td>
+                                    <td class="text-right" id="area-total"></td>
+                                    <td colspan="4"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+            <thead>
+                <tr>
+                    <th>
+                        <h4 class="title">메모</h4>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td id="settlement-memo">
+                        <textarea class="form-control" rows="10"></textarea>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

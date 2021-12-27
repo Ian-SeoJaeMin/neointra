@@ -1,0 +1,245 @@
+<% include ./header %>
+
+<div class="middle-box text-center loginscreen landingscreen animated fadeInDown p-w-md">
+    <div>
+        <div>
+
+            <h1 class="logo-name"><img src="/images/RightClick_ICON.jpg" /></h1>
+
+        </div>
+        <h3>도움말을 확인하셨나요?</h3>
+        <h4 class="orange font-bold">도움말을 이용하면 <br> 훨씬 빠르게 문제를 해결하실 수 있습니다.</h4>
+        <br>
+        <p class="font-bold">문의사항과 관련 버튼에
+            [마우스도움말아이콘]이 보이시면 <br> <span class="red">마우스 우클릭을 하십시요.</span>
+            <!--Continually expanded and constantly improved Inspinia Admin Them (IN+)-->
+        </p>
+        <p class="font-bold">
+            문의사항에 대한 <span class="red">대처방법</span>을 알려드립니다. 그대로 따라하시면 됩니다.
+        </p>
+        <p>
+            <img style="width: 100%;" src="/images/client_help.png" />
+        </p>
+        <br>
+        <br>
+        <button class="btn btn-primary" id="show-accept-page" type="button">AS 접수하기</button>
+    </div>
+</div>
+
+<div class="container-fluid body p-l-none p-r-none acceptscreen hidden">
+    <div class="main_container">
+        <div class="x_panel no-border m-b-none">
+            <div class="x_title">
+                <h4>A/S 접수</h4>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content panel-body p-sm">
+                <form class="form form-horizontal" method="post" action="/service/hospital">
+                    <div class="form-group">
+                        <div class="col-xs-3 text-right red font-bold">
+                            <i class="fa fa-exclamation-triangle fa-2x" aria-hidden="true"></i>
+                        </div>
+                        <div class="col-xs-9 red font-bold ">
+                            AS처리가능시간<br>
+                            평일 09:00 ~ 18:00<br>
+                            (점심시간 13:00~14:00)<br><br>
+
+                            토요일 09:00 ~ 13:00<br>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-3 text-left" for="client_name">접수자</label>
+                        <div class="col-xs-9">
+                            <input type="text" class="form-control input service-info" tabindex="1" name="client_name"
+                                id="client_name" required />
+                        </div>
+                    </div>
+                    <div class="divider-dashed"></div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-3 font-bold text-left" style="color:red;"
+                            for="client_contact">① 연락처</label>
+                        <div class="col-xs-9">
+                            <div class="input-group m-b-none">
+                                <input type="text" class="form-control input service-info" tabindex="2"
+                                    name="client_contact" id="client_contact" required value="010-" />
+                                <span class="input-group-addon">내선번호</span>
+                                <input type="text" class="form-control input service-info" name="client_contact2"
+                                    id="client_contact2" size="5" value="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="divider-dashed"></div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-3 font-bold text-left" style="color:red;" for="astype">②
+                            AS분류</label>
+                        <div class="col-xs-9">
+                            <div class="btn-group btn-group-sm" data-toggle="buttons">
+                                <label class="btn btn-default">
+                                    <input type="radio" class="service-info" name="astype" tabindex="3" value="1"
+                                        required />
+                                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                                    장애
+                                </label>
+                                <label class="btn btn-default">
+                                    <input type="radio" class="service-info" name="astype" tabindex="4" value="2"
+                                        required />
+                                    <i class="fa fa-question-circle" aria-hidden="true"></i>
+                                    사용법
+                                </label>
+                                <label class="btn btn-warning">
+                                    <input type="radio" class="service-info" name="astype" tabindex="5" value="3"
+                                        required />
+                                    <i class="fa fa-krw" aria-hidden="true"></i>
+                                    수납관련 문의
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="divider-dashed"></div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-3 font-bold text-left" style="color:red;" for="uploadfile">
+                            ③ 화면캡쳐
+                            <label class="btn btn-default btn-sm btn-file">
+                                캡처파일첨부 <input type="file" name="uploadfile" style="display: none;" multiple
+                                    accept="image/*">
+                            </label>
+                        </label>
+                        <div class="col-xs-9 preview-container">
+                            <button class="btn btn-app m-l-none m-b-xs" type="button" tabindex="5" id="btnCapture2"><i
+                                    class="fa fa-camera" aria-hidden="true"></i>캡처하기</button>
+                        </div>
+                        <p class="col-xs-9 col-xs-offset-3 red font-bold">
+                            ※ 캡쳐 화면에 오류가 발생한 버튼/메뉴를 표시해주세요.
+                        </p>
+                    </div>
+                    <div class="divider-dashed"></div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-3 font-bold text-left" style="color:red;" for="service-exe">④
+                            프로그램선택</label>
+
+                        <div class="col-xs-9">
+                            <button type="button" class="btn btn-default btn-sm m-b-sm service-info" name="service-exe"
+                                tabindex="6" value="데스크">데스크</button>
+                            <button type="button" class="btn btn-default btn-sm m-b-sm service-info" name="service-exe"
+                                tabindex="7" value="진료실">진료실</button>
+                            <button type="button" class="btn btn-default btn-sm m-b-sm service-info" name="service-exe"
+                                tabindex="8" value="청구심사">청구심사</button>
+                            <button type="button" class="btn btn-default btn-sm m-b-sm service-info" name="service-exe"
+                                tabindex="9" value="진료지원">진료지원</button>
+                        </div>
+                        <div class="col-xs-9 col-xs-offset-3">
+                            <button type="button" class="btn btn-default btn-sm m-b-sm service-info" name="service-exe"
+                                tabindex="10" value="입원수납">입원수납</button>
+                            <button type="button" class="btn btn-default btn-sm m-b-sm service-info" name="service-exe"
+                                tabindex="11" value="병동">병동</button>
+                            <button type="button" class="btn btn-default btn-sm m-b-sm service-info" name="service-exe"
+                                tabindex="12" value="문서관리">문서관리</button>
+                            <button type="button" class="btn btn-default btn-sm m-b-sm service-info" name="service-exe"
+                                tabindex="13" value="통계">통계</button>
+                            <button type="button" class="btn btn-default btn-sm m-b-sm service-info" name="service-exe"
+                                tabindex="14" value="병원관리">병원관리</button>
+                            <button type="button" class="btn btn-default btn-sm m-b-sm service-info" name="service-exe"
+                                tabindex="15" value="메인">메인</button>
+                        </div>
+                        <div class="col-xs-9 col-xs-offset-3">
+                            <button type="button" class="btn btn-default btn-sm m-b-sm service-info" name="service-exe"
+                                tabindex="16" value="부가서비스">부가서비스</button>
+                            <button type="button" class="btn btn-default btn-sm m-b-sm service-info" name="service-exe"
+                                tabindex="17" value="기타">기타</button>
+                            <!-- <button type="button" class="btn btn-default btn-sm m-b-sm service-info hidden" name="service-exe" id="service-document" tabindex="18" value="문서추가">문서추가요청</button> -->
+                            <a href="/service/document" class="btn btn-default btn-sm m-b-sm hidden"
+                                name="service-document" tabindex="18">문서추가요청</a>
+                        </div>
+
+                        <div class="col-xs-9 col-xs-offset-3 hidden service-document-help">
+                            <div class="well p-xs">
+                                <h4 class="red">※문서 추가 유료화 정책※</h4>
+                                <ol class="">
+                                    <li>기타문서, 워킹챠트 문서는 유료 - 건당 1만원</li>
+                                    <li>신규업체는 10장까지 무료, 이후 추가요청건에 대해서는 유료</li>
+                                    <li>병원 입금 확인 후 작업</li>
+                                </ol>
+                                <label class="control-label font-bold" style="color:red;" for="uploadfile">
+                                    <label class="btn btn-default btn-sm btn-file">
+                                        파일첨부 <input type="file" name="uploadfile" style="display: none;" multiple
+                                            accept="image/*,.doc,.xls,.xlsx">
+                                    </label>
+                                </label>
+                                <p class="red bold">
+                                    첨부 파일형식 : 이미지, 워드(.doc), 엑셀(.xls,.xlsx)
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="divider-dashed"></div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-3 font-bold text-left" style="color:red;" for="service_tag">⑤
+                            문의사항</label>
+                        <div class="col-xs-9">
+                            <!-- select id="service_tag" name="service-tag" required tabindex="17" class="form-control selectpicker show-tick service-info" title="문의사항을 선택해주세요." data-width="fit" data-size="10" data-live-search="true"> </select-->
+                            <!-- <input type="text" name="comment" class="form-control hidden" placeholder="문의내용을 입력해주세요."/> -->
+                            <textarea name="comment" class="form-control" placeholder="문의내용을 입력해주세요." rows="8"
+                                disabled="disabled"></textarea>
+                        </div>
+                    </div>
+                    <!--
+                    <div class="divider-dashed"></div>
+
+                    <div class="form-group">
+                        <label class="control-label col-xs-3 font-bold text-left" style="color:red;" for="service_tag">⑥ 추가정보</label>
+                        <div class="col-xs-9" id="service-tag-required">
+
+                        </div>
+                    </div>
+                    -->
+                    <div class="divider"></div>
+
+                    <div class="form-group">
+                        <label class="control-label col-xs-3 font-bold text-left" style="color:red;" for="service_tag">⑦
+                            접수</label>
+                        <div class="col-xs-9">
+                            <button class="btn btn-primary btn-bblock" tabindex="21" type="button" id="accept-service">
+                                <i class="fa fa-paper-plane"></i> 접수</button>
+                            <button class="btn btn-default btn-bblock" type="button" id="go-main">취소</button>
+                        </div>
+                    </div>
+
+                    <input type="hidden" class="service-info" name="hospnum" id="hospnum" value="">
+                    <input type="hidden" class="service-info" name="hospname" id="hospname" value="">
+                    <input type="hidden" class="service-info" name="area" id="area" value="">
+                    <input type="hidden" class="service-info" name="program" id="program" value="">
+                    <input type="hidden" class="service-info" name="exe" id="exe" value="">
+                    <input type="hidden" class="service-info" name="pcinfo" id="pcinfo" value="">
+                    <input type="hidden" class="service-info" name="curversion" id="curversion" value="">
+                    <input type="hidden" class="service-info" name="bohum" id="bohum" value="">
+                    <input type="hidden" class="service-info" name="hosp_contact" id="hosp_contact" value="">
+                    <input type="hidden" class="service-info" name="pacs" id="pacs" value="">
+                    <input type="hidden" class="service-info" name="servername" id="servername" value="">
+                    <input type="hidden" class="service-info" name="serverid" id="serverid" value="">
+                    <input type="hidden" class="service-info" name="serverpw" id="serverpw" value="">
+                    <input type="hidden" class="service-info" name="dbname" id="dbname" value="">
+                    <input type="hidden" class="service-info" name="certpw" id="certpw" value="">
+                    <input type="hidden" class="service-info" name="openperson" id="openperson" value="">
+                    <input type="hidden" class="service-info" name="sutak" id="sutak" value="">
+                    <input type="hidden" class="service-info" name="os" id="os" value="">
+                    <input type="hidden" class="service-info" name="sqlversion" id="sqlversion" value="">
+                    <input type="hidden" class="service-info" name="masterDrug" id="masterDrug" value="">
+                    <input type="hidden" class="service-info" name="masterSuga" id="masterSuga" value="">
+                    <input type="hidden" class="service-info" name="masterMaterial" id="masterMaterial" value="">
+                    <input type="hidden" class="service-info" name="manager" id="manager" value="">
+                    <input type="hidden" class="service-info" name="captures" id="captures" value="">
+                    <input type="hidden" class="service-info" name="tag" id="tag" value="">
+                    <input type="hidden" class="service-info" name="requires" id="requires" value="">
+                    <input type="hidden" class="service-info" name="macaddress" id="macaddress" value="">
+                    <input type="hidden" class="service-info" name="emrtype" id="emrtype" value=""> <!-- 양한방구분-->
+            </div>
+            </form>
+        </div>
+        <div class="x_content">
+            <div class="row" id="capture-images">
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<% include ./footer %>

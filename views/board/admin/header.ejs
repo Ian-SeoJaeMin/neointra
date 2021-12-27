@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=yes">
+    <title>
+        <%= title.company_e %> - 게시판 관리
+    </title>
+
+    <% include ../../includes/css %>  
+    <link rel="stylesheet" href="/components/bootstrap-select/dist/css/bootstrap-select.min.css">      
+    <link rel="stylesheet" href="/components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="/css/board.css">
+    
+    <% if (ENV_DEVELOPMENT) { %>
+        <script src="<%= LIVERELOAD %>"></script>
+    <% } %>
+
+    <!-- [if lt IE 9]>
+        <script src="/components/html5shiv/html5shiv.min.js"></script>    
+        <script src="/components/respond/respond.min.js"></script>
+    <![endif]-->
+
+    <script>
+        (function(){
+            window.params = {
+                user: '<%- JSON.stringify(user) %>'
+            }
+            window.params.user = JSON.parse(window.params.user);
+            console.log(window.params);
+        })();
+    </script>
+</head>
+
+<body class="nav-md">

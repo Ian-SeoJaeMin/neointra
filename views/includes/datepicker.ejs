@@ -1,0 +1,64 @@
+<% var searchBtn = searchBtn || false %>
+<% var classNames = classNames || {inputGroup: ''} %>
+<% if (!mobile) { %>
+<div class="form-group datepicker-container">
+    <div class="input-group <%= classNames.inputGroup %>">
+        <div class="input-group-btn">
+            <button type="button" class="btn btn-success date-quick" data-value="0">오늘</button>
+            <button type="button" class="btn btn-success date-quick" data-value="1">어제</button>
+            <button type="button" class="btn btn-success date-quick" data-value="2">지난7일</button>
+            <button type="button" class="btn btn-success date-quick" data-value="3">지난30일</button>
+            <button type="button" class="btn btn-success date-quick" data-value="4">다음달</button>
+            <button type="button" class="btn btn-success date-quick" data-value="5">전달</button>
+        </div>
+        <input type='text' class="form-control mobile datepicker <%= name %>" readonly data-type="start" />
+        <span class="input-group-addon">~</span>
+        <input type='text' class="form-control mobile datepicker <%= name %>" readonly data-type="end" />
+        <% if (searchBtn) { %>
+        <span class="input-group-btn">
+            <button type="button" class="btn btn-success <%= name %>" name="search-btn">조회</button>
+        </span>
+        <% } %>
+    </div>
+</div>
+
+<% } else { %>
+<% if (!modal) { %>
+<div class="input-daterange input-group datepicker-container" id="datepicker">
+    <span class="input-group-btn">
+        <select class="selectpicker show-tick date-quick" data-width="fit">
+            <option value="0">오늘</option>
+            <option value="1">어제</option>
+            <option value="2">지난7일</option>
+            <option value="3">지난30일</option>
+            <option value="4">이번달</option>
+            <option value="5">저번달</option>
+        </select>
+    </span>
+    <input type='text' class="form-control mobile datepicker <%= name %>" readonly data-type="start" />
+    <span class="input-group-addon">~</span>
+    <input type='text' class="form-control mobile datepicker <%= name %>" readonly data-type="end" />
+</div>
+<% } else { %>
+<span class="datepicker-container">
+    <div class="form-group">
+        <select class="selectpicker show-tick date-quick" data-width="fit">
+            <option value="0">오늘</option>
+            <option value="1">어제</option>
+            <option value="2">지난7일</option>
+            <option value="3">지난30일</option>
+            <option value="4">다음달</option>
+            <option value="5">전달</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <p class="text-muted"><b>시작일</b></p>
+        <input type='text' class="form-control mobile datepicker <%= name %>" readonly data-type="start" />
+    </div>
+    <div class="form-group">
+        <p class="text-muted"><b>종료일</b></p>
+        <input type='text' class="form-control mobile datepicker <%= name %>" readonly data-type="end" />
+    </div>
+    <span>
+        <% } %>
+        <% } %>

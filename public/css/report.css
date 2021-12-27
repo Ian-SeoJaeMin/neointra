@@ -1,0 +1,57 @@
+.no-bg {
+    background: transparent !important;
+}
+
+.bootstrap-datetimepicker-widget table td.old,
+.bootstrap-datetimepicker-widget table td.new {
+    color: #c0c0c0;
+}
+
+.bootstrap-datetimepicker-widget table td.weekend:first-child {
+    color: rgb(231, 33, 33);
+}
+
+.bootstrap-datetimepicker-widget table td.weekend.old:first-child,
+.bootstrap-datetimepicker-widget table td.weekend.new:first-child {
+    color: rgb(224, 166, 166);
+}
+
+.bootstrap-datetimepicker-widget table td.weekend:last-child {
+    color: rgb(31, 35, 223);
+}
+
+.bootstrap-datetimepicker-widget table td.weekend.old:last-child,
+.bootstrap-datetimepicker-widget table td.weekend.new:last-child {
+    color: rgb(161, 165, 228);
+}
+
+/* Breakpoints */
+@media (max-width: 767px) {
+    .report-list-etc tr td:nth-child(3),
+    .report-list-etc tr td:nth-child(4),
+    .report-list-etc tr td:nth-child(6),
+    .report-list-etc tr th:nth-child(3),
+    .report-list-etc tr th:nth-child(4),
+    .report-list-etc tr th:nth-child(6) {
+        display: none;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .report-list-etc tr td:nth-child(6),
+    .report-list-etc tr th:nth-child(6) {
+        display: none;
+    }
+}
+
+@media (min-width: 991px) and (max-width: 1200px) {
+}
+
+@media (min-width: 1200px) {
+}
+
+.overflow-ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

@@ -1,0 +1,293 @@
+<% include ./header %>
+
+<div class="container body">
+    <div class="main_container">
+        <% include ../../includes/sidemenu.ejs %>
+        <% include ../../includes/topnav.ejs %>
+
+        <div class="right_col" role="main">
+            <div class="page-title">
+                <div class="title_left">
+                    <a href="javascript:window.history.back();"
+                        class="btn btn-default pull-right fa fa-mail-reply">목록으로</a>
+                    <h3 id="title"></h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h4>상세내용</h4>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content" id="service">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_content">
+                            <strong>공통</strong> <br>
+                            <p>
+                                <div class="speech-bubble">
+                                    <em>안녕하십니까 </em> <br />
+                                    <em>네오소프트뱅크 AS 접수팀입니다.</em> <br />
+                                    <em>AS의 빠른 처리를 위해 상세 내용 확인 차 전화드렸습니다.</em>
+                                </div>
+                            </p>
+                            <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                                <!-- <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                                    <li role="presentation" class="active"><a href="#tab_content1" id="home-tab"
+                                            role="tab" data-toggle="tab" aria-expanded="true">문의내용을 이해하지 못했을 경우</a>
+                                    </li>
+                                    <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab"
+                                            data-toggle="tab" aria-expanded="false">문의내용을 이해했을 경우</a>
+                                    </li>
+                                    <li role="presentation" class=""><a href="#tab_content3" role="tab"
+                                            id="profile-tab2" data-toggle="tab" aria-expanded="false">미처리된 내역 확인요청</a>
+                                    </li>
+                                    <li role="presentation" class=""><a href="#tab_content4" role="tab"
+                                            id="profile-tab3" data-toggle="tab" aria-expanded="false">응급 확인요청</a>
+                                    </li>
+                                </ul> -->
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li class="active"><a href="#tab_content1" role="tab" data-toggle="tab"
+                                            aria-expanded="true">1. 문의내용을 이해하지 못했을 경우</a></li>
+                                    <li><a href="#tab_content2" role="tab" data-toggle="tab" aria-expanded="false">2.
+                                            문의내용을
+                                            이해했을 경우</a></li>
+                                    <li><a href="#tab_content3" role="tab" data-toggle="tab" aria-expanded="false">3.
+                                            미처리된
+                                            내역 확인요청</a></li>
+                                    <li><a href="#tab_content4" role="tab" data-toggle="tab" aria-expanded="false">4. 응급
+                                            확인요청</a></li>
+                                </ul>
+                                <div id="myTabContent" class="tab-content">
+                                    <div role="tabpanel" class="tab-pane fade p-sm active in" id="tab_content1"
+                                        aria-labelledby="home-tab">
+                                        <p>
+                                            <div class="speech-bubble">
+                                                <em>
+                                                    정확한 내용 확인을 위해 원격이 필요합니다. <br>
+                                                    메인화면의 원격지원 버튼을 눌러주세요.
+                                                </em>
+                                            </div>
+                                        </p>
+                                        <p>
+                                            <div class="speech-bubble">
+                                                <em>
+                                                    원격 연결되었습니다.<br>
+                                                    <span class="red font-bold">어떤 버튼에 대한 문의</span>인지 내용 한번 보여주시겠습니까?
+                                                </em>
+                                            </div>
+                                        </p>
+                                        <p>
+                                            <strong class="orange">6. 메뉴/버튼</strong> 선택 ( <span class="red">버튼명</span>으로
+                                            검색하여 선택 ) <br>
+                                            확인완료 클릭
+                                        </p>
+                                        <p>
+                                            <div class="speech-bubble">
+                                                <em>
+                                                    문의내용 확인하였습니다.<br>
+                                                    전문처리팀에 전달하여 신속한 처리가 될 수 있도록 하겠습니다.<br>
+                                                    감사합니다
+                                                </em>
+                                            </div>
+                                        </p>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane fade p-sm" id="tab_content2"
+                                        aria-labelledby="profile-tab">
+                                        <p>
+                                            <div class="speech-bubble">
+                                                <em>
+                                                    문의하신 내용이 OOOOO 에 대한 내용 맞으십니까?
+                                                </em>
+                                            </div>
+                                        </p>
+                                        <p>
+                                            <div class="speech-bubble">
+                                                <em>
+                                                    문의주신 내용 정확하게 이해했습니다.<br>
+                                                    전문처리팀에 전달하여 신속한 처리가 될 수 있도록 하겠습니다.<br>
+                                                    감사합니다
+                                                </em>
+                                            </div>
+                                        </p>
+                                        <p>
+                                            <strong class="orange">6. 메뉴/버튼</strong> 선택 ( <span class="red">버튼명</span>으로
+                                            검색하여 선택 ) <br>
+                                            확인완료 클릭
+                                        </p>
+
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane fade p-sm" id="tab_content3"
+                                        aria-labelledby="profile-tab">
+                                        <span class="blue">※ AS내역에서 문의내용과 관련된 공유 or 처리중인 내역 검색</span>
+                                        <p>
+                                            <div class="speech-bubble">
+                                                <em>
+                                                    문의주신 내역 현재 공유/처리 중인 내용 확인하였습니다.
+                                                </em>
+                                            </div>
+                                        </p>
+                                        <p>
+                                            <div class="speech-bubble">
+                                                <em>
+                                                    과거 문의 주셨던 내역 같이 첨부해서 처리팀에 전달하여 빠른 처리 될 수 있도록 진행해드리겠습니다.
+                                                </em>
+                                            </div>
+                                        </p>
+                                        <p>
+                                            확인내용 기재<br>
+                                            상세내역 : <span class="red">과거 공유/처리중인 인덱스 번호 입력 후 내용 입력</span>
+                                        </p>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane fade p-sm" id="tab_content4"
+                                        aria-labelledby="profile-tab">
+                                        <span class="blue">※ 환자 앞에 대기 중인데 처리가 필요한 내역 / 병원 진료가 불가한 내역</span>
+                                        <p>
+                                            <div class="speech-bubble">
+                                                <em>
+                                                    문의주신 내용 현재 응급으로 처리가 필요한 것으로 파악되어<br>
+                                                    해당 내용 처리부서에 바로 전달하여 연락드리도록
+                                                    조치해드리겠습니다.
+                                                </em>
+                                            </div>
+                                        </p>
+                                        <p>
+                                            <strong class="orange">6. 메뉴/버튼</strong> 선택 ( <span class="red">버튼명</span>으로
+                                            검색하여 선택 ) <br>
+                                            확인완료 클릭
+                                        </p>
+                                        <p>
+                                            <span class="red">'응급'</span> 체크 후 확인완료 클릭
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h4>병원정보 & 부가서비스</h4>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content" id="info">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h4>특이사항</h4>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content" id="uniq">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12 hidden">
+                    <div class="x_panel hidden">
+                        <div class="x_title">
+                            <h4>첨부파일</h4>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content" id="files">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h4>백업정보</h4>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content" id="backup">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h4>씨트롤 정보</h4>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content" id="remote">
+                        </div>
+                    </div>
+
+                    <!-- <div class="x_panel">
+                        <div class="x_title">
+                            <h4>댓글</h4>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content" id="replys">
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="modal-search" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header form-inline">
+                <%- include('../../includes/datepicker.ejs', {mobile: false, label: false, name: 'pastService', modal: false, searchBtn: true}) %>
+                <div class="form-group">
+                    <select class="selectpicker show-tick past-service-status" title="상태" data-width="fit" data-size="5"
+                        ddata-style="btn-sm btn-default" multiple data-selected-text-format="static">
+                        <!-- <option value="0">접수</option> -->
+                        <option value="7">확인</option>
+                        <option value="1">공유</option>
+                        <option value="2">처리</option>
+                        <option value="3">보류</option>
+                        <option value="4">완료</option>
+                        <option value="6">피드백</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- <ul class="list-group" id="service-list">
+                        </ul> -->
+                        <table class="table table-linked table-bordered jambo_table service-list">
+                            <thead>
+                                <tr>
+                                    <th>인덱스</th>
+                                    <th width="85px">실행파일</th>
+                                    <th>메뉴</th>
+                                    <th>버튼</th>
+                                    <th width="80px">상태</th>
+                                    <th>일자</th>
+                                    <th>내용</th>
+                                </tr>
+                            </thead>
+                            <tbody id="service-list">
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- <div class="col-md-6">
+                        <div class="x_content" id="service-detail">
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="search-select">선택완료</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<% include ./footer %>

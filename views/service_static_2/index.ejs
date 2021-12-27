@@ -1,0 +1,93 @@
+<% include ./header %>
+
+<div class="container body">
+    <div class="main_container">
+        <% include ../includes/sidemenu.ejs %>
+        <% include ../includes/topnav.ejs %>
+
+        <div class="right_col" role="main">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div role="tabpanel">
+                        <ul class="nav nav-tabs care-tabs" role="tablist">
+                            <li role="presentation" class="active">
+                                <a href="#tab-as-caution" role="tab" data-toggle="tab">AS현황(거래처별)</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#tab-as-status" role="tab" data-toggle="tab">AS현황</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#tab-as-exe" role="tab" data-toggle="tab">AS통계(실행파일)</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#tab-as-tag" role="tab" data-toggle="tab">AS통계(메뉴/버튼)</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#tab-as-finder" role="tab" data-toggle="tab">AS통계(답변채택)</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#tab-as-time" role="tab" data-toggle="tab">AS통계(시간대)</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#tab-as-area-program" role="tab" data-toggle="tab">AS통계(지사,EMR)</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane fade active in" id="tab-as-caution">
+                                <%- include('./statics/caution.ejs') %>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="tab-as-status">
+                                <%- include('./statics/status.ejs') %>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="tab-as-exe">
+                                <%- include('./statics/exe.ejs') %>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="tab-as-tag">
+                                <%- include('./statics/tag.ejs') %>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="tab-as-finder">
+                                <%- include('./statics/finder.ejs') %>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="tab-as-time">
+                                <%- include('./statics/time.ejs') %>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="tab-as-area-program">
+                                <%- include('./statics/area_program.ejs') %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade exestatic-detail-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="vertical-container">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-body table-responsive">
+                    <table class="table table-bordered ">
+                        <thead>
+                            <tr>
+                                <th class="bg-navy">병원</th>
+                                <th class="bg-navy">프로그램</th>
+                                <th class="bg-navy">실행파일</th>
+                                <th class="bg-navy">처리구분</th>
+                                <th class="bg-navy">문의</th>
+                                <th class="bg-navy">확인</th>
+                                <th class="bg-navy">처리</th>
+                                <!-- <th class="bg-navy">옵션/설정</th> -->
+                                <!-- <th class="bg-navy">방법</th> -->
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                    <!--button type="button" class="btn btn-primary"><i class="fa fa-print"></i></button-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<% include ./footer %>

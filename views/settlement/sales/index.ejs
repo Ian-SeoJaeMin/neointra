@@ -1,0 +1,378 @@
+<% include ./header %>
+
+<div class="container body">
+    <div class="main_container">
+        <% include ../../includes/sidemenu.ejs %>
+        <% include ../../includes/topnav.ejs %>
+
+        <div class="right_col" role="main">
+            <div class="">
+
+                <div class="row">
+
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_content">
+                                <div class="form-inline">
+                                    <div class="input-group m-b-none">
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-primary" id="export"><i class="fa fa-file-excel-o"></i></button>
+                                        </span>
+                                        <input type='text' class="form-control datepicker" data-viewmode="months"
+                                            data-format="YYYY년 MM월" readonly />
+                                        <span class="input-group-btn">
+                                            <select class="selectpicker show-tick areas" title="지사" data-live-search="true"
+                                                data-width="fit" data-size="5"></select>
+                                            <select class="selectpicker show-tick managers" title="담당자"
+                                                data-live-search="true" data-width="fit" data-size="5"></select>
+                                            <select class="selectpicker show-tick" id="sales-type" title="검색기준"
+                                                data-width="fit">
+                                                <option value="sales-date" selected>매출발생월</option>
+                                                <option value="contract-date">계약월</option>
+                                            </select>
+                                        </span>
+                                    </div>
+
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+
+                        <div class="x_panel">
+                            <div class="x_content">
+                                <table class="table table-bordered" id="sales-table">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">N</th>
+                                            <th class="text-center">기관명칭</th>
+                                            <th class="text-center">진료과</th>
+                                            <th class="text-center">주 프로그램</th>
+                                            <th class="text-center">그외 프로그램</th>
+                                            <th class="text-center">담당</th>
+                                            <th class="text-center">매출발생월</th>
+                                            <th class="text-center">계약일</th>
+                                            <th class="text-center">S/W설치비</th>
+                                            <th class="text-center">S/W월유지보수</th>
+                                            <th class="text-center">H/W매출</th>
+                                            <th class="text-center">비고</th>
+                                            <th class="text-center">ACT</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                                <p class="text-right">
+                                    <button type="button" class="btn btn-success" id="sales-add"><i class="fa fa-plus"></i></button>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+
+                        <div class="x_panel">
+                            <div class="x_content">
+                                <div class="form-inline">
+                                    <div class="input-group m-b-none">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        <input type='text' class="form-control datepicker" data-viewmode="years"
+                                            data-format="YYYY년" readonly />
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h4>프로그램별 통계</h4>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <div class="col-md-6">
+                                    <table class="table table-bordered" id="static-program">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center"><i class="fa fa-calendar"></i></th>
+                                                <th class="text-center" data-value="SenseChart">SenseChart</th>
+                                                <th class="text-center" data-value="SenseChart_H">SenseChart(H)</th>
+                                                <!-- <th class="text-center" data-value="센스라이트">SENSE(라이트)</th>                                                 -->
+                                                <th class="text-center" data-value="MediChart">MediChart</th>
+                                                <th class="text-center" data-value="Eplus">Eplus</th>
+                                                <th class="text-center" data-value="EChart">EChart</th>
+                                                <th class="text-center" data-value="HanimacPro">HanimacPro</th>
+                                                <th class="text-center" data-value="홈페이지">홈페이지</th>
+                                                <th class="text-center">합계</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-md-6">
+                                    <table class="table table-bordered small" id="sales-program-table">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">N</th>
+                                                <th class="text-center">기관명칭</th>
+                                                <th class="text-center">진료과</th>
+                                                <th class="text-center">주 프로그램</th>
+                                                <th class="text-center">담당</th>
+                                                <th class="text-center">매출발생월</th>
+                                                <th class="text-center">계약일</th>
+                                                <th class="text-center">S/W설치비</th>
+                                                <th class="text-center">S/W월유지보수</th>
+                                                <th class="text-center">H/W매출</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h4>진료과별 통계</h4>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <table class="table table-bordered small" id="static-gwa">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center"><i class="fa fa-calendar"></i></th>
+                                            <th class="text-center" value="병원">병원</th>
+                                            <th class="text-center" value="요양병원">요양병원</th>
+                                            <th class="text-center" value="내과">내과</th>
+                                            <th class="text-center" value="신경과">신경과</th>
+                                            <th class="text-center" value="정신과">정신과</th>
+                                            <th class="text-center" value="일반외과">일반외과</th>
+                                            <th class="text-center" value="정형외과">정형외과</th>
+                                            <th class="text-center" value="신경외과">신경외과</th>
+                                            <th class="text-center" value="흉부외과">흉부외과</th>
+                                            <th class="text-center" value="성형외과">성형외과</th>
+                                            <th class="text-center" value="마취과">마취과</th>
+                                            <th class="text-center" value="산부인과">산부인과</th>
+                                            <th class="text-center" value="소아과">소아과</th>
+                                            <th class="text-center" value="안과">안과</th>
+                                            <th class="text-center" value="이비인후과">이비인후과</th>
+                                            <th class="text-center" value="피부과">피부과</th>
+                                            <th class="text-center" value="비뇨기과">비뇨기과</th>
+                                            <th class="text-center" value="방사선과">방사선과</th>
+                                            <th class="text-center" value="임상병리과">임상병리과</th>
+                                            <th class="text-center" value="재활의학과">재활의학과</th>
+                                            <th class="text-center" value="가정의학과">가정의학과</th>
+                                            <th class="text-center" value="일반과">일반과</th>
+                                            <th class="text-center" value="한방과">한방과</th>
+                                            <th class="text-center">합계</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="modal fade sales-modal" id="sales-modal" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <form id="sales-add-form" class="form-horizontal">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
+                                <h4 class="modal-title" id="myModalLabel">신규매출등록</h4>
+                            </div>
+                            <div class="modal-body form-horizontal form-label-left">
+                                <input id="id" name="index" type="hidden" data-name="index" />
+                                <div class="row">
+                                    <div class="col-lg-6">
+
+                                        <div class="form-group">
+                                            <p class="text-muted"><b>기관명칭</b></p>
+                                            <!-- <input type="text" data-name="기관명칭" class="input form-control"> -->
+                                            <select id="hospname" name="hospname" required class="form-control selectpicker show-tick"
+                                                data-name="기관명칭" data-width="fit" data-size="10"> </select>
+                                        </div>
+
+                                        <div class="divider-dashed"></div>
+
+                                        <div class="form-group">
+                                            <p class="text-muted"><b>진료과목</b></p>
+                                            <!-- <input type="text" data-name="진료과목" class="input form-control"> -->
+                                            <select name="gwa" id="gwa" class="form-control selectpicker show-tick"
+                                                data-name="진료과목" data-width="fit" data-size="10" data-live-search="true">
+                                                <option value="병원">병원</option>
+                                                <option value="요양병원">요양병원</option>
+                                                <option value="내과">내과</option>
+                                                <option value="신경과">신경과</option>
+                                                <option value="정신과">정신과</option>
+                                                <option value="일반외과">일반외과</option>
+                                                <option value="정형외과">정형외과</option>
+                                                <option value="신경외과">신경외과</option>
+                                                <option value="흉부외과">흉부외과</option>
+                                                <option value="성형외과">성형외과</option>
+                                                <option value="마취과">마취과</option>
+                                                <option value="산부인과">산부인과</option>
+                                                <option value="소아과">소아과</option>
+                                                <option value="안과">안과</option>
+                                                <option value="이비인후과">이비인후과</option>
+                                                <option value="피부과">피부과</option>
+                                                <option value="비뇨기과">비뇨기과</option>
+                                                <option value="방사선과">방사선과</option>
+                                                <option value="임상병리과">임상병리과</option>
+                                                <option value="재활의학과">재활의학과</option>
+                                                <option value="가정의학과">가정의학과</option>
+                                                <!-- <option value="치과">치과</option> -->
+                                                <option value="일반과">일반과</option>
+                                                <option value="한방과">한방과</option>
+
+                                            </select>
+                                        </div>
+
+                                        <div class="divider-dashed"></div>
+
+                                        <div class="form-group">
+                                            <p class="text-muted"><b>주 프로그램</b></p>
+                                            <select id="program" name="program" class="form-control selectpicker show-tick"
+                                                data-size="5" data-width="fit" data-live-search="true" data-name="주프로그램">
+                                                <option value="SenseChart">SenseChart</option>
+                                                <option value="MediChart">MediChart</option>
+                                                <option value="Eplus">Eplus</option>
+                                                <option value="EChart">EChart</option>
+                                                <option value="HanimacPro">HanimacPro</option>
+                                                <option value="SenseChart_H">SenseChart(H)</option>
+                                                <option value="홈페이지">홈페이지</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="divider-dashed"></div>
+
+                                        <div class="form-group">
+                                            <p class="text-muted"><b>그외 프로그램</b></p>
+                                            <select id="subprogram" name="subprogram" class="form-control selectpicker show-tick"
+                                                data-size="5" data-width="fit" data-live-search="true" data-name="그외프로그램">
+                                                <option value="">선택없음</option>
+                                                <option value="SenseChart">SenseChart</option>
+                                                <option value="센스라이트">SENSE(라이트)</option>
+                                                <option value="MediChart">MediChart</option>
+                                                <option value="Eplus">Eplus</option>
+                                                <option value="EChart">EChart</option>
+                                                <option value="HanimacPro">HanimacPro</option>
+                                                <option value="SenseChart_H">SenseChart(H)</option>
+                                                <option value="홈페이지">홈페이지</option>
+
+                                            </select>
+                                        </div>
+
+                                        <div class="divider-dashed"></div>
+
+                                        <div class="form-group">
+                                            <p class="text-muted"><b>지사</b></p>
+                                            <select class="form-control selectpicker areas show-tick" id="area" name="area"
+                                                data-name="지사" data-width="fit" data-size="5" data-live-search="true"
+                                                title="담당지사">
+                                            </select>
+                                            <span id="manager-container" class="">
+                                                <select class="form-control selectpicker managers show-tick" id="manager"
+                                                    name="manager" data-name="담당자" data-width="fit" data-size="5"
+                                                    data-live-search="true" title="담당자">
+                                                </select>
+                                            </span>
+                                        </div>
+
+                                        <div class="divider-dashed"></div>
+
+                                        <div class="form-group">
+                                            <p class="text-muted"><b>매출월</b></p>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                <input type='text' name="salemonth" class="form-control datepicker"
+                                                    data-viewmode="months" data-format="YYYY년 MM월" data-name="매출월"
+                                                    readonly />
+                                            </div>
+                                        </div>
+
+                                        <div class="divider-dashed"></div>
+
+                                        <div class="form-group">
+                                            <p class="text-muted"><b>계약일</b></p>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                <input type='text' name="contractdate" class="form-control datepicker"
+                                                    data-viewmode="days" data-format="YYYY년 MM월 DD일" data-name="계약일"
+                                                    readonly />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <p class="text-muted"><b>S/W 설치비</b></p>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-krw"></i></span>
+                                                <input type='number' name="installfee" class="form-control input"
+                                                    data-name="설치비" />
+                                            </div>
+
+                                        </div>
+
+                                        <div class="divider-dashed"></div>
+
+                                        <div class="form-group">
+                                            <p class="text-muted"><b>S/W 월유지보수</b></p>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-krw"></i></span>
+                                                <input type='number' name="asfee" class="form-control input" data-name="유지보수" />
+                                            </div>
+                                        </div>
+
+                                        <div class="divider-dashed"></div>
+
+                                        <div class="form-group">
+                                            <p class="text-muted"><b>H/W 매출액</b></p>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-krw"></i></span>
+                                                <input type='number' name="hwfee" class="form-control input" data-name="하드웨어" />
+                                            </div>
+                                        </div>
+
+                                        <div class="divider-dashed"></div>
+
+                                        <div class="form-group">
+                                            <p class="text-muted"><b>비고</b></p>
+                                            <textarea rows="10" name="bigo" data-name="비고" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">등록</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<% include ./footer %>

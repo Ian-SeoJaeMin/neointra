@@ -1,0 +1,22 @@
+<div class="form-group">
+    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+        <%= field['label'] %>
+        <% if (field['require']) { %> 
+        <span class="require red">*</span>
+        <% } %>
+    </label>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+        <input type="text" 
+                class="form-control" 
+                
+                data-label="<%=field['label']%>"
+                data-name="<%=field['name']%>"
+                name="<%=field['name']%>"
+                <%- field['require'] ? 'required': '' %> 
+                value="<%= value ? value : field['default']%>"/>       
+        <p class="form-text text-success m-b-none m-t-sm <%- field['placeholder'].length ? '' : 'hidden'%>"><i class="fa fa-hand-o-right"></i> <em><%=field['placeholder']%></em></p>
+    </div>
+</div>
+<% if (!last) { %> 
+<div class="divider-dashed"></div>
+<% } %>

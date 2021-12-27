@@ -1,0 +1,138 @@
+<% include ./header %>
+    <div class="container body">
+        <div class="main_container">
+            <% include ../includes/sidemenu.ejs %>
+            <% include ../includes/topnav.ejs %>
+
+            <div class="right_col" role="main">
+                <div class="page-title">
+                    <div class="title_left">
+                        <h3><i class="fa fa-car"></i> 방문일지 </h3>
+                        <p class="">
+                            1. <span class="btn btn-primary btn-xs">일지등록</span>으로 방문스케줄 등록
+                            <br>
+                            2. 실제 방문시 해당 <i class="fa fa-hand-o-up blue"></i><span class="red" data-toggle="tooltip" data-placement="top" title="" data-original-title="방문일지 리스트에서 해당 스케줄 클릭 혹은 스케줄 페이지에서 해당 스케줄 클릭">스케줄 상세보기 페이지로 이동</span>하여 <span class="btn btn-success btn-xs">방문시작시간</span>,<span class="btn btn-success btn-xs">방문종료시간</span>을 입력.
+                            <br>
+                            3. 방문이 종료된 후 <i class="fa fa-hand-o-up blue"></i><span class="red" data-toggle="tooltip" data-placement="top" title="" data-original-title="방문일지 리스트에서 해당 스케줄 클릭 혹은 스케줄 페이지에서 해당 스케줄 클릭">스케줄 상세보기 페이지로 이동</span>하여 상세내용 입력 후 저장.
+                            <br>
+                            <b class="red">※ 방문 예정인 거래처의 미수금 내역을 필히 확인</b>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title breakpoints-lg breakpoints-md m-t-sm">
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target=".visit-filter-modal">
+                                            <i class="fa fa-sliders"></i> 검색옵션
+                                        </button>
+                                    </span>
+                                    <input type="search" name="visit-search" class="form-control" placeholder="방문일지 검색"/>
+                                    <span class="input-group-btn">
+                                        <a class="btn btn-primary visit-write" href="/customer/visit/write"><i class="fa fa-plus"></i></a>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row x_title breakpoints-sm breakpoints-xs">
+
+                                <div class="col-md-12 col-xs-12">
+                                    <div class="form-inline">                                        
+                                        <%- include('../includes/datepicker.ejs', {mobile: false, label: false, name: 'visit', modal: false, classNames: {'inputGroup': 'm-b-none input-group-sm'}}) %>
+                                        <div class="form-group form-group-sm">
+                                            <select class="form-control selectpicker show-tick visit-status" title="상태"
+                                                    data-width="fit">
+                                                <option value="" selected>전체</option>
+                                                <option value="">방문</option>
+                                                <option value="">미방문</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group form-group-sm">
+                                            <select class="form-control selectpicker show-tick visit-writer" title="방문자"
+                                                    data-width="fit" data-size="5">
+                                                    <option value="">전체</option>
+                                                <% visitors.forEach(function(visitor) { %>
+                                                    <option value="<%=visitor['작성자']%>" <%- visitor['작성자'] === user['인덱스'] ? 'selected' : '' %> ><%=visitor['작성자명']%></option>
+                                                <% }) %>
+                                            </select>
+                                        </div>
+                                        <div class="form-group form-group-sm">
+                                            <div class="input-group m-b-none input-group-sm">
+                                                <span class="input-group-addon" style="color: #000 !important;">검색결과</span>
+                                                <span class="input-group-addon" id="data-count" style="color: #000 !important; background: #FFF !important;">0건</span>
+                                                <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                                <input type="search" name="visit-search" class="form-control" placeholder="방문일지 검색"/>
+                                                <span class="input-group-btn">
+                                                    <a class="btn btn-primary visit-write" href="/customer/visit/write">일지등록</a>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="x_content">
+                                <table class="table jambo_table table-linked visit-list breakpoints-sm breakpoints-xs">
+                                    <thead>
+                                        <tr class="">
+                                            <th class="fit" data-field="유형">유형</th>
+                                            <th data-field="기관명칭">기관명칭</th>
+                                            <th data-field="상태">상태</th>
+                                            <th data-field="시작">예정시작 <i class="sort fa fa-sort-amount-desc"></i></th>
+                                            <th data-field="종료">예정종료</th>
+                                            <th data-field="실시작">실시작</th>
+                                            <th data-field="실종료">실종료</th>
+                                            <th data-field="법인차">법인차</th>
+                                            <th data-field="작성자명">방문자</th>
+                                            <th data-field="작성일자">작성일</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="visit-desktop">
+                                    </tbody>
+                                </table>
+                                <div id="visit-mobile" class="panel list-group board-list-group breakpoints-lg breakpoints-md"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade visit-filter-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="닫기"><span area-hidden="true">x</span></button>
+                    <h4 class="modal-title">일지 검색 옵션</h4>
+                </div>
+                <div class="modal-body form-horizontal form-label-left">
+                    <%- include('../includes/datepicker.ejs', {mobile: true, label: true, name: 'visit', modal: true}) %>
+                    <div class="divider-dashed"></div>
+                    <div class="form-group">
+                        <p class="text-muted"><b>상태</b></p>
+                        <select class="form-control selectpicker show-tick visit-status" title="상태"
+                                data-width="fit" data-mobile="true">
+                            <option value="" selected>전체</option>
+                            <option value="">방문</option>
+                            <option value="">미방문</option>
+                        </select>
+                    </div>
+
+                    <div class="divider-dashed"></div>
+                    <div class="form-group">
+                        <p class="text-muted"><b>방문자</b></p>
+                        <select class="form-control selectpicker show-tick visit-writer" title="방문자"
+                                data-width="fit" data-size="5" data-mobile="true">
+                                <option value="">전체</option>
+                            <% visitors.forEach(function(visitor) { %>
+                                <option value="<%=visitor['작성자']%>" <%- visitor['작성자'] === user['인덱스'] ? 'selected' : '' %> ><%=visitor['작성자명']%></option>
+                            <% }) %>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<% include ./footer %>

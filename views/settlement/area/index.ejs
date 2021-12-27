@@ -1,0 +1,46 @@
+<% include ./header %>
+
+<div class="container body">
+    <div class="main_container">
+        <% include ../../includes/sidemenu.ejs %>
+        <% include ../../includes/topnav.ejs %>
+
+        <div class="right_col" role="main">
+            <div class="">
+
+                <div class="row">
+
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+
+                        <div role="tabpanel">
+                            <ul class="nav nav-tabs care-tabs" role="tablist">
+                                <li role="presentation" class="active">
+                                    <a href="#tab-as-area" role="tab" data-toggle="tab">지사정산</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#tab-as-static" role="tab" data-toggle="tab">정산통계</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane fade active in" id="tab-as-area">
+                                    <%- include('./area.ejs') %>
+                                </div>
+                                <div role="tabpanel" class="tab-pane fade" id="tab-as-static">
+                                    <%- include('./static.ejs') %>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<% include ./footer %>

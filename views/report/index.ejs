@@ -1,0 +1,418 @@
+<% include ./header %>
+<div class="container body">
+    <div class="main_container">
+        <% include ../includes/sidemenu.ejs %> <% include ../includes/topnav.ejs
+        %>
+
+        <div class="right_col" role="main">
+            <div class="row">
+                <!--
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel no-border no-bg p-l-none p-r-none">
+                            <div class="x_content">
+                    -->
+
+                <div class="col-lg-2 col-md-3 col-sm-12 col-xs-12 profile_left">
+                    <ul class="list-unstyled user_data">
+                        <li class="breakpoints-sm breakpoints-xs">
+                            <div class="report-calendar"></div>
+                        </li>
+                        <li class="breakpoints-lg breakpoints-md">
+                            <div class="input-group m-b-none">
+                                <span class="input-group-btn">
+                                    <button
+                                        class="btn btn-default datemover"
+                                        data-range="left"
+                                    >
+                                        <i class="fa fa-angle-left"></i>
+                                    </button>
+                                </span>
+                                <input
+                                    type="text"
+                                    class="form-control datepicker text-center"
+                                    readonly
+                                    data-name=""
+                                    data-value="<%= moment().format('YYYY-MM-DD') %>"
+                                    value="<%= moment().format('LL') %>"
+                                />
+                                <span class="input-group-btn">
+                                    <button
+                                        class="btn btn-default datemover"
+                                        data-range="right"
+                                    >
+                                        <i class="fa fa-angle-right"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="divider"></div>
+                    <input
+                        type="text"
+                        class="form-control"
+                        name="report-search"
+                        id="report-search"
+                        placeholder="보고자명, 기타업무 내용 검색"
+                    />
+                    <div class="divider"></div>
+                    <select
+                        class="selectpicker show-tick report-area"
+                        title="지사"
+                        data-live-search="true"
+                        data-width="100%"
+                        data-size="5"
+                    >
+                    </select>
+                    <div class="divider"></div>
+                    <h5><i class="orange fa fa-square"></i> 부서</h5>
+                    <div class="divider-dashed"></div>
+                    <ul
+                        class="list-unstyled list-inline user_data report-department small"
+                    ></ul>
+
+                    <h5><i class="green fa fa-square"></i> 보고자</h5>
+                    <div class="divider-dashed"></div>
+                    <ul
+                        class="list-unstyled list-inline user_data report-writer small"
+                    ></ul>
+                </div>
+
+                <div class="col-lg-10 col-md-9 col-sm-12 col-xs-12">
+                    <div class="report-write">
+                        <div
+                            class="x_panel hidden animate fadeIn"
+                            id="report-write"
+                        >
+                            <div class="x_title">
+                                <h4
+                                    id="report-date"
+                                    class="blue"
+                                    style="line-height:1.2 !important;"
+                                >
+                                    {{보고일자}} 업무보고서
+                                </h4>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <p class="red">
+                                    방문일지, 전화일지, A/S처리내역은 해당일자에
+                                    기록이 있으면 저장시 자동으로 추가됩니다.
+                                </p>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <select
+                                                class="show-tick"
+                                                id="report-depart"
+                                                title="부서선택"
+                                                data-width="fit"
+                                                data-max-options="1"
+                                                multiple
+                                            >
+                                                <option value="1"
+                                                    >개발실</option
+                                                >
+                                                <option value="2"
+                                                    >영업팀</option
+                                                >
+                                                <option value="3">QC</option>
+                                                <option value="4"
+                                                    >부가서비스</option
+                                                >
+                                                <option value="5"
+                                                    >총무과</option
+                                                >
+                                                <option value="0">기타</option>
+                                            </select>
+                                        </span>
+                                        <input
+                                            type="text"
+                                            class="form-control input"
+                                            disabled
+                                            id="report-depart-name"
+                                            placeholder="부서명칭 입력 (20자)"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div class="x_panel no-border">
+                                    <div class="x_title">
+                                        <h4>기타업무</h4>
+                                        <button
+                                            class="btn btn-primary pull-right"
+                                            data-toggle="modal"
+                                            data-target=".etc-modal"
+                                            type="button"
+                                        >
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="x_content">
+                                        <table
+                                            class="table table-hover report-list-etc"
+                                        >
+                                            <thead>
+                                                <tr>
+                                                    <th>구분</th>
+                                                    <th>프로그램</th>
+                                                    <th>요청자</th>
+                                                    <th>거래처</th>
+                                                    <th>상태</th>
+                                                    <th
+                                                        style="max-width:500px;"
+                                                    >
+                                                        내용
+                                                    </th>
+                                                    <th>ACT</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="report-etc"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <button
+                                    class="btn btn-success pull-right"
+                                    id="report-save"
+                                    type="button"
+                                >
+                                    저장
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- reports list -->
+                    <div class="report-list"></div>
+
+                    <!-- report list -->
+                </div>
+                <!--
+                            </div>
+                        </div>
+                    </div>
+                    -->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="x_panel hidden animate fadeIn" id="report-template">
+    <div class="x_title">
+        <h4 id="report-date" class="blue" style="line-height:1.2 !important;">
+            {{보고일자}} 업무보고서
+        </h4>
+        <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+        <h5 class="report-out" id="report-info">
+            <b>{{부서}} / {{부서명}} / {{작성자명}}</b>
+            <small>{{작성일자}}</small>
+        </h5>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 report-out">
+                <div class="x_panel no-border">
+                    <div class="x_title">
+                        <h5>방문일지</h5>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div class="panel list-group report-list-visit"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 report-out">
+                <div class="x_panel no-border">
+                    <div class="x_title">
+                        <h5>상담일지</h5>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div class="panel list-group report-list-call"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 report-out">
+                <div class="x_panel no-border">
+                    <div class="x_title">
+                        <h5>A/S일지</h5>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div class="panel list-group report-list-service"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-12">
+                <div class="x_panel no-border">
+                    <div class="x_title">
+                        <h4>기타업무</h4>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <table
+                            class="table table-hover report-list-etc breakpoints-sm breakpoints-xs"
+                        >
+                            <thead>
+                                <tr>
+                                    <th>구분</th>
+                                    <th>프로그램</th>
+                                    <th>요청자</th>
+                                    <th>거래처</th>
+                                    <th>상태</th>
+                                    <th style="max-width:500px;">내용</th>
+                                </tr>
+                            </thead>
+                            <tbody id="report-etc"></tbody>
+                        </table>
+                        <div
+                            class="panel list-group report-list-etc-mobile breakpoints-lg breakpoints-md"
+                        ></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button
+            class="btn btn-dark pull-right report-editable"
+            data-edittype="delete"
+        >
+            <i class="fa fa-trash"></i> 삭제
+        </button>
+        <button
+            class="btn btn-default pull-right report-editable"
+            data-edittype="edit"
+        >
+            <i class="fa fa-edit"></i> 수정
+        </button>
+    </div>
+</div>
+<div
+    class="modal fade etc-modal"
+    tabindex="-1"
+    role="dialog"
+    aria-hidden="true"
+>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="report-add-form" class="form-horizontal">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">기타업무등록</h4>
+                </div>
+                <div class="modal-body form-horizontal form-label-left">
+                    <input
+                        id="id"
+                        type="number"
+                        name="id"
+                        data-name="id"
+                        class="hidden"
+                    />
+
+                    <div class="form-group">
+                        <p class="text-muted"><b>구분</b></p>
+                        <input
+                            id="report-add-kind"
+                            type="text"
+                            name="report-add-kind"
+                            data-name="구분"
+                            placeholder="수정, 개발, 외근, 외근예정, 계약, 문의"
+                            class="input form-control"
+                        />
+                    </div>
+
+                    <div class="divider-dashed"></div>
+
+                    <div class="form-group">
+                        <p class="text-muted"><b>프로그램</b></p>
+                        <input
+                            id="report-add-program"
+                            type="text"
+                            name="report-add-program"
+                            data-name="프로그램"
+                            placeholder="전체, 센스, 메디, 이플러스, 이챠트, 한의맥, 홈페이지"
+                            class="input form-control"
+                        />
+                    </div>
+
+                    <div class="divider-dashed"></div>
+
+                    <div class="form-group">
+                        <p class="text-muted"><b>요청자</b></p>
+                        <input
+                            id="report-add-requester"
+                            type="text"
+                            name="report-add-requester"
+                            data-name="요청자"
+                            class="input form-control"
+                        />
+                    </div>
+
+                    <div class="divider-dashed"></div>
+
+                    <div class="form-group">
+                        <p class="text-muted"><b>거래처</b></p>
+                        <input
+                            id="report-add-client"
+                            type="text"
+                            name="report-add-client"
+                            data-name="거래처"
+                            class="input form-control"
+                        />
+                    </div>
+
+                    <div class="divider-dashed"></div>
+
+                    <div class="form-group required">
+                        <p class="text-muted"><b>상태</b></p>
+                        <input
+                            id="report-add-status"
+                            type="text"
+                            name="report-add-status"
+                            data-name="상태"
+                            placeholder="작업중, 완료, 1% ~ 100%, 보류"
+                            required
+                            class="input form-control"
+                        />
+                    </div>
+
+                    <div class="divider-dashed"></div>
+
+                    <div class="form-group required">
+                        <p class="text-muted"><b>작업내용</b></p>
+                        <textarea
+                            id="report-add-content"
+                            rows="10"
+                            name="report-add-content"
+                            data-name="내용"
+                            placeholder="내용은 상세하게 작성해주세요!"
+                            required
+                            class="form-control"
+                        ></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button
+                        type="submit"
+                        data-name="reportAddSave"
+                        class="btn btn-primary"
+                    >
+                        등록
+                    </button>
+                    <button
+                        type="button"
+                        class="btn btn-default"
+                        data-dismiss="modal"
+                    >
+                        닫기
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<% include ./footer %>

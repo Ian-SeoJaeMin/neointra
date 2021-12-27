@@ -1,0 +1,16 @@
+<script src="https://cdn.rawgit.com/inexorabletash/polyfill/v0.1.41/polyfill.min.js"></script>
+<script src="/components/jquery/dist/jquery.js"></script>
+<script src="/components/bluebird/js/browser/bluebird.min.js"></script>
+<script src="/components/axios/dist/axios.min.js"></script>
+<script src="/components/socket.io-client/dist/socket.io.js"></script>
+<script src="/js/transfer/packetTypes.js"></script>
+<script src="/js/transfer/fileSocket.js"></script>
+<script>
+    $(window).on("unload", function (e) {
+        nfSocket.fn.disconnect();
+    });
+
+</script>
+</body>
+
+</html>

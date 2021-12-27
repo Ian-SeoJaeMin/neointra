@@ -1,0 +1,48 @@
+<div class="x_panel">
+    <div class="x_title">
+        <h3><i class="fa fa-window-maximize"></i> 실행파일별 A/S 발생</h3>
+        <div class="form-inline pull-right breakpoints-xs">
+            <%- include('../../includes/datepicker.ejs', {mobile: false, label:
+            false, name: 'exe', modal: false, searchBtn: 'ture', classNames:
+            {'inputGroup': 'm-b-none input-group-sm'}}) %>
+        </div>
+
+        <div class="form-inline breakpoints-lg breakpoints-md breakpoints-sm">
+            <%- include('../../includes/datepicker.ejs', {mobile: true, label:
+            false, name: 'exe', modal: false, searchBtn: 'ture', classNames:
+            {'inputGroup': 'm-b-none input-group-sm'}}) %>
+        </div>
+
+        <div class="form-group m-r-sm pull-right">
+            <div class="btn-group btn-group-sm" data-toggle="buttons">
+                <label class="btn btn-success">
+                    <input type="checkbox" name="exe-static-area" /> 본사
+                </label>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered neo-static neo-linked">
+                        <thead>
+                            <tr>
+                                <th class="bg-navy">EMR</th>
+                                <th class="bg-navy">처리구분</th>
+                                <% Config.CONSTS.EXES.forEach(function(exe){ %>
+                                <th class="bg-navy">
+                                    <%= exe %>
+                                </th>
+                                <% }) %>
+                                <th class="bg-navy">합계</th>
+                            </tr>
+                        </thead>
+                        <tbody id="exe-table"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

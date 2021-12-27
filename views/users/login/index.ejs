@@ -1,0 +1,48 @@
+<% include ./header %>
+
+    <div>
+
+        <div class="login_wrapper">
+            <div class="animate fadeIn form login_form">
+                <section class="login_content">
+                    <% if (ENV_DEVELOPMENT) { %>
+                    <div class="orange">
+                        <i class="fa fa-exclamation-circle fa-2x"></i>
+                        <h4>
+                        테스트 서버 데이터를 이용중입니다.
+                        <br>
+                        Scale-up의 [WebAS]를 확인해주세요.
+                        </h4>
+                    </div>
+                    <% } %>
+                    <form id="login-form">
+                        <h1> Login </h1>                        
+                        <div>
+                            <input type="text" id="username" name="username" class="form-control" placeholder="아이디" required autofocus autocomplete="off">
+                        </div>
+                        <div>
+                            <input type="password" id="password" name="password" class="form-control" placeholder="비밀번호" required>
+                        </div>
+                        <div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" id="remember-me"> 자동로그인
+                                </label>
+                            </div>
+                            <button type="submit" class="btn btn-primary submit">로그인</button>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="separator">
+                            <div>                                
+                                <h1> <%- title.company_e %></h1>                                
+                                <p>(주)<%- title.company_k %></p>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+
+    </div>
+
+    <% include ./footer %>

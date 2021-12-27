@@ -1,0 +1,28 @@
+.prj-cancel {
+    background-color: rgb(255, 210, 210) !important;
+}
+
+.prj-cancel * {
+    text-decoration: line-through !important;
+}
+
+.prj-hold {
+    background-color: rgb(211, 211, 211) !important;
+}
+
+table tr td.table-ellipsis {
+    max-width: 200px !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap
+}
+
+.flowchart {
+    padding: 15px 10px;
+    border-radius: 25px;
+    font-size: 14px;
+}
+
+.flowchart-row {
+    padding: 15px 0px;
+}

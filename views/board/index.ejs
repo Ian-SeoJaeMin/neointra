@@ -1,0 +1,164 @@
+<% include ./header %>
+<div class="container body">
+    <div class="main_container">
+        <% include ../includes/sidemenu.ejs %>
+        <% include ../includes/topnav.ejs %>
+
+        <div class="right_col" role="main">
+            <div class="page-title">
+                <div class="title_left">
+                    <h3><i class="fa <%=board['아이콘']%>"></i> <%= board['명칭'] %> </h3>
+                    <% if (board['명칭'] === '테스트') { %>
+                    <center class="m-b-sm">
+                        <img src="/images/scale-up.png" class="img-rounded img-responsive" alt="">
+                    </center>
+                    <% } else if (board['명칭'] === '메인서버관리') { %>
+                    <center class="m-b-sm">
+                        <img src="/images/ocs.gif" class="img-rounded img-responsive" alt="">
+                    </center>
+                    <% } else if (board['명칭'] === '데이터작업') { %>
+                    <h5>
+                        <%- board['설명'].replace(/\n/gim, '<br>') %>
+                    </h5>
+                    <h4 class="red font-bold">
+                        데이터작업 요청전 요양기관의 미수금을 반드시 확인해주세요.
+                    </h4>
+                    <% } else { %>
+                    <h5>
+                        <%- board['설명'].replace(/\n/gim, '<br>').replace(/#red#/gim, '<b class="red">').replace(/#b#/gim, '<b>').replace(/##/gim, '</b>') %>
+                    </h5>
+                    <% } %>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title breakpoints-lg breakpoints-md m-t-sm">
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-warning" data-toggle="modal"
+                                        data-target=".board-filter-modal">
+                                        <i class="fa fa-sliders"></i> 검색옵션
+                                    </button>
+                                </span>
+                                <input type="search" name="board-search" class="form-control" placeholder="게시글 검색" />
+                                <span class="input-group-btn">
+                                    <a class="btn btn-primary board-write"
+                                        href="/board/write?index=<%=board['게시판ID']%>"><i class="fa fa-plus"></i></a>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row x_title breakpoints-sm breakpoints-xs">
+
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="form-inline">
+                                    <!-- <%- include('../includes/datepicker.ejs', {mobile: false, label: false, name: "board", modal: false}) %> -->
+                                    <% finder.forEach(function(field, index) { %>
+                                    <%  if (field['type'].match(/선택|드롭박스/gim)) { %>
+                                    <div class="form-group">
+                                        <select class="selectpicker form-control board-finder" data-size="5"
+                                            data-live-search="true" title="<%=field['label']%>"
+                                            data-field="<%=field['label']%>" data-width="fit">
+                                            <option value="">선택안함</option>
+                                            <% field['listitem'].forEach(function(item){ %>
+                                            <option value="<%- item === '전체' ? '' : item %>"><%= item %></option>
+                                            <% }) %>
+                                        </select>
+                                    </div>
+                                    <%  } %>
+                                    <% }) %>
+                                    <!--
+                                    </div>
+                                    <div class="col-md-4 col-xs-12">
+                                    -->
+                                    <div class="form-group">
+                                        <div class="input-group m-b-none">
+                                            <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                            <input type="search" name="board-search" class="form-control"
+                                                placeholder="게시글 검색" />
+                                            <span class="input-group-btn">
+                                                <a class="btn btn-primary board-write"
+                                                    href="/board/write?index=<%=board['게시판ID']%>">글작성</a>
+                                                <% if (board['그룹방명칭'] !== '') { %>
+                                                <a class="btn btn-kakao"
+                                                    href="javascript:window.open('<%=board['그룹방링크']%>');"><i
+                                                        class="fa fa-comment"></i> <%=board['그룹방명칭']%></a>
+                                                <% } %>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="x_content">
+
+                            <table
+                                class="table table-striped table-linked jambo_table board-list breakpoints-sm breakpoints-xs">
+                                <thead>
+                                    <tr class="breakpoints-sm breakpoints-xs">
+                                        <th width="5%" data-field="인덱스">N.</th>
+                                        <th width="5%" data-field="공지">공지</th>
+                                        <% header.forEach(function(field) { %>
+                                        <th><%= field['label'] %></th>
+                                        <% }) %>
+                                        <th data-field="작성자명">작성자</th>
+                                        <th data-field="작성일자">작성일자</th>
+                                        <% if (board['댓글'] === 0 ) { %>
+                                        <th>댓글</th>
+                                        <% } %>
+                                    </tr>
+                                </thead>
+                                <tbody id="board-desktop">
+
+                                </tbody>
+                            </table>
+                            <div id="board-mobile"
+                                class="panel list-group board-list-group breakpoints-lg breakpoints-md"></div>
+                            <div class="row">
+                                <div class="col-xs-12 text-center">
+                                    <ul class="pagination">
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade board-filter-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="닫기"><span
+                        area-hidden="true">x</span></button>
+                <h4 class="modal-title">게시판 검색 옵션</h4>
+            </div>
+            <div class="modal-body form-horizontal form-label-left">
+
+                <!-- <%- include('../includes/datepicker.ejs', {mobile: true, label: true, name: "board", modal: true}) %> -->
+
+
+                <% finder.forEach(function(field, index) { %>
+                <%  if (field['type'].match(/선택|드롭박스/gim)) { %>
+                <div class="divider-dashed <%- index < finder.length - 1 ? 'hidden' : '' %>"></div>
+                <div class="form-group">
+                    <p class="text-muted"><b><%= field['label'] %></b></p>
+                    <select class="selectpicker m-b-sm board-finder" data-size="5" data-live-search="true"
+                        title="<%=field['label']%>" data-field="<%=field['label']%>" data-width="fit"
+                        <% field['listitem'].forEach(function(item){ %> <option
+                        value="<%- item === '전체' ? '' : item %>"><%= item %></option>
+                        <% }) %>
+                    </select>
+                </div>
+                <%  } %>
+                <% }) %>
+            </div>
+        </div>
+    </div>
+</div>
+<% include ./footer %>

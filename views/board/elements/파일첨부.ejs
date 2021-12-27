@@ -1,0 +1,41 @@
+<div class="form-group element-upload">
+    <label class="control-label col-md-3 col-sm-3 col-xs-12"> 
+        <%= field['label'] %>                                 
+        <% if (field['require']) { %> 
+        <span class="require red">*</span>
+        <% } %>               
+    </label>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+        <div class="input-group">
+            <label class="input-group-btn">
+                <span class="btn btn-primary"> 
+                    찾아보기 <input type="file" 
+                                    data-name="<%=field['name']%>" 
+                                    data-label="<%=field['label']%>" 
+                                    name="uploadfile" 
+                                    style="display: none;" 
+                                    <%- field['multiple'] ? 'multiple': '' %>
+                                    accept="<%=field['accept']%>">
+                </span>
+            </label>
+            <input type="text" class="form-control input input-xs" readonly>
+            <span class="input-group-btn">
+                <button class="btn btn-success btn-uploader hidden" data-label="<%=field['label']%>" type="button">업로드</button>
+            </span>
+        </div>        
+        <p class="form-text text-success m-b-none m-t-sm <%- field['placeholder'].length ? '' : 'hidden'%>"><i class="fa fa-hand-o-right"></i> <em><%=field['placeholder']%></em></p>
+        <ul class="list-unstyled uploaded-file-list">
+        <% if (value) { %> 
+            <% value.forEach(function(upfile, index){ %>
+            <li class="m-t-xs m-b-xs p-b-xs">
+                <i class="fa <%= upfile.icon %> "></i> <%= upfile.name %>
+                <button class="btn btn-xs btn-link upload-file-delete red" type="button" data-label="<%=field['label']%>" data-index="<%=index%>"><i class="fa fa-close"></i></button>
+            </li>
+            <% }) %>
+        <% } %>
+        </ul>
+    </div>
+</div>
+<% if (!last) { %> 
+<div class="divider-dashed"></div>
+<% } %>

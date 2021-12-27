@@ -1,0 +1,29 @@
+<div class="top_nav">
+    <div class="nav_menu">
+        <nav>
+            <div class="nav toggle">
+                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+            </div>
+            <div class="nav newtab">
+                <a id="menu_newtab" data-toggle="tooltip" data-original-title="새탭으로 열기" data-placement="bottom"><i class="fa fa-clone"></i></a>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                
+                <li class="">
+                    <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <i class="fa fa-user-circle"/></i>
+                        <%= user['이름'] %>
+                        <span class=" fa fa-angle-down"></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-usermenu pull-right">                                       
+                        <li><a href="/users/mypage">마이페이지</a></li>
+                        <% if (user['설정']['admin'] === 1 || user['설정']['보류매크로'] === 1 || user['설정']['처리구분'] === 1 || user['설정']['AS담당자'] === 1 || user['설정']['권한관리'] === 1 || user['설정']['정산'] === 1 ) { %>
+                        <li><a href="/admin">홈페이지 관리</a></li>
+                        <% } %>
+                        <li><a href="javascript:sessionStorage.clear();location.href='/users/logout';"><i class="fa fa-sign-out pull-right"></i> 로그아웃</a></li>
+                    </ul>
+                </li>                
+            </ul>
+        </nav>
+    </div>
+</div>

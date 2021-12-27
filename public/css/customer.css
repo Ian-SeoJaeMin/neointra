@@ -1,0 +1,86 @@
+table tr th[data-field]:hover {
+    /* background-color: #F7F7F7 !important; */
+}
+table tr.collapse.in td, table tr.child-in {
+    background-color: #F7F7F7 !important;
+}
+table tr.collapse.in td {
+    cursor: default;
+}
+
+table tr td.table-ellipsis {
+    max-width: 200px !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap
+}
+
+.progress-bar-loading {
+    background-color: #dcdcdc !important;
+}
+
+.filter-option, .bootstrap-select span {
+    color: #333 !important;
+}
+
+.customer-closed {
+    background: #bebebe !important;
+    border: 1px solid #bebebe !important;
+    color: #535353;
+    text-decoration: line-through !important;
+}
+/*
+.expander.collapsed>i.fa-chevron-up:before {
+    content: "\f078" !important;
+} */
+
+.fc-list-view {
+    border-top: none;
+}
+
+.care-list-group .care-list-header {
+    background-color: #eee;
+    border-color: #ddd;
+    font-weight: bold;
+    color: #73879C;
+}
+
+.care-list-group .care-list-header:first-child {
+    border-radius: 0px !important;
+}
+
+.visit-list-date {
+    background-color: #cacaca !important;
+    border-color: #ddd !important;
+    font-weight: bold !important;
+    color: #ffffff !important;
+}
+
+.visit-type-regular {
+    background-color: #7CB77E;
+}
+.visit-type-request {
+    background-color: #3A87AD;
+}
+.visit-type-emergency {
+    background-color: #E47675;
+}
+.visit-type-sales {
+    background-color: #8E74C8;
+}
+.visit-type-etc {
+    background-color: #7F7F7F;
+}
+.visit-type-office {
+    background-color: #FFEC42;
+    color: #3B1E1E !important;
+}
+.visit-type-watch {
+    background-color: rgb(255, 179, 66);
+}
+.visit-type-open {
+    background-color: rgb(42, 190, 196);
+}
+#map {
+    height: 500px;
+}

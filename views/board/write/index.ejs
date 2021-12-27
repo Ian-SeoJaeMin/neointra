@@ -1,0 +1,58 @@
+<% include ./header %>
+
+<div class="container body">
+    <div class="main_container">
+        <% include ../../includes/sidemenu.ejs %>
+        <% include ../../includes/topnav.ejs %>
+
+        <div class="right_col" role="main">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2><i class="fa <%= board['아이콘'] %>"></i> <%= board['명칭'] %> 등록</h2>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <form class="form-horizontal form-label-left">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        공지
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select class="selectpicker form-control" data-live-search="true" data-size="5"
+                                            data-width="fit" name="notice" title="공지기간" placeholder="공지기간"
+                                            data-target="tooltip" data-toggle="tooltip">
+                                            <option value="">안함</option>
+                                            <!-- <option value="7">일주일</option>
+                                            <option value="30">한달</option>
+                                            <option value="60">두달</option> -->
+                                            <option value="9">무기한</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="divider-dashed"></div>
+                                <% board['입력필드'].forEach(function(field, index) { %>
+                                <%- include(field['ejs'], {field: field, value: field.default, last: index === board['입력필드'].length - 1}) %>
+                                <% }) %>
+
+                                <div class="divider"></div>
+
+                                <div class="form-group">
+                                    <div class="col-md-9 col-md-6 col-sm-6 col-xs-12 col-xs-12 col-md-offset-3">
+                                        <a href="javascript:window.history.back();" class="btn btn-default">취소</a>
+                                        <button type="submit" class="btn btn-primary" data-board="<%=board['게시판ID']%>"
+                                            id="board-save">저장</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include ./footer %>

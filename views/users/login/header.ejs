@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=yes">
+    <title>
+        <%= title.company_e %> - 로그인
+    </title>
+    <% include ../../includes/css %>
+    <% if (ENV_DEVELOPMENT) { %>
+        <script src="<%= LIVERELOAD %>"></script>
+    <% } %>
+
+    <!-- [if lt IE 9]>
+        <script src="/components/html5shiv/html5shiv.min.js"></script>    
+        <script src="/components/respond/respond.min.js"></script>
+    <![endif]-->
+    <script>
+        (function(){
+            if (localStorage.getItem('user')){
+                window.autoLogin = 1;
+            } else {
+                window.autoLogin = 0;
+            }
+
+            window.redirectUrl = decodeURIComponent('<%= encodeURIComponent(redirect || "") %>');
+            window.autoLogin = parseInt('<%- autoLogin %>');
+            
+        })();
+    </script>
+</head>
+
+<body class="login">

@@ -1,0 +1,409 @@
+<% include ./header %>
+
+<div class="container body">
+    <div class="main_container">
+        <% include ../includes/sidemenu.ejs %>
+        <% include ../includes/topnav.ejs %>
+
+        <div class="right_col" role="main">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="dashboard_graph <%- user['지사코드'] === '0000' ? '' : 'hidden' %>">
+                        <!-- <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th class="text-center" colspan="2">센스</th>
+                                    <th class="text-center" colspan="2">메디</th>
+                                    <th class="text-center" colspan="2">이플러스</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="font-size: 15px;" class="text-center bg-primary font-bold">황선주(정)</td>
+                                    <td style="font-size: 15px;" class="text-center bg-green font-bold">문승욱(부)</td>
+                                    <td style="font-size: 15px;" class="text-center bg-primary font-bold">이종은(정)</td>
+                                    <td style="font-size: 15px;" class="text-center bg-green font-bold">장지웅(부)</td>
+                                    <td style="font-size: 15px;" class="text-center bg-primary font-bold">서영필(정)</td>
+                                    <td style="font-size: 15px;" class="text-center bg-green font-bold">진영래(부)</td>
+                                </tr>
+                            </tbody>
+                        </table> -->
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <dl>
+                                    <dt class="text-success">
+                                        <i class="fa fa-check"></i> 수가/약가/백업 상태관리</dt>
+                                    <dt class="text-success">
+                                        <i class="fa fa-check"></i> 요청사항 접수 등록(프로젝트 업로드)</dt>
+                                </dl>
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <dl>
+                                    <dt class="text-success">
+                                        <i class="fa fa-check"></i> 셋업 배포 관리 (고시, 오류, 수정건)</dt>
+                                    <dt class="text-success">
+                                        <i class="fa fa-check"></i> 방문 필요 시 외근팀에 전달 역할 (서버, 긴급, 요청)</dt>
+                                </dl>
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <dl>
+                                    <dt class="h5">AS 우선순위</dt>
+                                    <dt class="text-danger">
+                                        1. 프로그램 실행 오류 (전체, 각 부서)</dt>
+                                    <dt class="text-danger">
+                                        2. 각 부서별 시작 단계 오류 (접수, 처방입력, 청구집계 등)</dt>
+                                    <dt class="text-danger">
+                                        3. 수납 오류</dt>
+                                    <dt class="text-danger">
+                                        4. 연동 오류 (검사, PACS 등)</dt>
+                                </dl>
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>목표</th>
+                                            <th>방법</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% String.prototype.replaceAll = function(org, dest) { %>
+                                        <%    return this.split(org).join(dest); %>
+                                        <% } %>
+
+                                        <% setting.service['우선순위'].forEach(function(priority) { %>
+                                        <% priority['중요'] = priority['중요'] + "" %>
+                                        <% var words = priority['중요'].split(',') %>
+                                        <% words.forEach(function(word){ %>
+                                        <%      priority['목표']= priority['목표'].replaceAll(word, "<b class='red'>" + word + '</b>') %>
+                                        <%      priority['방법']= priority['방법'].replaceAll(word, "<b class='red'>" + word + '</b>') %>
+                                        <% }) %>
+                                        <tr>
+                                            <td><%- priority['목표'] %></td>
+                                            <td><%- priority['방법'] %></td>
+                                        </tr>
+                                        <% }) %>
+                                    </tbody>
+                                </table>
+
+                                <!-- <dt class="text-danger">
+                                                    1. 프로그램 실행 오류 (전체, 각 부서)</dt>
+                                                <dt class="text-danger">
+                                                    2. 각 부서별 시작 단계 오류 (접수, 처방입력, 청구집계 등)</dt>
+                                                <dt class="text-danger">
+                                                    3. 수납 오류</dt>
+                                                <dt class="text-danger">
+                                                    4. 연동 오류 (검사, PACS 등)</dt> -->
+                                </dl>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="x_panel">
+                        <div class="x_title breakpoints-lg breakpoints-md">
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-warning" data-toggle="modal"
+                                        data-target=".service-filter-modal">
+                                        <i class="fa fa-sliders"></i> 검색옵션
+                                    </button>
+                                </span>
+                                <!-- <span class="input-group-addon"><i class="fa fa-search"></i></span> -->
+                                <input type="search" name="service-search" class="form-control" placeholder="AS 검색" />
+                            </div>
+                        </div>
+                        <div class="row x_title breakpoints-sm breakpoints-xs">
+                            <!-- <div class="form-inline"> -->
+                            <div class="col-sm-12 col-xs-12">
+                                <div class="form-inline">
+
+                                    <%- include('../includes/datepicker.ejs', {mobile: false, label: false, name: 'service', modal: false, classNames: {'inputGroup': 'm-b-none input-group-sm'}}) %>
+
+                                    <div class="form-group form-group-sm">
+                                        <!-- <button type="button" data-program="20"
+                                            class="btn btn-default service-program">센스</button>
+                                        <button type="button" data-program="8"
+                                            class="btn btn-default service-program">메디</button>
+                                        <button type="button" data-program="1"
+                                            class="btn btn-default service-program">이플러스</button>
+                                        <button type="button" data-program="7"
+                                            class="btn btn-default service-program">이챠트</button>
+                                        <button type="button" data-program="10"
+                                            class="btn btn-default service-program">한의맥프로</button>
+                                        <button type="button" data-program="21"
+                                            class="btn btn-default service-program">센스한방</button> -->
+                                        <select class="form-control selectpicker show-tick service-program" title="프로그램"
+                                            data-width="fit" data-size="5" data-live-search="true">
+                                            <option value=''>전체</option>
+                                            <option value='24'>SensePlus</option>
+                                            <option value='20'>SenseChart</option>
+                                            <option value='8'>MediChart</option>
+                                            <option value='1'>Eplus</option>
+                                            <option value='10'>HanimacPro</option>
+                                            <option value='21'>SenseChart(H)</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group form-group-sm">
+                                        <select class="form-control selectpicker show-tick service-exe"
+                                            data-live-search="true" data-width="fit" data-size="10" title="실행파일">
+                                            <option value="">전체</option>
+                                            <option value="데스크">데스크</option>
+                                            <option value="진료실">진료실</option>
+                                            <option value="청구심사">청구심사</option>
+                                            <option value="진료지원">진료지원</option>
+                                            <option value="입원수납">입원수납</option>
+                                            <option value="병동">병동</option>
+                                            <option value="문서관리">문서관리</option>
+                                            <option value="통계">통계</option>
+                                            <option value="병원관리">병원관리</option>
+                                            <option value="메인">메인</option>
+                                            <option value="부가서비스">부가서비스</option>
+                                            <option value="기타">기타</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group form-group-sm service-tag-menu hidden">
+                                        <select class="form-control selectpicker show-tick service-menu"
+                                            data-live-search="true" data-width="fit" data-size="10" title="메뉴">
+                                        </select>
+                                        <select class="form-control selectpicker show-tick service-button"
+                                            data-live-search="true" data-width="fit" data-size="10" title="버튼">
+                                        </select>
+                                    </div>
+                                    <!-- <div class="form-group form-group-sm">
+                                        <select class="form-control selectpicker show-tick service-type"
+                                            data-width="fit" title="유형">
+                                            <option value="">전체</option>
+                                            <option value="1">장애</option>
+                                            <option value="2">사용법</option>
+                                        </select>
+                                    </div> -->
+                                    <div class="form-group form-group-sm">
+                                        <select id="service-hospital" class="form-control selectpicker show-tick"
+                                            data-width="fit" data-size="10" title="기관검색">
+                                        </select>
+                                    </div>
+                                    <div class="form-group form-group-sm">
+                                        <select class="form-control selectpicker show-tick service-group"
+                                            data-width="fit" title="A/S그룹">
+                                            <option value="">전체</option>
+                                            <option value="2">나의A/S</option>
+                                            <option value="1">지사A/S</option>
+                                        </select>
+                                    </div>
+                                    <!-- <div class="form-group form-group-sm"> -->
+                                    <!-- <div class="btn-group btn-group-sm">
+                                            <button type="button" data-type="2" class="btn btn-default"
+                                                name="service-group">나의
+                                                A/S</button>
+                                            <button type="button" data-type="1" class="btn btn-default"
+                                                name="service-group">지사
+                                                A/S</button>
+                                            <button class="btn btn-default" id="service-sort">최신순</button>
+                                            <a href="/api/service/remote?user=<%= user['아이디'] %>" class="btn btn-default"
+                                            id="service-remote">원격접속</a>
+                                            <button type="button" class="btn btn-warning" id="as-finder">AS
+                                                Finder</button>
+                                            <a href="/service/tags" class="btn btn-warning">태그관리</a>
+                                            <button type="button" class="btn btn-warning"
+                                                onclick="javascript:window.open('http://www.neochart.co.kr/manual/as_process.pdf')">도움말</button>
+                                        </div> -->
+                                    <!-- </div> -->
+                                    <div class="btn-group">
+                                        <button class="btn btn-default btn-sm" id="service-sort">최신순</button>
+                                        <button type="button" class="btn btn-warning btn-sm" id="as-finder">AS
+                                            Finder</button>
+                                    </div>
+                                    <div class="form-group form-group-sm">
+                                        <div class="input-group m-b-none input-group-sm">
+                                            <div class="input-group-btn">
+                                                <button type="button" class="btn btn-default dropdown-toggle"
+                                                    data-toggle="dropdown" aria-haspopup="true"
+                                                    aria-expanded="false">추가기능 <span class="caret"></span></button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="/api/service/remote?user=<%= user['아이디'] %>">원격접속</a>
+                                                    </li>
+                                                    <li><a
+                                                            href="javascript:window.open('http://www.neochart.co.kr/manual/as_process.pdf')">도움말</a>
+                                                    </li>
+                                                    <li role="separator" class="divider"></li>
+                                                    <li><a href="/service/tags">태그관리</a></li>
+                                                </ul>
+                                            </div>
+                                            <input type="search" name="service-search" class="form-control"
+                                                placeholder="AS 검색" />
+                                            <div class="input-group-btn">
+                                                <button type="button"
+                                                    class="btn btn-warning service-search-btn">검색</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- </div>
+                                            <div class="col-sm-4 col-xs-12"> -->
+                                    <!-- <div class="input-group input-group-sm">
+                                                    <span class="input-group-addon">
+                                                        <i class="fa fa-search"></i>
+                                                    </span>
+                                                    <input type="search" name="service-search" class="form-control" placeholder="AS 검색" />
+                                                </div> -->
+                                </div>
+                            </div>
+                            <!-- <div class="clearfix"></div> -->
+                            <!-- </div> -->
+                        </div>
+                        <div class="x_content">
+                            <ul class="nav nav-pills nav-justified service-nav" role="tablist">
+                                <li class="active">
+                                    <!--
+                                    <% if ( (user['지사코드'].match(/0000|0030|0031|0026|0034|0023/gim) && moment().format('dddd') !== '토요일' && moment().format('YYYYMMDD') !== '20200101') ) { %>
+                                    <a href="#tab0" class="service-status" data-toggle="tab" data-status="7">확인
+                                        <span class="badge bg-orange">0</span>
+                                    </a>
+                                    <% } else { %>
+                                    
+                                    <a href="#tab0" class="service-status" data-toggle="tab" data-status="0">접수
+                                        <span class="badge bg-orange">0</span>
+                                    </a>
+                                    <% } %>-->
+                                    <a href="#tab0" class="service-status" data-toggle="tab" data-status="0">접수
+                                        <span class="badge bg-orange">0</span>
+                                    </a>
+                                    
+                                </li>
+                                <li>
+                                    <a href="#tab1" class="service-status" data-toggle="tab" data-status="1">공유
+                                        <span class="badge bg-red emergency">0</span>
+                                        <span class="badge bg-orange normal">0</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#tab2" class="service-status" data-toggle="tab" data-status="2">처리
+                                        <span class="badge bg-orange">0</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#tab3" class="service-status" data-toggle="tab" data-status="3">보류
+                                        <span class="badge bg-orange">0</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#tab4" class="service-status" data-toggle="tab" data-status="4">완료
+                                        <span class="badge bg-orange">0</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#tab6" class="service-status" data-toggle="tab" data-status="6">피드백
+                                        <span class="badge bg-orange">0</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#tab5" class="service-status" data-toggle="tab" data-status="5">취소
+                                        <span class="badge bg-orange">0</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <!--<div id="tab0"
+                                    data-status="<%- user['지사코드'].match(/0000|0030|0031|0026|0034|0023/gim) && moment().format('dddd') !== '토요일' && moment().format('YYYYMMDD') !== '20200101' ? '7' : '0' %>"
+                                    class="service-tab-pane tab-pane fade in active"></div>-->
+                                <div id="tab0" data-status="0" class="service-tab-pane tab-pane fade in active"></div>
+                                <div id="tab1" data-status="1" class="service-tab-pane tab-pane fade"></div>
+                                <div id="tab2" data-status="2" class="service-tab-pane tab-pane fade"></div>
+                                <div id="tab3" data-status="3" class="service-tab-pane tab-pane fade"></div>
+                                <div id="tab4" data-status="4" class="service-tab-pane tab-pane fade"></div>
+                                <div id="tab6" data-status="6" class="service-tab-pane tab-pane fade"></div>
+                                <div id="tab5" data-status="5" class="service-tab-pane tab-pane fade"></div>
+                            </div>
+                            <!-- <div class="btn-group btn-group-justified m-b-xs">
+                                    <a href="#" class="btn btn-default service-status" data-status="0">접수 <span class="badge bg-red">0</span></a>
+                                    <a href="#" class="btn btn-default service-status" data-status="1">공유 <span class="badge bg-red">0</span></a>
+                                    <a href="#" class="btn btn-default service-status" data-status="2">처리 <span class="badge bg-red">0</span></a>
+                                    <a href="#" class="btn btn-default service-status" data-status="3">완료 <span class="badge bg-red">0</span></a>
+                                    <a href="#" class="btn btn-default service-status" data-status="4">보류 <span class="badge bg-red">0</span></a>
+                                    <a href="#" class="btn btn-default service-status" data-status="5">취소 <span class="badge bg-red">0</span></a>
+                                </div>
+                                <div class="accordion" id="service-accordion" role="tablist" aria-multiselectable="true"></div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade service-filter-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="닫기">
+                    <span area-hidden="true">x</span>
+                </button>
+                <h4 class="modal-title">A/S 검색 옵션</h4>
+            </div>
+            <div class="modal-body form-horizontal form-label-left">
+                <div class="form-group">
+                    <p class="text-muted">
+                        <b>프로그램</b>
+                    </p>
+                    <div class="btn-group">
+                        <button type="button" data-program="20" class="btn btn-default service-program">센스</button>
+                        <button type="button" data-program="8" class="btn btn-default service-program">메디</button>
+                        <button type="button" data-program="1" class="btn btn-default service-program">이플러스</button>
+                        <button type="button" data-program="7"
+                            class="btn btn-sm btn-default service-program">이챠트</button>
+                        <button type="button" data-program="10"
+                            class="btn btn-sm btn-default service-program">한의맥프로</button>
+                        <button type="button" data-program="21"
+                            class="btn btn-sm btn-default service-program">센스한방</button>
+                    </div>
+                </div>
+                <div class="divider-dashed"></div>
+                <div class="form-group">
+                    <p class="text-muted">
+                        <b>실행파일</b>
+                    </p>
+                    <select class="form-control selectpicker show-tick input-xs service-exe" data-live-search="true"
+                        data-width="fit" data-size="10" title="프로그램">
+                        <option value="">전체</option>
+                        <option value="데스크">데스크</option>
+                        <option value="진료실">진료실</option>
+                        <option value="청구심사">청구심사</option>
+                        <option value="진료지원">진료지원</option>
+                        <option value="입원수납">입원수납</option>
+                        <option value="병동">병동</option>
+                        <option value="문서관리">문서관리</option>
+                        <option value="통계">통계</option>
+                        <option value="병원관리">병원관리</option>
+                        <option value="메인">메인</option>
+                        <option value="부가서비스">부가서비스</option>
+                        <option value="기타">기타</option>
+                    </select>
+                </div>
+                <div class="divider-dashed"></div>
+                <div class="form-group">
+                    <p class="text-muted">
+                        <b>A/S타입</b>
+                    </p>
+                    <div class="btn-group">
+                        <button type="button" data-type="1" class="btn btn-default service-type">장애</button>
+                        <button type="button" data-type="2" class="btn btn-default service-type">사용법</button>
+                    </div>
+                </div>
+                <div class="divider-dashed"></div>
+                <div class="form-group">
+                    <p class="text-muted">
+                        <b>소속지사 A/S 전체보기 (처리, 보류, 완료)</b>
+                    </p>
+                    <div class="btn-group">
+                        <button type="button" data-type="2" class="btn btn-sm btn-default" name="service-group">나의
+                            A/S</button>
+                        <button type="button" data-type="1" class="btn btn-sm btn-default" name="service-group">지사
+                            A/S</button>
+                        <button type="button" class="btn btn-sm btn-info"
+                            onclick="javascript:window.open('http://www.neochart.co.kr/manual/as_process.pdf')">도움말</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<% include ./footer %>

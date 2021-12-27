@@ -1,0 +1,59 @@
+<% var HEADER_MONTH = ['일', '월', '화', '수', '목', '금', '토'] %>
+<% var HEADER_WEEK = ['<i class="fa fa-users"></i>', '일', '월', '화', '수', '목', '금', '토'] %>
+<table class="table table-bordered" >
+    <thead id="header">
+        <tr class="month">
+            <% HEADER_MONTH.forEach(function(header){ %>
+            <th><%- header %></th>
+            <% }) %>
+        </tr>
+        <tr class="week hidden">
+            <% HEADER_WEEK.forEach(function(header){ %>
+            <th><%- header %></th>
+            <% }) %>
+        </tr>
+        <tr class="day hidden">
+            <th><i class="fa fa-users"></i></th>
+            <th>6a</th>
+            <th class="half-time"></th>
+            <th>7a</th>
+            <th class="half-time"></th>
+            <th>8a</th>
+            <th class="half-time"></th>
+            <th>9a</th>
+            <th class="half-time"></th>
+            <th>10a</th>
+            <th class="half-time"></th>
+            <th>11a</th>
+            <th class="half-time"></th>
+            <th>12p</th>
+            <th class="half-time"></th>
+            <th>1p</th>
+            <th class="half-time"></th>
+            <th>2p</th>
+            <th class="half-time"></th>
+            <th>3p</th>
+            <th class="half-time"></th>
+            <th>4p</th>
+            <th class="half-time"></th>
+            <th>5p</th>
+            <th class="half-time"></th>
+            <th>6p</th>
+            <th class="half-time"></th>
+            <th>7p</th>
+            <th class="half-time"></th>
+            <th>8p</th>
+            <th class="half-time"></th>
+            <th>9p</th>
+            <th class="half-time"></th>
+            <th>10p</th>
+            <th class="half-time"></th>
+            <th>11p</th>
+            <th class="half-time"></th>
+            <th>12a</th>
+            <th class="half-time"></th>
+        </tr>
+    </thead>
+    <tbody id="body">
+    </tbody>
+</table>

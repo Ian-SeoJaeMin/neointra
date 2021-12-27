@@ -1,0 +1,245 @@
+<% include ./header %>
+<div class="container body">
+    <div class="main_container">
+        <% include ../../includes/sidemenu.ejs %>
+        <% include ../../includes/topnav.ejs %>
+
+        <div class="right_col" role="main">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>
+                                <i class="fa fa-briefcase"></i>
+                                견적/발주
+                            </h2>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <form class="form-horizontal form-label-left" id="order-form">
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        유형
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <p class="form-control-static">
+                                            <%= order['유형명'] %>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="divider-dashed"></div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        작성자
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <p class="form-control-static">
+                                            <%= order['작성자명'] %>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="divider-dashed"></div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        거래처
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <p class="form-control-static">
+                                            <% if (order['거래처'] == -1) { %>
+                                            <%= order['기관명칭2'] %>
+                                            <% } else { %>
+                                            <%= order['기관명칭'] %> (
+                                            <%= order['기관코드'] %> )
+                                            <% } %>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="divider-dashed"></div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        수신자
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <p class="form-control-static">
+                                            <%= order['수신자'] %> / <%= order['수신자연락처'] %>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="divider-dashed"></div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        물품내역
+                                    </label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">품목</th>
+                                                    <th class="text-center">모델</th>
+                                                    <th class="text-center">수량</th>
+                                                    <th class="text-center">공급단가</th>
+                                                    <th class="text-center">소비자가</th>
+                                                    <th class="text-center">제안가</th>
+                                                    <th class="text-center">합계(vat포함)</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="product-list">
+                                                <% var total = 0 %>
+                                                <% orderProducts.forEach(function(product){ %>
+                                                <% total += product['수량'] * product['제안가'] %>
+                                                <tr>
+                                                    <td class="text-center">
+                                                        <%= product['품목'] %>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <%= product['모델'] %>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <%= product['수량'] %>
+                                                    </td>
+                                                    <td class="text-right">
+                                                        <%= product['공급단가'].toLocaleString() %>
+                                                    </td>
+                                                    <td class="text-right">
+                                                        <%= product['소비자가'].toLocaleString() %>
+                                                    </td>
+                                                    <td class="text-right">
+                                                        <%= product['제안가'].toLocaleString() %>
+                                                    </td>
+                                                    <td class="text-right">
+                                                        <%= (product['수량'] * product['제안가']).toLocaleString() %>
+                                                    </td>
+                                                </tr>
+                                                <% }) %>
+                                                <tr>
+                                                    <td colspan="7" class="text-right bg-navy">
+                                                        <%= total.toLocaleString() %>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="divider-dashed"></div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        계산서 발행
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">발행처</th>
+                                                    <th class="text-center">이메일</th>
+                                                    <th class="text-center">담당자</th>
+                                                    <th class="text-center">연락처</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-center">
+                                                        <%= order['발행처명'] %>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <%= order['이메일'] %>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <%= order['담당자'] %>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <%= order['연락처'] %>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="divider-dashed"></div>
+
+                                <!-- <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        견적 제공용
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <a href="#" class="btn btn-link"><i class="fa fa-download"></i> DMOA SQL 고객발주양식</a>
+                                        <a href="#" class="btn btn-link"><i class="fa fa-download"></i> 서버견적서(ML30)</a>
+                                        <a href="#" class="btn btn-link"><i class="fa fa-download"></i> 서버견적서(ML350)</a>
+                                    </div>
+                                </div> -->
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        진행상태
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <p class="form-control-static">
+                                            <%= order['상태명'] %>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="divider-dashed"></div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        계산서 발행 여부
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <p class="form-control-static">
+                                            <%= order['발행여부명'] %>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="divider-dashed"></div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        견적 제공용
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <!-- <a href="#" class="btn btn-success">견적서 다운로드</a> -->
+                                        <a href="/neoas/DMOA SQL 고객발주서 양식_2018.xlsx" class="btn btn-link"><i class="fa fa-download"></i>
+                                            DMOA SQL 고객발주양식</a>
+                                        <a href="/neoas/2.서버견적서_ML30.xlsx" class="btn btn-link"><i class="fa fa-download"></i>
+                                            서버견적서(ML30)</a>
+                                        <a href="/neoas/2.서버견적서_ML350_gen10..xlsx" class="btn btn-link"><i class="fa fa-download"></i>
+                                            서버견적서(ML350)</a>
+                                    </div>
+                                </div>
+
+                                <div class="divider"></div>
+
+                                <div class="form-group">
+                                    <div class="col-md-9 col-md-6 col-sm-6 col-xs-12 col-xs-12 col-md-offset-3">
+                                        <a href="javascript:window.history.back();" class="btn btn-default">뒤로</a>
+                                        <!-- <button type="submit" class="btn btn-primary"></button> -->
+                                        <!-- <button class="btn btn-primary" type="button">수정</button> -->
+                                        <a href="/quoteorder/edit?index=<%=order['견적서ID']%>" class="btn btn-primary">수정</a>
+                                        <a href="javascript:window.open('/quoteorder/estimate?index=<%=order['견적서ID']%>')"
+                                            class="btn btn-link"><i class="fa fa-download"></i> 견적서</a>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include ./footer %>

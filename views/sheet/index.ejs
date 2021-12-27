@@ -1,0 +1,17 @@
+<% include ./header %>
+    <div class="container body">
+        <div class="main_container">
+            <% include ../includes/sidemenu.ejs %>
+            <% include ../includes/topnav.ejs %>
+
+            <div class="right_col" role="main">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">                    
+                        <iframe class="iframe100" src="<%= sheet %>" allowfullscreen></iframe>                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+<% include ./footer %>

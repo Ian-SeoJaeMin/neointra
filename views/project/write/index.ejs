@@ -1,0 +1,138 @@
+<% include ./header %>
+
+    <div class="container body">
+        <div class="main_container">
+            <% include ../../includes/sidemenu.ejs %>
+            <% include ../../includes/topnav.ejs %>            
+            <div class="right_col" role="main">
+                <div class="">                    
+                    <div class="title_right">
+                        <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right text-right top_search">
+                            <a href="/project" type="button" class="btn btn-link">목록으로</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">                    
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+
+                        <div class="x_panel">
+
+                            <div class="x_title">                                
+                                <h2><span>프로젝트 등록</h2>
+                                <div class="clearfix"></div>
+                            </div>
+
+                            <div class="x_content">
+                                <!-- form start -->
+                                <form id="project-form" class="form-horizontal form-label-left" method="post" action="/api/project/write">                                    
+                                    
+
+                                    <!-- project-title -->
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12"> 
+                                            프로젝트 제목
+                                            <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" id="project-title" name="project-title" required="required" class="form-control col-md-7 col-xs-12" value="">
+                                        </div>
+                                    </div>
+                                    <!-- project-title -->
+
+                                    <!-- project-program -->
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                            프로그램                                                
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <select class="form-control selectpicker show-tick project-program"  name="project-program" title="프로그램" 
+                                                data-width="fit" data-mobile="true">
+                                                <option value="0">공통</option>
+                                                <option value="24">SensePlus</option>
+                                                <option value="20">SenseChart</option>
+                                                <option value="21">SenseChart(H)</option>
+                                                <option value="8">MediChart</option>
+                                                <option value="1">Eplus</option>
+                                                <option value="10">HanimacPro</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- project-program -->
+
+                                    <!-- project-requester -->
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12"> 
+                                            요청병원                                                
+                                            <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="text" id="project-requester" name="project-requester" required="required" class="form-control col-md-7 col-xs-12" value="">
+                                        </div>
+                                    </div>
+                                    <!-- project-requester -->
+
+                                    <!-- project-uploadedfiles -->
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12"> 
+                                            첨부파일                                                
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <div class="input-group">
+                                                <label class="input-group-btn">
+                                                    <span class="btn btn-primary"> 
+                                                        파일첨부 <input type="file" name="uploadfile" multiple id="project-files" style="display: none;">
+                                                    </span>
+                                                </label>
+                                                <input type="text" class="form-control input input-xs" readonly>
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-success btn-uploader hidden" type="button">업로드</button>
+                                                </span>
+                                            </div>
+                                            <ul class="list-unstyled project_files">                                                    
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <!-- project-uploadedfiles -->
+
+                                
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12"> 
+                                            테스트 내용
+                                            <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <textarea class="form-control" name="project-detail" required="required" placeholder="상세하게 입력해주세요!" rows="10"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12"> 
+                                            확인내용
+                                            <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <textarea class="form-control" name="project-effect" required="required" placeholder="상세하게 입력해주세요!" rows="10"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="ln_solid"></div>
+                                    <div class="form-group">
+                                        <div class="text-left">                                            
+                                            <a href="/project" class="btn btn-primary">취소</a>                                            
+                                            <button type="submit" class="btn btn-success">저장</button>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            <div>
+
+                        </div>                          
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+<% include ./footer %>

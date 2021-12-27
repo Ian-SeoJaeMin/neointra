@@ -1,0 +1,208 @@
+<% include ./header %>
+
+<div class="container body">
+    <div class="main_container">
+        <% include ../includes/sidemenu.ejs %>
+        <% include ../includes/topnav.ejs %>
+
+        <div class="right_col" role="main">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-control-static red font-bold">
+                        <p>미수금관리 기준안(고객 존중)</p>
+                        <ol>
+                            <li>월유지보수 3개월 이상 미납시, 입금기한 및 청구중단 예정안내 공문 팩스, 전화통보.</li>
+                            <li>설치비/물품비 등 대금 장기 미납시, 입금기한 및 청구중단 예정안내 공문 팩스, 전화통보.</li>
+                            <li>입금기한 도래시 입금여부 확인하여 청구 잠금 처리.(청구 잠금 안내 전화)</li>
+                            <li>매달 13~14일경 유지보수 3배이상 미수처 확인 후 입금요청</li>
+                        </ol>
+                    </div>
+                    <div class="x_panel">
+                        <div class="x_title breakpoints-lg breakpoints-md m-t-sm">
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target=".customer-filter-modal">
+                                        <i class="fa fa-sliders"></i> 검색옵션
+                                    </button>
+                                </span>
+                                <input type="search" name="customer-search" class="form-control" placeholder="거래처 검색" />
+                            </div>
+                        </div>
+                        <div class="row x_title breakpoints-sm breakpoints-xs">
+
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+
+                                <div class="form-inline">
+
+                                    <div class="form-group">
+                                        <input type='text' class="m-b-sm form-control datepicker" readonly />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="btn-group m-b">
+                                            <button type="button" class="btn btn-success customer-misu" data-misu="">전체</button>
+                                            <button type="button" class="btn btn-success customer-misu" data-misu="10">10만원
+                                                ~</button>
+                                            <button type="button" class="btn btn-success customer-misu" data-misu="50">50만원
+                                                ~</button>
+                                            <button type="button" class="btn btn-success customer-misu" data-misu="100">100만원
+                                                ~</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-default m-b-sm" id="misu-filter">미수처체크</button>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <select class="m-b selectpicker show-tick customer-maintain" title="유지보수"
+                                            data-width="fit">
+                                            <option value='' selected>전체</option>
+                                            <option value='1'>월유지</option>
+                                            <option value='2'>연유지</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <select class="m-b selectpicker show-tick customer-status" title="상태"
+                                            data-width="fit">
+                                            <option value=''>전체</option>
+                                            <option value='0'>영업중</option>
+                                            <option value='1'>폐업</option>
+                                        </select>
+                                    </div>
+                                    <!--
+                                        <div class="form-group">
+                                            <select class="m-b selectpicker show-tick customer-program" title="프로그램"
+                                                    data-width="fit">
+                                                <option value=''>전체</option>
+                                                <option value="20">SenseChart</option>
+                                                <option value="21">SenseChart(H)</option>
+                                                <option value="8">MediChart</option>
+                                                <option value="1">Eplus</option>
+                                                <option value="10">HanimacPro</option>
+                                            </select>
+                                        </div>
+                                        -->
+                                    <div class="form-group">
+                                        <select class="m-b selectpicker show-tick customer-area" title="지사" data-width="fit"
+                                            data-size="5" data-live-search="true">
+                                            <option value=''>전체</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <select class="m-b selectpicker show-tick customer-manager" title="담당자"
+                                            data-width="fit">
+                                            <option value=''>전체</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon" style="color: #000 !important;">검색결과</span>
+                                            <span class="input-group-addon" id="data-count" style="color: #000 !important; background: #FFF !important;">0건</span>
+                                            <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                            <input type="search" name="customer-search" class="form-control"
+                                                placeholder="거래처 검색" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="x_content">
+                            <table class="table table-hover table-striped table-linked jambo_table">
+                                <thead class="customer-list-header">
+                                    <tr>
+                                        <th class="breakpoints-sm breakpoints-xs" data-field="ID">N</th>
+                                        <th data-field="기관코드">기관코드</th>
+                                        <th data-field="기관명칭">기관명칭</th>
+                                        <th class="breakpoints-sm breakpoints-xs" data-field="프로그램">프로그램</th>
+                                        <th class="breakpoints-sm breakpoints-xs" data-field="담당자">담당자</th>
+                                        <th class="breakpoints-sm breakpoints-xs" data-field="연유지">연유지</th>
+                                        <th class="text-right" data-field="유지보수총액">유지보수</th>
+                                        <th class="text-right" data-field="미수금">미수금</th>
+                                        <!-- <th class="breakpoints-sm breakpoints-xs" data-field="비고">비고</th> -->
+                                        <th class="breakpoints-sm breakpoints-xs text-center" data-field="잠금일자">잠금일자</th>
+                                        <th class="text-center" data-field="잠금">잠금</th>
+                                        <th class="text-center breakpoints-sm breakpoints-xs" data-field="확인">확인</th>
+                                        <th class="breakpoints-sm breakpoints-xs" data-field="비고">비고</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="customer-list">
+                                    <tr>
+                                        <th colspan="11">
+                                            <h4>결과가 없습니다.</h4>
+                                        </th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade customer-filter-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="닫기"><span area-hidden="true">x</span></button>
+                <h4 class="modal-title">미수금관리 옵션</h4>
+            </div>
+            <div class="modal-body form-horizontal form-label-left">
+
+                <div class="form-group">
+                    <p class="text-muted"><b>상태</b></p>
+                    <select class="form-control selectpicker show-tick customer-status" title="상태" data-mobile="true">
+                        <option value='' selected>전체</options>
+                        <option value='0'>영업중</option>
+                        <option value='1'>폐업</option>
+                    </select>
+                </div>
+                <div class="divider-dashed"></div>
+
+
+                <div class="form-group">
+                    <p class="text-muted"><b>미수금액</b></p>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-success customer-misu" data-misu="">전체</button>
+                        <button type="button" class="btn btn-success customer-misu" data-misu="10">10만원 ~</button>
+                        <button type="button" class="btn btn-success customer-misu" data-misu="50">50만원 ~</button>
+                        <button type="button" class="btn btn-success customer-misu" data-misu="100">100만원 ~</button>
+                    </div>
+                </div>
+                <div class="divider-dashed"></div>
+                <!--
+                        <div class="form-group">
+                            <p class="text-muted"><b>프로그램</b></p>
+
+                            <select class="form-control selectpicker show-tick customer-program" title="프로그램" data-mobile="true">
+                                <option value=''>전체</option>
+                                <option value="20">SenseChart</option>
+                                <option value="21">SenseChart(H)</option>
+                                <option value="8">MediChart</option>
+                                <option value="1">Eplus</option>
+                                <option value="10">HanimacPro</option>
+                            </select>
+                        </div>
+                        <div class="divider-dashed"></div>
+                        -->
+                <div class="form-group">
+                    <p class="text-muted"><b>담당지사</b></p>
+                    <select class="form-control selectpicker show-tick customer-area" title="지사" data-mobile="true">
+                        <option value=''>전체</option>
+                    </select>
+                </div>
+                <div class="divider-dashed"></div>
+                <div class="form-group">
+                    <p class="text-muted"><b>담당자</b></p>
+                    <select class="form-control selectpicker show-tick customer-manager" title="담당자" data-mobile="true">
+                        <option value=''>전체</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<% include ./footer %>

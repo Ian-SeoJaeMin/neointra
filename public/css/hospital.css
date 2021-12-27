@@ -1,0 +1,21 @@
+body, body .container, body .container .main_container, body .container .main_container .x_panel {
+    background-color: #F7F7F7;
+}
+
+.uploadfile {
+	opacity: 0;
+	position: relative;
+}
+
+
+.uploadfile {
+  opacity:0;
+  position:relative;
+}
+.uploadfilebutton {
+
+}
+
+.divider-dashed {
+  border-top: 1px dashed #848484;
+}

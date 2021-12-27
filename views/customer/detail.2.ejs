@@ -1,0 +1,343 @@
+<% include ./header %>
+
+    <div class="container body">
+        <div class="main_container">
+            <% include ../includes/sidemenu.ejs %>
+            <% include ../includes/topnav.ejs %>            
+            <div class="right_col" role="main">
+                <div class="row">                    
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_content">
+                                <div class="col-md-3 col-sm-3 col-xs-12 profile_left">
+                                    <h3 class="green"><b><%- hospital.info['기관명칭'] %> <small><%- hospital.info['기관기호'] %></small></b></h3>
+                                    <ul class="list-unstyled user_data">
+                                        <li>
+                                            <i class="glyphicon glyphicon-king"></i> <%- hospital.info['대표자'] %>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-phone-square"></i> 
+                                            <a class="blue" href="tel:<%- hospital.info['전화번호'] %>"><%- hospital.info['전화번호'] %></a>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-phone"></i> 
+                                            <a class="blue" href="tel:<%- hospital.info['이동전화'] %>"><%- hospital.info['이동전화'] %></a>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-map-marker"></i>
+                                            (<%- hospital.info['우편번호']%>) <%- hospital.info['주소'] %>
+                                        </li>
+                                        <li class="divider-dashed"></li>
+                                        <li>
+                                            <b><%- hospital.info['프로그램'] %></b>
+                                        </li>
+                                        <li>
+                                            <b>병원종별/진료과목:</b> <%- hospital.info['병원구분'] %> / <%- hospital.info['진료과목'] %>
+                                        </li>                                        
+                                    </ul>
+                                    <div class="divider-dashed"></div>
+                                    <h5 class="green"><b>부가서비스</b></h5>
+                                    <ul class="list-unstyled user_data">
+                                        <% if (hospital.extra.length) { %>
+                                        <%      hospital.extra.forEach(function(extra){ %>
+                                            <li>
+                                                <button type="button" class="btn btn-default btn-xs"><%- extra['부가서비스'] %></button>
+                                            </li>
+                                        <%      }) %>
+                                        <% } else { %> 
+                                            <li>
+                                            <span class="dark">이용안함</span>
+                                            </li>
+                                        <% } %>
+                                    </ul>                                    
+                                </div>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <div class="x_panel">
+                                                <div class="x_title">
+                                                    <span class="h5 pull-left"><b>특이사항</b></span>
+                                                    <ul class="nav navbar-right panel_toolbox">
+                                                        <li>
+                                                            <a class="collapse-link"><i class="fa fa-chevron-down"></i></a>
+                                                        </li>                                                            
+                                                    </ul>
+                                                    <div class="clearfix"></div>
+                                                </div> 
+                                                <div class="x_content">
+                                                    <ul class="list-unstyled user_data">
+                                                        <li>
+                                                            <b>결제담당:</b> <%- hospital.uniq['결제담당'] ? hospital.uniq['결제담당'] : '' %>
+                                                        </li>
+                                                        <li>
+                                                            <b>전산담당:</b> <%- hospital.uniq['전산담당'] || '' %>
+                                                        </li>
+                                                        <li>
+                                                            <b>관계:</b> <%- hospital.uniq['병원유형'] %>
+                                                        </li>
+                                                        <li>
+                                                            <b>메모:</b><br>
+                                                            <p>
+                                                                <%- hospital.uniq['메모'] ? hospital.uniq['메모'].replace(/\n/gim, '<br>') : '' %>
+                                                            </p>
+                                                        </li>
+                                                        <% if (hospital.uniq['수정자']) { %> 
+                                                        <li>
+                                                            <small>
+                                                                <i class="fa fa-edit"></i> 
+                                                                <cite><%- hospital.uniq['수정자'] %> / <%- hospital.uniq['수정일자'] %></cite>
+                                                            </small>
+                                                        </li>
+                                                        <% } %>
+                                                    </ul> 
+                                                </div>    
+                                            </div>                                            
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <div class="x_panel">
+                                                <div class="x_title">
+                                                    <span class="h5 pull-left"><b>백업정보</b></span>
+                                                    <ul class="nav navbar-right panel_toolbox">
+                                                        <li>
+                                                            <a class="collapse-link"><i class="fa fa-chevron-down"></i></a>
+                                                        </li>                                                            
+                                                    </ul>
+                                                    <div class="clearfix"></div>
+                                                </div> 
+                                                <div class="x_content">
+                                                    <ul class="list-unstyled user_data">
+                                                        <li>
+                                                            <b>SQL:</b> <%- hospital.backup['SQL버전'] || '' %> <%- hospital.backup['정품여부'] %>
+                                                        </li>
+                                                        <li>
+                                                            <b>백업경로:</b> <%- hospital.backup['백업경로'] %>
+                                                        </li>
+                                                        <li>
+                                                            <b>백업용량:</b> <%- hospital.backup['백업경로용량'] %>
+                                                        </li>
+                                                        <li>
+                                                            <b>백업시간:</b> <%- hospital.backup['자동백업시간'] %>
+                                                        </li>
+                                                        <li>
+                                                            <b>백업일:</b> <%- hospital.backup['백업일시'] %>
+                                                        </li>
+                                                        <li>
+                                                            <b>로그축소:</b> <%- hospital.backup['로그축소'] %>
+                                                        </li>
+                                                        <li>
+                                                            <b>데이터경로:</b> <%- hospital.backup['메인데이터경로'] %>
+                                                        </li>
+                                                        <li>
+                                                            <b>보조PC:</b> <%- hospital.backup['보조PC명칭'] %>
+                                                        </li>
+                                                        <li class="divider-dashed"></li>
+                                                        <li>
+                                                            <b>수가:</b> <%- hospital.backup['수가'] %>
+                                                        </li>
+                                                        <li>
+                                                            <b>약가:</b> <%- hospital.backup['약가'] %>
+                                                        </li>
+                                                        <li>
+                                                            <b>재료:</b> <%- hospital.backup['재료'] %>
+                                                        </li>
+                                                    </ul> 
+                                                </div>    
+                                            </div>                                            
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <div class="profile_title bg-white">
+                                                <div class="col-md-6">
+                                                    <legend class="m-b-none">입금 & 미수금</h3>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="input-group">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-default datemonth" data-range="prev">전달</button>
+                                                            <button class="btn btn-default datemonth" data-range="this">이번달</button>                                                    
+                                                        </span>
+                                                        <input type='text' class="form-control datepicker" data-name="fee" value="<%- moment().format('YYYY-MM-DD') %>"/>
+                                                        <span class="input-group-addon">~</span>
+                                                        <input type='text' class="form-control datepicker" data-name="fee" value="<%- moment().format('YYYY-MM-DD') %>"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>일자</th>
+                                                        <th>구분</th>
+                                                        <th>명칭</th>
+                                                        <th>수량</th>
+                                                        <th>단가</th>
+                                                        <th>금액</th>
+                                                        <th>입금액</th>
+                                                        <th>잔액</th>
+                                                        <th>비고</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <div class="profile_title bg-white">
+                                                <div class="col-md-6">
+                                                    <legend class="m-b-none">고객관리</h3>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="input-group">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-default datemonth" data-range="prev">전달</button>
+                                                            <button class="btn btn-default datemonth" data-range="this">이번달</button>                                                    
+                                                        </span>
+                                                        <input type='text' class="form-control datepicker" data-name="care" value="<%- moment().format('YYYY-MM-DD') %>"/>
+                                                        <span class="input-group-addon">~</span>
+                                                        <input type='text' class="form-control datepicker" data-name="care" value="<%- moment().format('YYYY-MM-DD') %>"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div role="tabpanel">
+                                                <ul class="nav nav-tabs" role="tablist">
+                                                    <li role="presentation" class="active">
+                                                        <a href="#tab-visit" role="tab" data-toggle="tab">방문일지</a>
+                                                    </li>
+                                                    <li role="presentation">
+                                                        <a href="#tab-call" role="tab" data-toggle="tab">상담일지</a>
+                                                    </li>
+                                                    <li role="presentation">
+                                                        <a href="#tab-as" role="tab" data-toggle="tab">A/S</a>
+                                                    </li>
+                                                </ul>
+                                                <div class="tab-content">
+                                                    <div role="tabpanel" class="tab-pane fade active in" id="tab-visit">
+        
+                                                        <div class="x_panel">
+                                                            <div class="x_title">
+                                                                <h5>서재민 - 2017-09-28 10:30</h5>
+                                                                <ul class="nav navbar-right panel_toolbox">
+                                                                    <li>
+                                                                        <a class="collapse-link"><i class="fa fa-chevron-down"></i></a>
+                                                                    </li>                                                            
+                                                                </ul>
+                                                                <div class="clearfix"></div>
+                                                            </div>
+                                                            <div class="x_content" style="display: none;">
+                                                                내용내용내용
+                                                                내용내용내용
+                                                                내용내용내용
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    <div role="tabpanel" class="tab-pane fade" id="tab-call">
+                                                        
+                                                    </div>
+                                                    <div role="tabpanel" class="tab-pane fade" id="tab-as">
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- <div class="profile_title bg-white">
+                                        <div class="col-md-6">
+                                            <legend class="m-b-none">입금 & 미수금</h3>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="input-group">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default datemonth" data-range="prev">전달</button>
+                                                    <button class="btn btn-default datemonth" data-range="this">이번달</button>                                                    
+                                                </span>
+                                                <input type='text' class="form-control datepicker" data-name="fee" value="<%- moment().format('YYYY-MM-DD') %>"/>
+                                                <span class="input-group-addon">~</span>
+                                                <input type='text' class="form-control datepicker" data-name="fee" value="<%- moment().format('YYYY-MM-DD') %>"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>일자</th>
+                                                <th>구분</th>
+                                                <th>명칭</th>
+                                                <th>수량</th>
+                                                <th>단가</th>
+                                                <th>금액</th>
+                                                <th>입금액</th>
+                                                <th>잔액</th>
+                                                <th>비고</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                    <div class="profile_title bg-white">
+                                        <div class="col-md-6">
+                                            <legend class="m-b-none">고객관리</h3>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="input-group">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default datemonth" data-range="prev">전달</button>
+                                                    <button class="btn btn-default datemonth" data-range="this">이번달</button>                                                    
+                                                </span>
+                                                <input type='text' class="form-control datepicker" data-name="care" value="<%- moment().format('YYYY-MM-DD') %>"/>
+                                                <span class="input-group-addon">~</span>
+                                                <input type='text' class="form-control datepicker" data-name="care" value="<%- moment().format('YYYY-MM-DD') %>"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div role="tabpanel">
+                                        <ul class="nav nav-tabs" role="tablist">
+                                            <li role="presentation" class="active">
+                                                <a href="#tab-visit" role="tab" data-toggle="tab">방문일지</a>
+                                            </li>
+                                            <li role="presentation">
+                                                <a href="#tab-call" role="tab" data-toggle="tab">상담일지</a>
+                                            </li>
+                                            <li role="presentation">
+                                                <a href="#tab-as" role="tab" data-toggle="tab">A/S</a>
+                                            </li>
+                                        </ul>
+                                        <div class="tab-content">
+                                            <div role="tabpanel" class="tab-pane fade active in" id="tab-visit">
+
+                                                <div class="x_panel">
+                                                    <div class="x_title">
+                                                        <h5>서재민 - 2017-09-28 10:30</h5>
+                                                        <ul class="nav navbar-right panel_toolbox">
+                                                            <li>
+                                                                <a class="collapse-link"><i class="fa fa-chevron-down"></i></a>
+                                                            </li>                                                            
+                                                        </ul>
+                                                        <div class="clearfix"></div>
+                                                    </div>
+                                                    <div class="x_content" style="display: none;">
+                                                        내용내용내용
+                                                        내용내용내용
+                                                        내용내용내용
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane fade" id="tab-call">
+                                                
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane fade" id="tab-as">
+                                                
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+<% include ./footer %>

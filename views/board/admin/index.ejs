@@ -1,0 +1,142 @@
+<% include ./header %>
+    <div class="container body">
+        <div class="main_container">
+            <% include ../../includes/sidemenu.ejs %>
+            <% include ../../includes/topnav.ejs %>
+
+            <div class="right_col" role="main">
+                <div class="page-title">
+                    <div class="title_left">
+                        <h3> 게시판 관리 </h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <a href="/board/manage/new" class="btn btn-primary pull-right "> 게시판 등록 </a>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <table class="table table-striped jambo_table board-list breakpoints-sm breakpoints-xs">
+                                    <thead>
+                                        <tr class="breakpoints-sm breakpoints-xs">
+                                            <!-- <th data-field="게시판ID">N.</th> -->
+                                            <th class="text-center">아이콘</th>
+                                            <th data-field="명칭">명칭</th>
+                                            <th data-field="설명">설명</th>
+                                            <th data-field="권한">권한</th>
+                                            <th data-field="사용">사용</th>
+                                            <th data-field="수정제한">수정제한</th>
+                                            <th data-field="댓글">댓글</th>
+                                            <th data-field="생성자명">생성자</th>
+                                            <th data-field="생성일자">생성일자</th>
+                                            <th class="text-right">ACT</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="board-desktop">
+                                        <% boards.forEach(function(board, index){ %>
+                                            <tr data-id="<%= board['게시판ID']%>" data-number="<%- board['순서'] !== 0 ? board['순서'] : index + 1 %>">
+                                                <!-- <td><%= index + 1 %></td> -->
+                                                <td class="text-center"><i class="fa fa-2x <%= board['아이콘'] %>"></i></td>
+                                                <td><%= board['명칭'] %></td>
+                                                <td><%- board['설명'].replace(/\n/gim, '<br>') %></td>
+                                                <td><%= board['권한지사'] %></td>
+                                                <td>
+                                                    <% if (board['사용'] === 0) { %>
+                                                        <b class="blue">사용중</b>
+                                                    <% } else { %>
+                                                        <b class="red">미사용</b>
+                                                    <% } %>
+                                                </td>
+                                                <td>
+                                                    <% if (board['수정제한'] === 1) { %>
+                                                        <b class="red">해제</b>
+                                                    <% } %>
+                                                </td>
+                                                <td>
+                                                    <% if (board['댓글'] === 0) { %>
+                                                        <b class="blue">사용중</b>
+                                                    <% } else { %>
+                                                        <b class="red">미사용</b>
+                                                    <% } %>
+                                                </td>
+                                                <td><%= board['생성자명'] %></td>
+                                                <td><%= board['생성일자'] %></td>
+                                                <td class="text-right">
+                                                    <div class="btn-group">
+                                                        <a href="/board/manage/edit?index=<%=board['게시판ID']%>" class="btn btn-default btn-sm board-tools m-b-none m-t-none" <%- board['생성자'] !== user['인덱스'] && user['설정'].admin !== 1  ? 'disabled' : '' %>>기본정보</a>
+                                                        <a href="/board/manage/input?index=<%=board['게시판ID']%>" class="btn btn-default btn-sm board-tools m-b-none m-t-none" <%- board['생성자'] !== user['인덱스'] && user['설정'].admin !== 1 ? 'disabled' : '' %>>입력화면</a>
+                                                        <button type="button" data-index="<%=board['게시판ID']%>" class="btn btn-danger btn-sm m-b-none m-t-none board-delete" <%- board['생성자'] !== user['인덱스'] && user['설정'].admin !== 1 ? 'disabled' : '' %>>삭제</button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        <% }) %>
+                                    </tbody>
+                                </table>
+                                <div id="board-mobile" class="breakpoints-lg breakpoints-md">
+                                    <div class="panel list-group">
+                                        <% boards.forEach(function(board){ %>
+                                            <a class="list-group-item">
+                                                [<%= board['게시판ID'] %>] <%= board['명칭'] %>
+                                                <span class="badge <%- board['사용'] === 0 ? 'bg-blue' : 'bg-red' %>">
+                                                    <%- board['사용'] === 0 ? '<i class="fa fa-check"></i>' : '<i class="fa fa-remove"></i>' %>
+                                                </span>
+                                                <cite><%= board['생성자명'] %> / <%= board['생성일자'] %></cite>
+                                            </a>
+                                        <% }) %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade board-filter-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="닫기"><span area-hidden="true">x</span></button>
+                    <h4 class="modal-title">일지 검색 옵션</h4>
+                </div>
+                <div class="modal-body form-horizontal form-label-left">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default datemonth care" data-range="left"><i class="fa fa-angle-left"></i></button>
+                            </span>
+                            <input type='text' class="form-control datepicker" data-name="care" data-value="<%= moment().format('YYYY-MM-DD') %>" value="<%= moment().format('YYYY년MM월') %>"/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default datemonth care" data-range="right"><i class="fa fa-angle-right"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="divider-dashed"></div>
+                    <div class="form-group">
+                        <p class="text-muted"><b>프로그램</b></p>
+                        <select class="form-control selectpicker show-tick board-program" title="프로그램"
+                                data-width="fit" multiple data-actions-box="true">
+                            <option value="20">SenseChart</option>
+                            <option value="21">SenseChart(H)</option>
+                            <option value="8">MediChart</option>
+                            <option value="1">Eplus</option>
+                            <option value="10">HanimacPro</option>
+                        </select>
+                    </div>
+                    <div class="divider-dashed"></div>
+                    <div class="form-group">
+                        <p class="text-muted"><b>상태</b></p>
+                        <select class="form-control selectpicker show-tick board-status" title="상태"
+                                data-width="fit">
+                            <option value="" selected>전체</option>
+                            <option value="1">미완료</option>
+                            <option value="0">완료</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<% include ./footer %>

@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <meta name="format-detection" content="telephone=yes">
+    <title>
+        <%= title.company_e %> - 문서추가 요청
+    </title>
+
+    <% include ../../includes/css %>
+    <link rel="stylesheet" href="/components/jquery-ui/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/components/bootstrap-select/dist/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="/components/ajax-bootstrap-select/dist/css/ajax-bootstrap-select.min.css">
+    <link rel="stylesheet" href="/css/hospital.css">
+
+    <style>
+        .ui-autocomplete {
+            /*max-height: 100px;*/
+            overflow-y: auto;
+            /* prevent horizontal scrollbar */
+            overflow-x: hidden;
+        }
+        /* IE 6 doesn't support max-height
+        * we use height instead, but this forces the menu to always be this tall
+        */
+        * html .ui-autocomplete {
+            /*height: 100px;*/
+        }
+        .preview-image-wrapper {
+            position: relative;
+            width: 80px;
+            height: 60px;
+            /* display: inline-flex; */
+            float: left;
+        }
+
+        .preview-image-wrapper:hover .overlay{
+            opacity: 1;
+        }
+
+        .preview-image-wrapper .overlay {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 80px;
+            height: 60px;
+            background-color: rgba(255, 255, 255, 0.9);
+            opacity: 0;
+            cursor: pointer;
+        }
+        .preview-image-wrapper .overlay .btn {
+            color: red;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            margin: 0;
+            padding: 0;
+            font-size: 30px;
+            text-decoration: none;
+        }
+
+        .preview-image-wrapper .preview-image {
+            display: block;
+            width: 80px;
+            height: 60px;
+        }
+
+
+
+    </style>
+    <script>
+        var ieVer = isIE()
+        if (document.all && !document.addEventListener) {
+            alert('A/S예약 서비스는 인터넷 익스플로러 10 버전 이상에서 정상작동합니다. 본인의 인터넷 익스플로러 버전은 인터넷 창 상단 매뉴 [도움말]을 클릭하시면 확인하실 수 있습니다. \n\n하위 버전을 사용중이시라면 꼭 업데이트 해 주세요.')
+            window.open("https://www.microsoft.com/ko-kr/download/internet-explorer.aspx")
+            //setTimeout(function() { location.href = "about:blank" }, 2000)
+        }
+        function isIE() {
+            var myNav = navigator.userAgent.toLowerCase();
+            return (myNav.indexOf('msie') != -1) ? parseInt(myNav.split('msie')[1]) : false;
+        }
+    </script>
+    <!-- [if lt IE 9]>
+        <script src="/components/html5shiv/html5shiv.min.js"></script>
+        <script src="/components/respond/respond.min.js"></script>
+
+    <![endif]-->
+    <script src="/js/polyfill.min.js"></script>
+
+
+</head>
+
+<body class="nav-md footer_fixed bg-white">

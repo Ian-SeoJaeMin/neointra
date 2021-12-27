@@ -1,0 +1,33 @@
+<div class="form-group">
+    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+        <%= field['label'] %>
+        <% if (field['require']) { %> 
+        <span class="require red">*</span>
+        <% } %>
+    </label>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+        <select class="selectpicker form-control" 
+                data-name="<%=field['name']%>"
+                data-label="<%=field['label']%>"
+                data-live-search="true" 
+                data-size="5"
+                data-width="fit"
+                name="<%=field['name']%>"                 
+                title="<%=field['label']%>"                 
+                <%- field['multiple'] ? 'multiple data-selected-text-format="count > 2"': '' %>
+                <%- field['require'] ? 'required': '' %>
+                >
+            <% if (!field['require']) { %>
+                <option value="">선택안함</option>
+            <% } %>
+            <% value = value ? value.split(',') : [] %>
+            <% field['listitem'].forEach(function(item) { %>
+            <option value="<%- item === '전체' ? '' : item %>" <%- value.some(function(element){return element === item}) ? 'selected' : '' %> ><%= item %></option>
+            <% }) %>
+        </select>
+        <p class="form-text text-success m-b-none m-t-sm <%- field['placeholder'].length ? '' : 'hidden'%>"><i class="fa fa-hand-o-right"></i> <em><%=field['placeholder']%></em></p>
+    </div>
+</div>
+<% if (!last) { %> 
+<div class="divider-dashed"></div>
+<% } %>

@@ -1,0 +1,59 @@
+<% include ./header %>
+    <div class="container body">
+        <div class="main_container">
+            <% include ../includes/sidemenu.ejs %>
+            <% include ../includes/topnav.ejs %>
+
+            <div class="right_col" role="main">
+                <div class="">
+                    <div class="page-title">
+                        <div class="title_left">
+                            <h3 class="schedule-title"></h3>
+                        </div>
+                    </div>
+                    <div class="row">                    
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+                                <div class="x_title">                                    
+                                    
+                                    <div class="btn-group">
+                                        <button class="btn btn-default datemove" data-move="prev"><i class="fa fa-chevron-left"></i></button>
+                                        <button class="btn btn-default datemove" data-move="next"><i class="fa fa-chevron-right"></i></button>
+                                    </div>                                        
+                                    <div class="pull-right">    
+                                        <div class="btn-group modes" data-toggle="buttons">
+                                            <label class="btn btn-success active">
+                                                <input type="radio" name="mode" value="month" autocomplete="off" checked> 월
+                                            </label>
+                                            <label class="btn btn-success">
+                                                <input type="radio" name="mode" value="week" autocomplete="off"> 주
+                                            </label>
+                                            <label class="btn btn-success">
+                                                <input type="radio" name="mode" value="day" autocomplete="off"> 일
+                                            </label>  
+                                        </div>
+
+                                        <!--div class="btn-group">
+                                            <button class="btn btn-default"><i class="fa fa-car"></i></button>
+                                        </div-->
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>                            
+
+
+                                <div class="x_content">
+                                    <div id="calendar" class="table-responsive">
+                                        <% include ./calendar %>
+                                    </div>
+                                </div>
+
+
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+<% include ./footer %>

@@ -1,0 +1,49 @@
+<div class="x_panel">
+    <div class="x_title">
+        <h3>A/S 현황</h3>
+        <div class="form-inline pull-right breakpoints-xs">
+            <%- include('../../includes/datepicker.ejs', {mobile: false, label:
+            false, name: 'static', modal: false, searchBtn: 'ture', classNames:
+            {'inputGroup': 'm-b-none input-group-sm'}}) %>
+        </div>
+        <div class="clearfix"></div>
+        <div class="form-inline breakpoints-lg breakpoints-md breakpoints-sm">
+            <%- include('../../includes/datepicker.ejs', {mobile: true, label:
+            false, name: 'static', modal: false, classNames: {'inputGroup':
+            'm-b-none input-group-sm'}}) %>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="x_content table-responsive p-w-sm">
+        <table
+            class="table table-bordered table-striped jambo_table neo-static"
+        >
+            <thead>
+                <tr>
+                    <th style="width: 100px;" class="text-center" rowspan="2">
+                        <i class="fa fa-users fa-2x"></i>
+                    </th>
+                    <th class="text-center" colspan="4">전체</th>
+                    <th class="text-center" colspan="7">Web 개별</th>
+                </tr>
+                <tr>
+                    <th style="width: 100px;" class="text-center">
+                        합계 <br />(Web + 전화)
+                    </th>
+                    <th class="text-center">Web</th>
+                    <th class="text-center">전화</th>
+                    <th class="text-center">방문</th>
+
+                    <th class="text-center">접수</th>
+                    <th class="text-center">공유</th>
+                    <th class="text-center">처리중</th>
+                    <th class="text-center">보류</th>
+                    <th class="text-center">완료</th>
+                    <th class="text-center">피드백</th>
+                    <th class="text-center">취소</th>
+                </tr>
+            </thead>
+            <tbody id="service-status"></tbody>
+        </table>
+    </div>
+</div>

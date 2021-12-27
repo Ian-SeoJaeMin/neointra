@@ -1,0 +1,77 @@
+<% include ./header %>
+
+<div class="container body">
+    <div class="main_container">
+        <% include ../../includes/sidemenu.ejs %>
+        <% include ../../includes/topnav.ejs %>
+
+        <div class="right_col" role="main">
+            <div class="page-title">
+                <div class="title_left">
+                    <h3 id="title"> 접수병원명칭 </h3>                                        
+                    <a href="javascript:window.history.back();" class="btn btn-default pull-right fa fa-mail-reply">목록으로</a>
+                </div>
+            </div>
+            <div class="row">                    
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h4>병원정보 & 부가서비스</h4>                  
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content" id="info">
+                        </div>
+                    </div>
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h4>씨트롤 정보</h4>                  
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content" id="remote">
+                        </div>
+                    </div>
+                    
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h4>백업정보</h4>                  
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content" id="backup">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h4>상세내용</h4>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content" id="service">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h4>특이사항</h4>                  
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content" id="uniq">
+                        </div>
+                    </div>
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h4>댓글</h4>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content" id="replys">
+                        </div>
+                    </div>
+                </div>                
+            </div>            
+        </div>
+    </div>
+</div>
+    
+<% include ./footer %>

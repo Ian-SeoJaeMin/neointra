@@ -1,0 +1,40 @@
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+        <div class="x_title">
+            <h4> 사원별 게시판 열람권한 </h4>
+            <ul class="nav navbar-right panel_toolbox">
+                <li>
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </li>
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            <div class="form-group top_search">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="board-user-search" placeholder="사원검색"/>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">검색</button>
+                    </span>
+                </div>
+            </div>
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th class="text-center bg-navy">사원번호</th>
+                        <th class="text-center bg-navy">이름</th>
+                        <th class="text-center bg-navy">소속</th>
+                        <th class="text-center bg-navy">부서</th>
+                        <% useBoards.forEach(function(board){ %>
+                            <th class="text-center bg-orange" data-board="<%=board['게시판ID']%>"><%=board['명칭']%></th>
+                        <% }) %>
+                    </tr>
+                </thead>
+                <tbody id="boards">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

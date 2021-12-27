@@ -1,0 +1,172 @@
+<% include ./header %>
+<div class="container-fluid body p-l-none p-r-none">
+    <div class="main_container">
+        <div class="x_panel no-border m-b-none">
+            <div class="x_title">
+                <h4>문서추가요청</h4>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content panel-body p-sm">
+                <form class="form form-horizontal" method="post" action="/service/document">
+                    <div class="form-group">
+                        <div class="col-xs-3 text-right red font-bold">
+                            <i class="fa fa-exclamation-triangle fa-2x" aria-hidden="true"></i>
+                        </div>
+                        <div class="col-xs-9 font-bold ">
+                            <div class="well p-xs">
+                                <h4 class="red">※문서 추가 유료화 정책※</h4>
+                                <ol>
+                                    <li>기타문서, 워킹챠트 문서는 유료 - 건당 1만원(vat별도)</li>
+                                    <li>신규업체는 10장까지 무료, 이후 추가요청건에 대해서는 유료</li>
+                                    <li>병원 입금 확인 후 작업</li>
+                                    <li>입금계좌: 국민 837-25-0013-308</li>
+                                    <li class="red">※ 신규업체 : 차트 사용일로부터 1년이 지나지 않은 병원/의원</li>
+                                </ol>
+                                <h4 class="red">문서 추가/수정 요청 프로세스</h4>
+                                <ol>
+                                    <li>문서 추가 요청 (요청자)</li>
+                                    <li>문서 내용 확인 (관리자)</li>
+                                    <li>견적 금액 책정 (관리자) </li>
+                                    <li>견적 금액 입금 및 확인 (관리자)</li>
+                                    <li>문서 작업 진행 (작성자) </li>
+                                    <li>원격을 통한 문서 다운로드 (관리자)</li>
+
+                                </ol>
+                                <h5>* 문서 수정 요청시 견적 금액 책정 과정은 생략됩니다.</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-3 text-left" for="client_name">요청자</label>
+                        <div class="col-xs-9">
+                            <input type="text" class="form-control input service-info" tabindex="1" name="client_name"
+                                id="client_name" required />
+                        </div>
+                    </div>
+                    <div class="divider-dashed"></div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-3 font-bold text-left" style="color:red;"
+                            for="client_contact">연락처</label>
+                        <div class="col-xs-9">
+                            <div class="input-group m-b-none">
+                                <input type="text" class="form-control input service-info" tabindex="2"
+                                    name="client_contact" id="client_contact" required value="010-" />
+                                <span class="input-group-addon">내선번호</span>
+                                <input type="text" class="form-control input service-info" name="client_contact2"
+                                    id="client_contact2" size="5" value="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="divider-dashed"></div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-3 font-bold text-left" style="color:red;">문서분류</label>
+                        <div class="col-xs-9">
+                            <div class="btn-group btn-group-justified" data-toggle="buttons">
+                                <label class="btn btn-default">
+                                    <input type="radio" class="service-info" name="document-type" tabindex="3"
+                                        value="공용문서" required />
+                                    공용문서
+                                </label>
+                                <label class="btn btn-default">
+                                    <input type="radio" class="service-info" name="document-type" tabindex="4"
+                                        value="기타문서" required />
+                                    기타문서
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="divider-dashed"></div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-3 font-bold text-left" style="color:red;">신규/수정</label>
+                        <div class="col-xs-9">
+                            <div class="btn-group btn-group-justified" data-toggle="buttons">
+                                <label class="btn btn-default">
+                                    <input type="radio" class="service-info" name="document-new-modify" tabindex="5"
+                                        value="신규" required />
+                                    신규문서 요청
+                                </label>
+                                <label class="btn btn-default">
+                                    <input type="radio" class="service-info" name="document-new-modify" tabindex="6"
+                                        value="수정" required />
+                                    문서수정 요청
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="divider-dashed"></div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-3 text-left" for="savepos">저장위치 <a
+                                href="/images/document.jpg" target="_blank"><i class="fa fa-question-circle"></i></a>
+                        </label>
+                        <div class="col-xs-9">
+                            <input type="text" class="form-control input service-info" tabindex="7" name="savepos"
+                                id="savepos" required />
+                        </div>
+                    </div>
+
+                    <div class="divider-dashed"></div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-3 font-bold text-left" style="color:red;">요청내용<br><small>상세히
+                                작성해주세요</small></label>
+                        <div class="col-xs-9">
+                            <!-- select id="service_tag" name="service-tag" required tabindex="17" class="form-control selectpicker show-tick service-info" title="문의사항을 선택해주세요." data-width="fit" data-size="10" data-live-search="true"> </select-->
+                            <!-- <input type="text" name="comment" class="form-control hidden" placeholder="문의내용을 입력해주세요."/> -->
+                            <textarea name="comment" class="form-control" rows="10"></textarea>
+                        </div>
+                    </div>
+                    <!--
+                    <div class="divider-dashed"></div>
+
+                    <div class="form-group">
+                        <label class="control-label col-xs-3 font-bold text-left" style="color:red;" for="service_tag">⑥ 추가정보</label>
+                        <div class="col-xs-9" id="service-tag-required">
+
+                        </div>
+                    </div>
+                    -->
+                    <div class="divider-dashed"></div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-3 font-bold text-left" style="color:red;">
+                            문서첨부파일
+                        </label>
+                        <div class="col-xs-9 preview-container">
+                            <label class="btn btn-default btn-sm btn-file">
+                                파일첨부 <input type="file" name="uploadfile" style="display: none;" multiple>
+                            </label>
+                        </div>
+                        <p class="col-xs-9 col-xs-offset-3 red font-bold m-t-xs">
+                            첨부 가능한 파일형식 : 이미지(jpg, gif, ...), 워드(word), 엑셀(excel)
+                        </p>
+                        <ul class="col-xs-9 col-xs-offset-3" id="document-file-list">
+                        </ul>
+                    </div>
+                    <div class="divider"></div>
+
+                    <div class="form-group">
+                        <label class="control-label col-xs-3 font-bold text-left" style="color:red;">접수</label>
+                        <div class="col-xs-9">
+                            <button class="btn btn-primary btn-bblock" tabindex="21" type="submit">
+                                <i class="fa fa-paper-plane"></i> 접수</button>
+                            <button class="btn btn-default btn-bblock" type="button" id="go-main">취소</button>
+                        </div>
+                    </div>
+
+                    <input type="hidden" class="service-info" name="astype" value="" />
+                    <input type="hidden" class="service-info" name="hospnum" id="hospnum" value="">
+                    <input type="hidden" class="service-info" name="hospname" id="hospname" value="">
+                    <input type="hidden" class="service-info" name="area" id="area" value="">
+                    <input type="hidden" class="service-info" name="program" id="program" value="">
+                    <input type="hidden" class="service-info" name="documents" id="documents" value="">
+
+            </div>
+            </form>
+        </div>
+        <div class="x_content">
+            <div class="row" id="capture-images">
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<% include ./footer %>

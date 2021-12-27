@@ -1,0 +1,8 @@
+node_modules/
+public/components
+public/uploads
+public/html
+.nyc_output
+.sass-cache
+log/
+log/access.log

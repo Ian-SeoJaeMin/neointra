@@ -1,0 +1,169 @@
+<% include ./header %>
+
+<div class="container body">
+    <div class="main_container">
+        <% include ../../includes/sidemenu.ejs %>
+        <% include ../../includes/topnav.ejs %>
+
+        <div class="right_col" role="main">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2><i class="fa fa-car"></i> 방문일정 등록</h2>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <form class="form-horizontal form-label-left">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">일지구분</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" class="flat" value="0" name="visit-gubun" checked> 방문일지
+                                            </label>
+                                            <label>
+                                                <input type="radio" class="flat" value="6" name="visit-gubun"> 내근
+                                            </label>
+                                            <label>
+                                                <input type="radio" class="flat" value="7" name="visit-gubun"> 당직
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12"><i class="fa fa-hospital-o"></i> 방문 병원</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select id="visit-hospital" class="form-control selectpicker show-tick" data-width="fit" data-size="10">
+                                        </select>
+                                        <input id="visit-unreg-hospital" type="text" class="input form-control hidden"/>
+                                        <label for="visit-unreg">
+                                            <input id="visit-unreg" type="checkbox" class="flat" name="visit-unreg" placeholder="병원명칭을 입력해주세요.">
+                                            미등록거래처
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="divider-dashed"></div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12"><i class="fa fa-car"></i> 회사차량</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select id="visit-car" class="form-control selectpicker show-tick" title="회사차량" data-width="fit">
+                                            <option value="">이용안함</option>
+                                            <option value="대중교통">대중교통</option>
+                                            <option value="자가용">자가용</option>
+                                            <option value="0295">0295</option>
+                                            <option value="1408">1408</option>
+                                            <option value="5444">5444</option>
+                                            <option value="8332" disabled>8332</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="divider-dashed"></div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12"><i class="fa fa-tags"></i> 방문유형</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select id="visit-type" class="form-control selectpicker show-tick" title="방문유형" data-width="fit">
+                                                <option value="1">정기</option>
+                                                <option value="2">요청</option>
+                                                <option value="3">긴급</option>
+                                                <option value="4">영업</option>
+                                                <option value="8">오픈</option>
+                                                <option value="5">기타</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="divider-dashed"></div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12"> 방문 시작일</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="form-inline">
+                                            <input type="text" placeholder="방문 시작일" readonly class="input form-control m-b-none" id="visit-start-date" style="width: 150px; margin-bottom: 3px;" value="<%= moment().format('YYYY-MM-DD') %>">
+                                            <select class="selectpicker form-control show-tick" data-size="5" data-width="fit" id="visit-start-time">
+                                                <% for(var i = 6; i <= 23; i++ ) { %>
+                                                <% var time = ( i < 10 ? '0' + i : i) + ':00' %>
+                                                <% var halfTime = ( i < 10 ? '0' + i : i) + ':30' %>
+                                                    <option value="<%= time %>"><%= time %></option>
+                                                    <option value="<%= halfTime %>"><%= halfTime %></option>
+                                                <% } %>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12"> 방문 종료일</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="form-inline">
+                                            <input type="text" placeholder="방문 종료일" readonly class="input form-control m-b-none" id="visit-end-date" style="width: 150px; margin-bottom: 3px;" value="<%= moment().format('YYYY-MM-DD') %>">
+                                            <select class="selectpicker form-control show-tick" data-size="5" data-width="fit" id="visit-end-time">
+                                                <% for(var i = 6; i <= 23; i++ ) { %>
+                                                <% var time = ( i < 10 ? '0' + i : i) + ':00' %>
+                                                <% var halfTime = ( i < 10 ? '0' + i : i) + ':30' %>
+                                                    <option value="<%= time %>"><%= time %></option>
+                                                    <option value="<%= halfTime %>"><%= halfTime %></option>
+                                                <% } %>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="divider-dashed"></div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12"><i class="fa fa-comments"></i> 내용</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12 col-xs-12">
+                                            <textarea class="form-control" rows="15" id="visit-comment"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-group element-upload">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12"> 
+                                        <i class="fa fa-file"></i> 파일첨부
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="input-group">
+                                            <label class="input-group-btn">
+                                                <span class="btn btn-primary"> 
+                                                    찾아보기 <input type="file" 
+                                                                    data-name="첨부파일" 
+                                                                    data-label="첨부파일" 
+                                                                    name="uploadfile" 
+                                                                    style="display: none;" 
+                                                                    multiple
+                                                                    accept="image/*">
+                                                </span>
+                                            </label>
+                                            <input type="text" class="form-control input input-xs" readonly>
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-success btn-uploader hidden" type="button">업로드</button>
+                                            </span>
+                                        </div>                                        
+                                        <ul class="list-unstyled uploaded-file-list"></ul>
+                                    </div>
+                                </div>                                                                
+
+                                <div class="divider"></div>
+
+                                <div class="form-group">
+                                    <div class="col-md-9 col-md-6 col-sm-6 col-xs-12 col-xs-12 col-md-offset-3">
+                                        <a href="/customer/visit" class="btn btn-default">취소</a>
+                                        <button type="button" class="btn btn-primary" id="visit-save">저장</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include ./footer %>

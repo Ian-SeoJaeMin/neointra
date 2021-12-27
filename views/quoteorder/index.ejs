@@ -1,0 +1,81 @@
+<% include ./header %>
+
+<div class="container body">
+    <div class="main_container">
+        <% include ../includes/sidemenu.ejs %>
+        <% include ../includes/topnav.ejs %>
+
+        <div class="right_col" role="main">
+            <div class="page-title">
+                <div class="title_left m-b-xs">
+                    <h3><i class="fa fa-briefcase"></i> 견적/발주 </h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title breakpoints-lg breakpoints-md breakpoints-xs breakpoints-sm m-t-sm">
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target=".quoteorder-filter-modal">
+                                        <i class="fa fa-sliders"></i> 검색옵션
+                                    </button>
+                                </span>
+                                <!-- <input type="search" name="call-search" class="form-control" placeholder="상담일지 검색"/> -->
+                                <span class="input-group-btn">
+                                    <a class="btn btn-primary quoteorder-write" href="/quoteorder/write"><i class="fa fa-plus"></i></a>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row x_title bbreakpoints-sm bbreakpoints-xs">
+
+                            <div class="col-md-12 col-xs-12">
+                                <div class="form-inline">
+                                    <%- include('../includes/datepicker.ejs', {mobile: false, label: false, name: 'quoteorder', modal: false}) %>
+
+                                    <div class="form-group pull-right">
+                                        <div class="input-group">
+                                            <span class="input-group-addon" style="color: #000 !important;">검색결과</span>
+                                            <span class="input-group-addon" id="data-count" style="color: #000 !important; background: #FFF !important;">0건</span>
+                                            <span class="input-group-btn">
+                                                <a class="btn btn-primary quoteorder-write" href="/quoteorder/write">견적등록</a>
+                                                <% //if (user['부서'] == "총무부" || user['인덱스'] == 13 || user['인덱스'] == 89) { %>
+                                                    <a class="btn btn-warning" href="/quoteorder/manage">품목관리</a>
+                                                <% //} %>
+                                            </span>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="x_content">
+                            <table class="table table-striped table-linked jambo_table quoteorder-list bbreakpoints-sm bbreakpoints-xs">
+                                <thead>
+                                    <tr>
+                                        <th>N.</th>
+                                        <th>유형</th>
+                                        <th>기관명칭</th>
+                                        <th>품목</th>
+                                        <th>모델명</th>
+                                        <th>작성자</th>
+                                        <th>작성일</th>
+                                        <th>계산서</th>
+                                        <th>상태</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="order-list">
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include ./footer %>

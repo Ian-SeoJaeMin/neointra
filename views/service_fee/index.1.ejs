@@ -1,0 +1,290 @@
+<% include ./header %>
+
+    <div class="container body">
+        <div class="main_container">
+            <% include ../includes/sidemenu.ejs %>
+            <% include ../includes/topnav.ejs %>
+
+            <div class="right_col" role="main">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">                                
+                                <h3>
+                                    <i class="glyphicon glyphicon-piggy-bank"></i> 수수료(일)                                    
+                                </h3>                   
+                                <div class="form-inline pull-right">     
+                                    <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-primary fee-print-btn" data-fee="days" id="fee-print-btn"><i class="fa fa-print"></i></button>
+                                        </span>
+                                        <span class="input-group-addon" style="color: red !important; background-color: #FFF;">접수일자 = 완료일자 =</span>
+                                        <input type="text" class="form-control daterange datepicker" readonly id="datepicker">                                        
+                                    </div>                
+                                </div>
+                                <div class="clearfix"></div>                                         
+                            </div>
+                            <div class="x_content">                               
+                                <div class="fee-print-container hidden" data-fee="days">
+                                    <table border="1" cellspacing="0" bordercolor="#222">
+                                        <thead>
+                                            <tr>
+                                                <th style="border: 1px solid #444444;">인덱스</th>
+                                                <th style="border: 1px solid #444444;">기관코드</th>
+                                                <th style="border: 1px solid #444444;">기관명칭</th>
+                                                <th style="border: 1px solid #444444;">지사</th>
+                                                <th style="border: 1px solid #444444;">담당자</th>
+                                                <th style="border: 1px solid #444444;">접수자</th>
+                                                <th style="border: 1px solid #444444;">접수일자</th>
+                                                <th style="border: 1px solid #444444;">완료일자</th>
+                                                <th style="border: 1px solid #444444;">공유자</th>
+                                                <th style="border: 1px solid #444444;">완료자</th>
+                                                <th style="border: 1px solid #444444;">응급</th>
+                                                <th style="border: 1px solid #444444;">수수료</th>
+                                            </tr>                                        
+                                        </thead>
+                                        <tbody class="fee-table" id="fee-print">
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+
+                                        <div class="row">
+
+                                            <div class="col-md-6 col-sm-12 col-xs-12 p-w-sm">
+                                                <table class="table table-bordered table-striped jambo_table">                                            
+                                                    <thead>
+                                                        <tr>
+                                                            <th colspan="5">본사 담당자 A/S 수수료</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>담당자</th>
+                                                            <th class="text-right">A/S(500)</th>
+                                                            <th class="text-right">응급(500)</th>
+                                                            <th class="text-right">합계</th>
+                                                            <th class="text-right">수수료</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="fee-table fee-daily" data-fee="manager" id="fee-manager">
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                            <div class="col-md-6 col-sm-12 col-xs-12 p-w-sm">
+                                                <table class="table table-bordered table-striped jambo_table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th colspan="5">직원 A/S 인센티브</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>사원명</th>
+                                                            <th class="text-right">A/S(1500)</th>
+                                                            <th class="text-right">응급(1500)</th>
+                                                            <th class="text-right">합계</th>
+                                                            <th class="text-right">수수료</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="fee-table fee-daily" data-fee="member-manager" id="fee-memberManager">
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row">
+
+                                            <div class="col-md-6 col-sm-12 col-xs-12 p-w-sm">
+                                                <table class="table table-bordered table-striped jambo_table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th colspan="5">지사 A/S 수수료</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>지사</th>
+                                                            <th class="text-right">A/S(3,000)</th>
+                                                            <th class="text-right">응급(5,000)</th>
+                                                            <th class="text-right">합계</th>
+                                                            <th class="text-right">수수료</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="fee-table fee-daily" data-fee="area" id="fee-area">
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                            <div class="col-md-6 col-sm-12 col-xs-12 p-w-sm">
+                                                <table class="table table-bordered table-striped jambo_table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th colspan="5">직원 A/S 인센티브</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>사원명</th>
+                                                            <th class="text-right">A/S(3,000)</th>
+                                                            <th class="text-right">응급(5,000)</th>
+                                                            <th class="text-right">합계</th>
+                                                            <th class="text-right">수수료</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="fee-table fee-daily" data-fee="member-area" id="fee-member">
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                        </div>      
+
+                                    </div>
+                                    
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="x_panel">
+                            <div class="x_title">                                
+                                <h3>
+                                    <i class="glyphicon glyphicon-piggy-bank"></i> 수수료(월)
+                                </h3>                   
+                                <div class="form-inline pull-right">
+                                    <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-primary fee-print-btn" data-fee="month" id="fee-print-btn"><i class="fa fa-print"></i></button>
+                                        </span>
+                                        <input type="text" class="form-control daterange monthpicker" readonly id="monthpicker">
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>                                         
+                            </div>
+                            <div class="x_content">                                
+
+                                <div class="row">
+
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+
+                                        <div class="row">
+
+                                            <div class="col-md-6 col-sm-12 col-xs-12 p-w-sm">
+                                                <table class="table table-bordered table-striped jambo_table">                                            
+                                                    <thead>
+                                                        <tr>
+                                                            <th colspan="5">본사 담당자 A/S 수수료</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>담당자</th>
+                                                            <th class="text-right">A/S(500)</th>
+                                                            <th class="text-right">응급(500)</th>
+                                                            <th class="text-right">합계</th>
+                                                            <th class="text-right">수수료</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="fee-table fee-monthly" data-fee="manager" id="fee-manager">
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                            <div class="col-md-6 col-sm-12 col-xs-12 p-w-sm">
+                                                <table class="table table-bordered table-striped jambo_table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th colspan="5">직원 A/S 인센티브</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>사원명</th>
+                                                            <th class="text-right">A/S(1500)</th>
+                                                            <th class="text-right">응급(1500)</th>
+                                                            <th class="text-right">합계</th>
+                                                            <th class="text-right">수수료</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="fee-table fee-monthly" data-fee="member-manager" id="fee-memberManager">
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row">
+
+                                            <div class="col-md-6 col-sm-12 col-xs-12 p-w-sm">
+                                                <table class="table table-bordered table-striped jambo_table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th colspan="5">지사 A/S 수수료</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>지사</th>
+                                                            <th class="text-right">A/S(3,000)</th>
+                                                            <th class="text-right">응급(5,000)</th>
+                                                            <th class="text-right">합계</th>
+                                                            <th class="text-right">수수료</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="fee-table fee-monthly" data-fee="area" id="fee-area">
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                            <div class="col-md-6 col-sm-12 col-xs-12 p-w-sm">
+                                                <table class="table table-bordered table-striped jambo_table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th colspan="5">직원 A/S 인센티브</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>사원명</th>
+                                                            <th class="text-right">A/S(3,000)</th>
+                                                            <th class="text-right">응급(5,000)</th>
+                                                            <th class="text-right">합계</th>
+                                                            <th class="text-right">수수료</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="fee-table fee-monthly" data-fee="member-area" id="fee-member">
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                        </div>      
+
+                                    </div>
+                                    
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 table-responsive">
+                                        <div class="fee-print-container" data-fee="month">
+                                            <table class="table table-linked jambo_table" border="1" cellspacing="0" bordercolor="#222">
+                                                <thead>
+                                                    <tr>
+                                                        <th sstyle="border: 1px solid #444444;">인덱스</th>
+                                                        <th sstyle="border: 1px solid #444444;">기관코드</th>
+                                                        <th sstyle="border: 1px solid #444444;">기관명칭</th>
+                                                        <th sstyle="border: 1px solid #444444;">지사</th>
+                                                        <th sstyle="border: 1px solid #444444;">담당자</th>
+                                                        <th sstyle="border: 1px solid #444444;">접수자</th>
+                                                        <th sstyle="border: 1px solid #444444;">접수일자</th>
+                                                        <th sstyle="border: 1px solid #444444;">완료일자</th>
+                                                        <th sstyle="border: 1px solid #444444;">공유자</th>
+                                                        <th sstyle="border: 1px solid #444444;">완료자</th>
+                                                        <th sstyle="border: 1px solid #444444;">응급</th>
+                                                        <th sstyle="border: 1px solid #444444;">수수료</th>
+                                                    </tr>                                        
+                                                </thead>
+                                                <tbody class="fee-table" id="fee-print">
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<% include ./footer %>

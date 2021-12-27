@@ -1,0 +1,213 @@
+<% var temp, writers, comments, subComments; %>
+<% comments = replys.filter(function(reply){return reply['카테고리'] != -1 && reply['구분'] != -1;}) %>
+<% subComments = replys.filter(function(reply){return reply['카테고리'] == -1 || reply['구분'] == -1;}).sort(function(a, b){return a['인덱스'] > b['인덱스'] ? 1 : (a['인덱스'] < b['인덱스'] ? -1 : 0);}) %>
+<% temp = replys.map(function(reply){return reply['작성자명']}) %>
+<% writers = temp.reduce(function (a, b) { if (a.indexOf(b) < 0) a.push(b); return a;}, []); %>
+<% writers.sort() %>
+<h4 class="">
+    <i class="fa fa-comments-o"></i> 댓글 (<%- replys.length %>)
+    <!--<a class="btn btn-link btn-xs pull-right expander" data-toggle="collapse" href="#reply-write" aria-expanded="false" aria-controls="reply-write"><i class="fa fa-edit"></i></a>-->
+</h4>
+
+<form id="reply-form" class="form reply-form" action="/api/reply" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="table" value="<%= table %>">
+    <input type="hidden" name="category" value="<%= category %>">
+    <input type="hidden" name="article" value="<%= article %>">
+    <input type="hidden" name="writer" value="<%= user['인덱스'] %>">
+    <input type="hidden" name="redirect" value="">
+    <% if (table === 'N_프로젝트HIS') { %>
+    <div class="form-group">
+        <select name="gubun" title="댓글구분" data-width="fit" class="selectpicker show-tick">
+            <option value="0">선택안함</option>
+            <option value="2">진행상황</option>
+        </select>
+    </div>
+    <% } %>
+    <div class="form-group">
+        <textarea class="form-control" name="message" required rows="5" data-key=""
+            placeholder="댓글을 입력해주세요..."><%=template%></textarea>
+    </div>
+    <div class="form-group">
+        <input type="file" class="form-control" name="uploadfile" multiple accept="image/*">
+    </div>
+    <button type="submit" class="btn btn-success btn-sm m-t-xs reply-save">등록</button>
+    <p>
+        <h5>작성자</h5>
+        <% writers.forEach(function(writer){ %>
+        <span class="badge bg-muted reply-writer" data-writer="<%=writer%>"><%=writer%></span>
+        <% }) %>
+    </p>
+</form>
+
+<% if(comments.length) { %>
+<%  comments.forEach(function(reply, index){ %>
+<%  var replySubReplys = subComments.filter(function(sub){return sub['게시글ID'] === reply['인덱스'] || sub['프로젝트ID'] === reply['인덱스'];}) %>
+<div class="media message-media reply-media" data-writer="<%=reply['작성자명']%>">
+    <div class="media-left"><i class="fa fa-user-circle fa-3x"></i></div>
+    <div class="media-body">
+        <h4 class="media-heading">
+            <%= reply['작성자명'] %>
+            <small><i><%- moment(reply['작성일자']).format('LLL') %></i></small>
+        </h4>
+        <p class="url">
+            <% if (table === 'N_프로젝트HIS' && reply['구분'] === 2) { %>
+            <span class="badge bg-purple">진행상황</span>
+            <% } %>
+            <%- reply['내용'].replace(/\n/gim, '<br>') %>
+        </p>
+
+        <% reply['첨부파일'] = JSON.parse(reply['첨부파일']) %>
+
+        <% var etcFiles = reply['첨부파일'].filter(function(item){return item.icon !== 'fa-file-image-o';}) %>
+        <% var imgFiles = reply['첨부파일'].filter(function(item){return item.icon === 'fa-file-image-o';}) %>
+
+        <% if (etcFiles.length) { %>
+        <ul class="list-unstyled">
+            <% etcFiles.forEach(function(item){ %>
+            <li>
+                <a href="<%=item['oPath']%>" download>
+                    <i class="fa <%=item['icon']%>"></i> <%=item['name']%>
+                </a>
+            </li>
+            <% }) %>
+        </ul>
+        <% } %>
+
+        <% if (imgFiles.length) { %>
+        <div id="myCarousel-<%= reply['인덱스'] %>" class="carousel slide">
+            <% if (imgFiles.length > 1) { %>
+            <ol class="carousel-indicators">
+                <% imgFiles.forEach(function(item, index){ %>
+                <li class="item<%- index %> <%- index === 0 ? 'active' : '' %>"
+                    style="width: <%- (100 / imgFiles.length) %>%"></li>
+                <% }) %>
+            </ol>
+            <% } %>
+            <div class="carousel-inner" role="listbox">
+                <% imgFiles.forEach(function(item, index){ %>
+                <div class="item <%- index === 0 ? 'active' : '' %> text-center">
+                    <img data-imageviewer="true" src="<%=item['oPath']%>" data-high-src="<%=item['oPath']%>"
+                        data-tooltip="tooltip" title="이미지를 더블클릭하면 크게 볼 수 있습니다." />
+                </div>
+                <% }) %>
+            </div>
+
+            <% if (imgFiles.length > 1) { %>
+            <a class="left carousel-control" href="#myCarousel-<%= reply['인덱스'] %>" role="button">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel-<%= reply['인덱스'] %>" role="button">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+            <% } %>
+        </div>
+        <% } %>
+        <% if (reply['작성자'] === user['인덱스'])  { %>
+        <button class="btn btn-link btn-xs red reply-delete" data-index="<%= reply['인덱스'] %>">삭제</button>
+        <% } %>
+        <button class="btn btn-link btn-xs reply-addReply" data-index="<%= reply['인덱스'] %>">댓글달기</button>
+
+        <% if (replySubReplys.length > 0) { %>
+        <br />
+        <button class="btn btn-xs btn-link" data-toggle="collapse" data-target="#message-media-<%=reply['인덱스']%>">댓글
+            <%= replySubReplys.length %>개</button>
+
+        <div class="collapse in" id="message-media-<%=reply['인덱스']%>">
+            <%      replySubReplys.forEach(function(subReply){ %>
+
+            <div class="media message-media">
+                <div class="media-left"><i class="fa fa-user-circle fa-3x"></i></div>
+                <div class="media-body">
+                    <h4 class="media-heading">
+                        <%= subReply['작성자명'] %>
+                        <small><i><%- moment(subReply['작성일자']).format('LLL') %></i></small>
+                    </h4>
+                    <p class="url">
+                        <% if (table === 'N_프로젝트HIS' && subReply['구분'] === 2) { %>
+                        <span class="badge bg-purple">진행상황</span>
+                        <% } %>
+                        <%- subReply['내용'].replace(/\n/gim, '<br>') %>
+                    </p>
+
+                    <% subReply['첨부파일'] = JSON.parse(subReply['첨부파일']) %>
+                    <% var _etcFiles = subReply['첨부파일'].filter(function(item){return item.icon !== 'fa-file-image-o';}) %>
+                    <% var _imgFiles = subReply['첨부파일'].filter(function(item){return item.icon === 'fa-file-image-o';}) %>
+
+                    <% if (_etcFiles.length) { %>
+                    <ul class="list-unstyled">
+                        <% _etcFiles.forEach(function(item){ %>
+                        <li>
+                            <a href="<%=item['oPath']%>" download>
+                                <i class="fa <%=item['icon']%>"></i> <%=item['name']%>
+                            </a>
+                        </li>
+                        <% }) %>
+                    </ul>
+                    <% } %>
+
+                    <% if (_imgFiles.length) { %>
+                    <div id="myCarousel-<%= subReply['인덱스'] %>" class="carousel slide">
+                        <% if (_imgFiles.length > 1) { %>
+                        <ol class="carousel-indicators">
+                            <% _imgFiles.forEach(function(item, index){ %>
+                            <li class="item<%- index %> <%- index === 0 ? 'active' : '' %>"
+                                style="width: <%- (100 / imgFiles.length) %>%"></li>
+                            <% }) %>
+                        </ol>
+                        <% } %>
+                        <div class="carousel-inner" role="listbox">
+                            <% _imgFiles.forEach(function(item, index){ %>
+                            <div class="item <%- index === 0 ? 'active' : '' %> text-center">
+                                <img style="" data-imageviewer="true" src="<%=item['oPath']%>"
+                                    data-high-src="<%=item['oPath']%>" data-tooltip="tooltip"
+                                    title="이미지를 더블클릭하면 크게 볼 수 있습니다." />
+                            </div>
+                            <% }) %>
+                        </div>
+                        <% if (_imgFiles.length > 1) { %>
+                        <a class="left carousel-control" href="#myCarousel-<%= subReply['인덱스'] %>" role="button">
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#myCarousel-<%= subReply['인덱스'] %>" role="button">
+                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                        <% } %>
+                    </div>
+                    <% } %>
+                    <% if (subReply['작성자'] === user['인덱스'])  { %>
+                    <button class="btn btn-link btn-xs red reply-delete" data-index="<%= subReply['인덱스'] %>">삭제</button>
+                    <% } %>
+                </div>
+            </div>
+
+            <%      }) %>
+        </div>
+        <% } %>
+
+
+        <form id="reply-form-<%=index%>"
+            class="form reply-form animate fadeIn reply-child reply-child-form-<%=reply['인덱스']%> hidden"
+            action="/api/reply" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="table" value="<%= table %>">
+            <input type="hidden" name="category" value="-1">
+            <input type="hidden" name="article" value="<%= reply['인덱스'] %>">
+            <input type="hidden" name="writer" value="<%= user['인덱스'] %>">
+            <input type="hidden" name="redirect" value="">
+            <div class="form-group">
+                <textarea class="form-control" name="message" required rows="5" data-key=""
+                    placeholder="댓글을 입력해주세요..."><%=template%></textarea>
+            </div>
+            <div class="form-group">
+                <input type="file" class="form-control" name="uploadfile" multiple accept="image/*">
+            </div>
+            <button type="submit" class="btn btn-success btn-sm m-t-xs reply-save">등록</button>
+        </form>
+    </div>
+</div>
+
+<%  }) %>
+<% } %>

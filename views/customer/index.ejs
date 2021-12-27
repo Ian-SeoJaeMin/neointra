@@ -1,0 +1,344 @@
+<% include ./header %>
+
+<div class="container body">
+    <div class="main_container">
+        <% include ../includes/sidemenu.ejs %>
+        <% include ../includes/topnav.ejs %>
+
+        <div class="right_col" role="main">
+            <div class="page-title">
+                <div class="title_left">
+                    <div class="col-md-6 col-sm-12">
+                        <h3><i class="fa fa-bell"></i> 센스 수가 버전이 다를경우 처리방법</h3>
+                        <ol>
+                            <li>해당 병원 서버 접속</li>
+                            <li>센스서버 실행</li>
+                            <li>센스서버 우측 자동실행 체크</li>
+                            <li>위 방법으로 처리되지 않을 경우 AS 접수 후 개발실에 확인요청</li>
+                        </ol>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <h3><i class="fa fa-bell"></i> 라이브업데이트 프로세스</h3>
+                        <ol>
+                            <li class="red">개발실에서 OCS서버에 업데이트파일 업로드</li>
+                            <li class="red">
+                                병원 센스서버 자동업데이트시간에 자동업데이트경로로 업데이트파일 다운로드
+                                <br>
+                                (센스서버 자동업데이트시간은 <code>13:00</code>로 설정)
+                            </li>
+                            <li class="red">병원 클라이언트pc에서 로그인시 센스업데이트진행</li>
+                        </ol>
+                        <ul>
+                            <li>라이브업데이트담당자 : 개발실 함준혁</li>
+                            <li>약가,수가,재료대 업데이트담당자 : 개발실 이정일</li>
+                            <li class="font-bold red">응급상황시 긴급업데이트함(시간당 30 거래처씩 진행함)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title breakpoints-lg breakpoints-md m-t-sm">
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-warning" data-toggle="modal"
+                                        data-target=".customer-filter-modal">
+                                        <i class="fa fa-sliders"></i> 검색옵션
+                                    </button>
+                                </span>
+                                <!-- <span class="input-group-addon"><i class="fa fa-search"></i></span> -->
+                                <input type="search" name="customer-search" class="form-control" placeholder="거래처 검색" />
+                            </div>
+                        </div>
+                        <div class="row x_title breakpoints-sm breakpoints-xs">
+                            <!-- <div class="form-inline"> -->
+                            <div class="col-sm-7 col-xs-12">
+                                <!-- <div class="btn-group">
+                                            <button type="button" data-program="20" class="btn btn-default customer-program">센스</button>
+                                            <button type="button" data-program="21" class="btn btn-default customer-program">센스(H)</button>
+                                            <button type="button" data-program="8" class="btn btn-default customer-program">메디</button>
+                                            <button type="button" data-program="1" class="btn btn-default customer-program">이플러스</button>
+                                            <button type="button" data-program="10" class="btn btn-default customer-program">한의맥프로</button>
+                                        </div> -->
+                                <form class="form-inline">
+                                    <div class="form-group">
+                                        <select class="form-control selectpicker show-tick customer-status" title="상태"
+                                            data-width="fit">
+                                            <!-- <option value=''>전체</option> -->
+                                            <option value='0' selected>영업중</option>
+                                            <option value='1'>폐업</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <select class="form-control selectpicker show-tick customer-program"
+                                            title="프로그램" data-width="fit">
+                                            <!-- <option value=''>전체</option> -->
+                                            <option value="24">SensePlus</option>
+                                            <option value="20">SenseChart</option>
+                                            <option value="21">SenseChart(H)</option>
+                                            <option value="8">MediChart</option>
+                                            <option value="1">Eplus</option>
+                                            <option value="10">HanimacPro</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <select class="form-control selectpicker show-tick customer-gwa" title="진료과"
+                                            data-width="fit" data-size="5">
+                                            <!-- <option value=''>전체</option> -->
+                                            <option value="1">내과</option>
+                                            <option value="2">신경과</option>
+                                            <option value="3">정신과</option>
+                                            <option value="4">일반외과</option>
+                                            <option value="5">정형외과</option>
+                                            <option value="6">신경외과</option>
+                                            <option value="7">흉부외과</option>
+                                            <option value="8">성형외과</option>
+                                            <option value="9">마취과</option>
+                                            <option value="10">산부인과</option>
+                                            <option value="11">소아과</option>
+                                            <option value="12">안과</option>
+                                            <option value="13">이비인후과</option>
+                                            <option value="14">피부과</option>
+                                            <option value="15">비뇨기과</option>
+                                            <option value="16">방사선과</option>
+                                            <option value="19">임상병리과</option>
+                                            <option value="21">재활의학과</option>
+                                            <option value="23">가정의학과</option>
+                                            <option value="54">치과</option>
+                                            <option value="99">일반과</option>
+                                            <option value="80">한방과</option>
+                                            <option value="87">요양병원</option>
+                                            <option value="91">병원</option>
+                                            <option value="92">업체</option>
+                                            <option value="93">기타</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <select class="form-control selectpicker show-tick customer-area" title="지사"
+                                            data-width="fit" data-size="5" data-live-search="true">
+                                            <option value=''>전체</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <select class="form-control selectpicker show-tick customer-manager" title="담당자"
+                                            data-width="fit">
+                                            <option value=''>전체</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <select class="form-control selectpicker show-tick customer-master-update"
+                                            title="마스터업데이트" data-width="fit">
+                                            <!-- <option value="">전체</option> -->
+                                            <option value="완료">완료</option>
+                                            <option value="미완료">미완료</option>
+                                            <option value="미완료2">미완료(미사용제외)</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <select name="" id="" title="시도"
+                                            class="form-control selectpicker show-tick customer-sido" data-width="fit"
+                                            data-live-search="true" data-size="5" data-actions-box="true"></select>
+                                        <select name="" id="" title="시군구"
+                                            class="form-control selectpicker show-tick customer-si" data-width="fit"
+                                            data-live-search="true" data-size="5" data-actions-box="true"></select>
+                                    </div>
+
+                                    <button class="btn btn-default m-t-xs" type="button" id="toggle-map"><i
+                                            class="fa fa-map"></i></button>
+
+                                </form>
+
+                            </div>
+                            <div class="col-sm-5 col-xs-12">
+
+                                <div class="input-group">
+                                    <span class="input-group-btn"><button class="btn btn-success" id="export-excel"><i
+                                                class="fa fa-file-excel-o"></i></button></span>
+                                    <span class="input-group-addon" style="color: #000 !important;">검색결과</span>
+                                    <span class="input-group-addon" id="data-count"
+                                        style="color: #000 !important; background: #FFF !important;">0건</span>
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-search"></i>
+                                    </span>
+                                    <input type="search" name="customer-search" class="form-control"
+                                        placeholder="거래처 검색" />
+                                    <span class="input-group-btn"><button class="btn btn-success"
+                                        name="customer-search-button"><i class="fa fa-search"></i></button></span>
+                                </div>
+                            </div>
+                            <!-- <div class="clearfix"></div> -->
+                            <!-- </div> -->
+                        </div>
+                        <div class="x_content">
+                            <div id="map" class="hidden"></div>
+                            <table class="table table-hover table-striped table-linked jambo_table">
+                                <thead class="customer-list-header">
+                                    <tr>
+                                        <th class="breakpoints-sm breakpoints-xs" data-field="ID">N</th>
+                                        <th data-field="기관코드">기관코드</th>
+                                        <th data-field="기관명칭">기관명칭</th>
+                                        <th class="breakpoints-sm breakpoints-xs" data-field="프로그램">프로그램
+                                            <i class="m-l-xs sort fa fa-sort-amount-asc"></i>
+                                        </th>
+                                        <th class="breakpoints-sm breakpoints-xs" data-field="현재버전">현재버전</th>
+                                        <th class="" data-field="담당자">담당자</th>
+                                        <th class="breakpoints-sm breakpoints-xs" data-field="최근방문일">최근방문일</th>
+                                        <th class="breakpoints-sm breakpoints-xs" data-field="유지보수금액">유지보수</th>
+                                        <th class="breakpoints-sm breakpoints-xs" data-field="병원유형">관계</th>
+                                        <th class="breakpoints-sm breakpoints-xs" data-field="백업정렬">백업</th>
+                                        <th class="breakpoints-sm breakpoints-xs" data-field="상병차수">상병</th>
+                                        <th class="breakpoints-sm breakpoints-xs" data-field="로컬수가">수가</th>
+                                        <th class="breakpoints-sm breakpoints-xs" data-field="로컬약가">약가</th>
+                                        <th class="breakpoints-sm breakpoints-xs" data-field="로컬재료">재료</th>
+                                        <!-- <th ><i class="fa fa-exclamation-circle"></i></th> -->
+                                    </tr>
+                                </thead>
+                                <tbody class="customer-list">
+                                    <tr>
+                                        <th colspan="10">
+                                            <h4>결과가 없습니다.</h4>
+                                        </th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade customer-filter-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="닫기">
+                    <span area-hidden="true">x</span>
+                </button>
+                <h4 class="modal-title">거래처 검색 옵션</h4>
+            </div>
+            <div class="modal-body form-horizontal form-label-left">
+                <div class="form-group">
+                    <p class="text-muted">
+                        <b>상태</b>
+                    </p>
+                    <select class="form-control selectpicker show-tick customer-status" title="상태" data-mobile="true">
+                        <option value='' selected>전체</options>
+                        <option value='0'>영업중</option>
+                        <option value='1'>폐업</option>
+                    </select>
+                </div>
+                <div class="divider-dashed"></div>
+                <div class="form-group">
+                    <p class="text-muted">
+                        <b>프로그램</b>
+                    </p>
+                    <!-- <div class="btn-group">
+                                <button type="button" data-program="20" class="btn btn-default customer-program">센스</button>
+                                <button type="button" data-program="21" class="btn btn-default customer-program">센스(H)</button>
+                                <button type="button" data-program="8" class="btn btn-default customer-program">메디</button>
+                                <button type="button" data-program="1" class="btn btn-default customer-program">이플러스</button>
+                                <button type="button" data-program="10" class="btn btn-default customer-program">한의맥프로</button>
+                            </div> -->
+                    <select class="form-control selectpicker show-tick customer-program" title="프로그램"
+                        data-mobile="true">
+                        <option value=''>전체</option>
+                        <option value="20">SenseChart</option>
+                        <option value="21">SenseChart(H)</option>
+                        <option value="8">MediChart</option>
+                        <option value="1">Eplus</option>
+                        <option value="10">HanimacPro</option>
+                    </select>
+                </div>
+                <div class="divider-dashed"></div>
+                <div class="form-group">
+                    <select class="form-control selectpicker show-tick customer-gwa" title="진료과" data-width="fit"
+                        data-size="5">
+                        <!-- <option value=''>전체</option> -->
+                        <option value="1">내과</option>
+                        <option value="2">신경과</option>
+                        <option value="3">정신과</option>
+                        <option value="4">일반외과</option>
+                        <option value="5">정형외과</option>
+                        <option value="6">신경외과</option>
+                        <option value="7">흉부외과</option>
+                        <option value="8">성형외과</option>
+                        <option value="9">마취과</option>
+                        <option value="10">산부인과</option>
+                        <option value="11">소아과</option>
+                        <option value="12">안과</option>
+                        <option value="13">이비인후과</option>
+                        <option value="14">피부과</option>
+                        <option value="15">비뇨기과</option>
+                        <option value="16">방사선과</option>
+                        <option value="19">임상병리과</option>
+                        <option value="21">재활의학과</option>
+                        <option value="23">가정의학과</option>
+                        <option value="54">치과</option>
+                        <option value="99">일반과</option>
+                        <option value="80">한방과</option>
+                        <option value="87">요양병원</option>
+                        <option value="91">병원</option>
+                        <option value="92">업체</option>
+                        <option value="93">기타</option>
+                    </select>
+                </div>
+                <div class="divider-dashed"></div>
+                <div class="form-group">
+                    <p class="text-muted">
+                        <b>담당지사</b>
+                    </p>
+                    <select class="form-control selectpicker show-tick customer-area" title="지사" data-mobile="true">
+                        <option value=''>전체</option>
+                    </select>
+                </div>
+                <div class="divider-dashed"></div>
+                <div class="form-group">
+                    <p class="text-muted">
+                        <b>담당자</b>
+                    </p>
+                    <select class="form-control selectpicker show-tick customer-manager" title="담당자" data-mobile="true">
+                        <option value=''>전체</option>
+                    </select>
+                </div>
+                <div class="divider-dashed"></div>
+                <div class="form-group">
+                    <p class="text-muted">
+                        <b>마스터업데이트</b>
+                    </p>
+                    <select class="form-control selectpicker show-tick customer-master-update" title="마스터업데이트"
+                        data-width="fit">
+                        <option value="">전체</option>
+                        <option value="완료">완료</option>
+                        <option value="미완료">미완료</option>
+                        <option value="미완료2">미완료(미사용제외)</option>
+                    </select>
+                </div>
+
+                <div class="divider-dashed"></div>
+                <div class="form-group">
+                    <p class="text-muted">
+                        <b>지역검색</b>
+                    </p>
+                    <select name="" id="" title="시도" class="form-control selectpicker show-tick customer-sido"
+                        data-width="fit" data-live-search="true" data-size="5"></select>
+                    <select name="" id="" title="시군구" class="form-control selectpicker show-tick customer-si"
+                        data-width="fit" data-live-search="true" data-size="5"></select>
+                </div>
+                <div class="divider-dashed"></div>
+                <span class="input-group-btn"><button class="btn btn-success"
+                    name="customer-search-button"><i class="fa fa-search"></i>검색</button></span>
+
+            </div>
+        </div>
+    </div>
+</div>
+<% include ./footer %>

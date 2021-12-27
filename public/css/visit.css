@@ -1,0 +1,48 @@
+.visit-type-regular {
+    background-color: #7CB77E;            
+}
+.visit-type-request {
+    background-color: #3A87AD;            
+}
+.visit-type-emergency {
+    background-color: #E47675;            
+}
+.visit-type-sales {
+    background-color: #8E74C8;            
+}
+.visit-type-etc {
+    background-color: #7F7F7F;            
+}
+.visit-type-office {
+    background-color: #FFEC42;
+    color: #3B1E1E !important;
+}
+.visit-type-watch {
+    background-color: rgb(255, 179, 66);
+}
+.visit-type-open {
+    background-color: rgb(42, 190, 196);            
+}
+.fc-scroller {
+    height: 100% !important;
+}
+a.fc-day-grid-event.fc-h-event.fc-event.fc-start.fc-end:hover {
+    opacity: 0.8;
+}        
+a.fc-day-grid-event.fc-h-event.fc-event.fc-start.fc-end {
+    cursor: pointer;
+}
+
+table tr td.table-ellipsis { 
+    max-width: 200px !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap
+}
+
+.visit-list-date {
+    background-color: #cacaca !important;
+    border-color: #ddd !important;
+    font-weight: bold !important;
+    color: #ffffff !important;
+}
